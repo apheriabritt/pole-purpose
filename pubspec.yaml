@@ -82,6 +82,10 @@ flutter:
         - asset: fonts/GillSansMT.ttf
         - asset: fonts/ZillaSlab-Bold.ttf
           weight: 700
+    - family: Xtreem
+      fonts:
+        - asset: fonts/Xtreem_2_PersonalUse.ttf
+
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

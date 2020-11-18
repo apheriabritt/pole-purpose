@@ -162,3 +162,4 @@ class AddNoteCardComponent extends StatelessWidget {
         ));
   }
 }
+

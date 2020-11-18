@@ -16,7 +16,26 @@ class CardWidget {
     return FlipCard(
       onFlip: () => _sound.playLocal("shuffle.mp3"),
       direction: FlipDirection.HORIZONTAL, // default
-      front: Image.asset('images/cards/1.png'),
+      front: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
+        child: Card(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.black, width: 2),
+                borderRadius: BorderRadius.circular(20)),
+            color:Colors.white,
+            shadowColor: Colors.black,
+            elevation: 5.0,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                Image.asset('images/cards/1.png',height:MediaQuery.of(context).size.height/2),
+                //image
+                Text('Action & Descriptive Words',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign: TextAlign.center,),
+              ]),
+            )),
+      ),
       back: Padding(
         padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
         child: Card(
@@ -29,7 +48,7 @@ class CardWidget {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: ListView(children: <Widget>[
-                Text('Action & Descriptive Words (font needed)',style:TextStyle(fontSize: 22)),
+                Text('Action & Descriptive Words',style:TextStyle(fontSize: 35,fontFamily: 'Xtreem')),
                             SizedBox(height: 10),
                             Text(
                               "Action",
@@ -86,7 +105,26 @@ bool appbar=false;
     return FlipCard(
       onFlip: () => _sound.playLocal("shuffle.mp3"),
       direction: FlipDirection.HORIZONTAL, // default
-      front: Image.asset('images/cards/6.png'),
+      front:Padding(
+        padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
+        child: Card(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.black, width: 2),
+                borderRadius: BorderRadius.circular(20)),
+            color:Colors.white,
+            shadowColor: Colors.black,
+            elevation: 5.0,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset('images/cards/6.png',height:MediaQuery.of(context).size.height/2),
+                    //image
+                Text('Everyday Movements',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign: TextAlign.center,),
+              ]),
+            )),
+      ),
       back: Padding(
         padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
         child: Card(
@@ -99,7 +137,7 @@ bool appbar=false;
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: ListView(children: <Widget>[
-                Text('Everyday Movements (font needed)',style:TextStyle(fontSize: 25)),
+                Text('Everyday Movements',style:TextStyle(fontSize:35,fontFamily: 'Xtreem')),
                 SizedBox(height: 10),
                 Card(
                   shape: RoundedRectangleBorder(
@@ -123,7 +161,7 @@ bool appbar=false;
                 ),
                 SizedBox(height: 010,),
                 Text(
-                  "text goes here",
+                  'content',
                   style: TextStyle(
                     fontFamily: 'GillSansMT',
                     fontWeight: FontWeight.normal,
@@ -171,10 +209,26 @@ bool appbar=false;
         direction: FlipDirection.HORIZONTAL, // default
         //front: Image.asset('images/cards/24.png'),
         front: Container(
-          color: Colors.white,
-          child: Align(
-            alignment: Alignment.center,
-            child: Image.asset('images/cards/24.png'),
+          width:MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
+            child: Card(
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.black, width: 2),
+                    borderRadius: BorderRadius.circular(20)),
+                color:Colors.white,
+                shadowColor: Colors.black,
+                elevation: 5.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset('images/cards/24.png',height:MediaQuery.of(context).size.height/2),
+                        //image
+                    Text('Everyday Movements',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign: TextAlign.center,),
+                  ]),
+                )),
           ),
         ),
         back:
@@ -190,7 +244,7 @@ bool appbar=false;
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ListView(children: <Widget>[
-                  Text('Everyday Movements (font needed)',style:TextStyle(fontSize: 25)),
+                  Text('Everyday Movements',style:TextStyle(fontSize:35,fontFamily: 'Xtreem')),
                   SizedBox(height: 10),
                   Card(
                     shape: RoundedRectangleBorder(
@@ -220,7 +274,26 @@ bool appbar=false;
     return FlipCard(
       onFlip: () => _sound.playLocal("shuffle.mp3"),
       direction: FlipDirection.HORIZONTAL, // default
-      front: Image.asset('images/cards/23.png'),
+      front: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
+        child: Card(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.black, width: 2),
+                borderRadius: BorderRadius.circular(20)),
+            color:Colors.white,
+            shadowColor: Colors.black,
+            elevation: 5.0,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset('images/cards/23.png',height:MediaQuery.of(context).size.height/2),
+                    //image
+                Text("What's your number?",style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign: TextAlign.center,),
+              ]),
+            )),
+      ),
       back: Padding(
     padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),        child: Card(
             shape: RoundedRectangleBorder(
@@ -232,7 +305,7 @@ bool appbar=false;
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: ListView(children: <Widget>[
-                Text("What's your number? (font needed)",style:TextStyle(fontSize: 25)),
+                Text("What's your number?",style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),),
                 SizedBox(height: 10),
                 Text(
                   "Using your mobile phone number, and the representations of the numbers below, you are going to create a motif of movement.\n\n0. Balance\n1. Swing\n2. Any Invert\n3. Falling\n4. Roll\n5. Travel\n6. Stillness\n7. Leg movement\n8. Isolation of any body part\n9. Basic spin\n\nIf your number was 07658952145, your motif would be: Balance » leg movement » stillness » isolation » basic spin » travel » any invert » swing » roll » travel.\n\nOnce you have your movement, allow each movement to flow organically from one to the other. What is the most direct route to get there? How close or far away from the pole would you have to be to start? How big or small would your movement have to be in order to get you to that next part of the motif?\n\nThis can be manipulated so there is pole movement only. Change the representation of each number to suit floor movement, pole movement or both. You could also use the action card for some ideas if you get stuck.\n\nTry with your phone number at first, but if you find that your number is too repetitive, it’s ok to change a couple of digits.",
@@ -250,10 +323,70 @@ bool appbar=false;
   }
 
   Widget showCard(int card) {
-    return FlipCard(
+   String title;
+   String content;
+   if(card==0){title='';}
+   if(card==1){title='Action & Descriptive Words';content="";}
+   if(card==2){title='Animal';content="Pick an animal and then draw shapes of this animal on a piece of paper. It doesn’t have to look perfect, just clear enough to offer creative impulse. Begin to think of ways that your body can create the iconic stance of this animal whilst recognising the route you need to take to get to that position.   As you go on, consider what body parts are connecting with the floor? How slow or fast does this animal move? Play with the movement quality.  Maybe you could start away from the pole, allowing the pathway to give you time to evolve into the form of an animal. How would that animal approach the pole? What is the first point of contact? Could the travelling pathway be used as a stimulus to create an innovative way of climbing?";}
+   if(card==3){title='Close Your Eyes';content='''Begin standing or seated anywhere in the space. Close your eyes and start to draw attention to some of the pathways you would usually take to reach pole. Repeat them, but really feel every moment. 
+   
+   Feeling and not seeing the movement will bring new intention to the way you approach the pole in future. Also, it will raise awareness of habitual movement. You can then challenge them by moving with an opposing quality and or aesthetic.
+  
+   Tip: if you find it difficult to keep your eyes closed, wear a blindfold.
+    ''';}
+   if(card==4){title='Combining Movement Phases';content='''To combine floor movement and pole movement with ease, you should practice transitions.  
+   To do this you will need at least two phrases of movement, either on the pole, off the pole or both. Perform each phrase, moving from the first to the second straight away, as smoothly as possible.  
+   Think about direct and indirect pathways. What is the most obvious way to get there? What is the least obvious way? Try both until the two sections are linked seamlessly.   
+   Also, don’t be afraid to use minimal movement such as walking, running, falling, climbing, inverting etc.''';}
+   if(card==5){title='Create Your Own Task';content="When creating your own task, the idea can be drawn from completely new concept or it could be a prompt you were once working on with somebody else. Scribble a few ideas down and select the idea that stands out the most. As time passes, you will bring clarity and intention to your task. See this as a task within a task that infinitely develops your idea muscle.";}
+   if(card==6){title='Everyday Movements';content="";}
+   if(card==7){title='Exaggerating Emotion';content='''Write down six basic movements, preferably a combination of pole and floor movement. Choose from the action cards for more inspiration.   
+   
+   Using words to stimulate action, put movements together and practice a couple of times to find a natural flow.    
+   
+   Think about changing the intention of your movement to two other emotional states; happy / sad, excited / overwhelmed or hungover / energetic. Pay attention to how the emphasis of change in mood affect your quality of movement. Try it a few times over and really exaggerate every step.''';}
+   if(card==8){title='Improvisation Freestyle';content="";}
+   if(card==9){title='Inspiration from Objects';content="";}
+   if(card==10){title='Name Phrase';content="";}
+   if(card==11){title='No Floor Contact';content="";}
+   if(card==12){title='No pole';content="";}
+   if(card==13){title='Off the Pole';content="";}
+   if(card==14){title='On and Off';content="";}
+   if(card==15){title='Playing with Grips';content="";}
+   if(card==16){title='Pole as a Person';content="";}
+   if(card==17){title='Props';content="";}
+   if(card==18){title='Restricting Freedom';content="";}
+   if(card==19){title='Sell it';content="";}
+   if(card==20){title='The Pole is your Audience';content="";}
+   if(card==21){title='Timing is Everything';content="";}
+   if(card==22){title='Visual Art';content="";}
+   if(card==23){title="What's your number?";content="";}
+   if(card==24){title='Everyday Movements';content="";}
+
+   return FlipCard(
       onFlip: () => _sound.playLocal("shuffle.mp3"),
       direction: FlipDirection.HORIZONTAL, // default
-      front: Image.asset('images/cards/$card.png'),
+      front: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
+            child: Card(
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.black, width: 2),
+                    borderRadius: BorderRadius.circular(20)),
+                color:Colors.white,
+                shadowColor: Colors.black,
+                elevation: 5.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                    //image
+                    Image.asset('images/cards/$card.png',height:MediaQuery.of(context).size.height/2),
+                    Text('$title',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign: TextAlign.center,),
+                  ]),
+                )),
+          ),
+
       back: Padding(
         padding: const EdgeInsets.fromLTRB(10, 120, 10, 120),
         child: Card(
@@ -266,10 +399,10 @@ bool appbar=false;
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: ListView(children: <Widget>[
-                Text('Title (font needed)',style:TextStyle(fontSize: 25)),
+                Text(title,style:TextStyle(fontSize:35,fontFamily: 'Xtreem')),
                 SizedBox(height: 10),
                 Text(
-                  "text goes here",
+                  content,
                   style: TextStyle(
                     fontFamily: 'GillSansMT',
                     fontWeight: FontWeight.normal,
@@ -316,6 +449,7 @@ bool appbar=false;
           onFlip: () => _sound.playLocal("shuffle.mp3"),
           direction: FlipDirection.VERTICAL, // default
           front: Image.asset('images/cards/0.png'),
+
           back: showActionCard(),
         );
         break;
@@ -434,3 +568,5 @@ bool appbar=false;
   }
 
 }
+
+String title1 = 'title 1';
