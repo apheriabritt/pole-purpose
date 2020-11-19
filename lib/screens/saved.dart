@@ -352,12 +352,33 @@ class _MySavedPageState extends State<MySavedPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[                
                     Padding(padding: EdgeInsets.all(2)),
-                    Image.asset('images/cards/${note.card1}.png',width: MediaQuery.of(context).size.width/3.5),
+              Center(
+                child: Card(
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.black, width: 2),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Image.asset('images/cards/${note.card1}.png',width: MediaQuery.of(context).size.width/4)))),
                     Padding(padding: EdgeInsets.all(2)),
-                    Image.asset('images/cards/${note.card2}.png',width: MediaQuery.of(context).size.width/3.5),
+                    Center(
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.black, width: 2),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                child: Image.asset('images/cards/${note.card2}.png',width: MediaQuery.of(context).size.width/4)))),
                     Padding(padding: EdgeInsets.all(2)),
-                    Image.asset('images/cards/${note.card3}.png',width: MediaQuery.of(context).size.width/3.5),
                     Padding(padding: EdgeInsets.all(2)),
+                    Center(
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.black, width: 2),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                child: Image.asset('images/cards/${note.card3}.png',width: MediaQuery.of(context).size.width/4)))),
                   ]
                 ),
               ),

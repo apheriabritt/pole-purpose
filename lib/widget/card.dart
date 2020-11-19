@@ -12,8 +12,34 @@ class CardWidget {
 
   ScrollController _controller = ScrollController();
 
-  Widget showActionCard() {
-    return FlipCard(
+  Widget showActionCard(bool appbar) {
+    return Scaffold(
+        appBar: appbar!=true?PreferredSize(child:Container(),preferredSize: Size(0,0),): CupertinoNavigationBar(
+    padding: EdgeInsetsDirectional.only(start: 0, end: 0),
+    leading: FlatButton(
+    hoverColor: Colors.transparent,
+    focusColor: Colors.transparent,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    padding: EdgeInsets.all(0),
+    onPressed: () {
+    Navigator.pop(context);
+    },
+    child: Container(
+    width: 90,
+    height: 60,
+    child: Align(
+    alignment: Alignment.centerLeft,
+    child: Icon(
+    CupertinoIcons.back,
+    color: Colors.black,
+    ),
+    ),
+    ),
+    ),
+    ),
+    backgroundColor:Colors.white,
+    body: FlipCard(
       onFlip: () => _sound.playLocal("shuffle.mp3"),
       direction: FlipDirection.HORIZONTAL, // default
       front: Center(
@@ -114,7 +140,7 @@ class CardWidget {
           ),
         ),
       )
-    );
+    ));
   }
 bool appbar=false;
   Widget showEverydayCard() {
@@ -471,8 +497,7 @@ Note: this task is not about dancing with the object, but creating choreography 
    if(card==18){title='Restricting Freedom';content='''Think about how holding a particular grip or “trick” creates a restriction in a certain part of the body, allowing other areas of the body to move freely. For instance - elbow grip with hanging legs that are running, holding a shoulder mount position as the rest of your body waves or holding a remi sit whilst twisting and turning your upper body.   
    
    Go through your favourite tricks on the pole and really think about what part of your body is isolated for the grip and what parts of the body are free to move. You’ll be surprised at how much you can develop one trick by doing this.   
-   
-   Use the action cards if you need inspiration for initiating further movement in “free” areas of the body.''';}
+''';}
    if(card==19){title='Sell it';content='''Imagine the pole is a product that you want to sell. What would you do to show it off? How would you showcase the versatility of it?
 
 Imagine you could zap it up in any location and really think about the different ways in which it might be useful in this environment. For instance, if it was outside, could it be used as a wall to lean on? Or if it was inside could it be used as a ladder to reach something?
@@ -564,7 +589,30 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
                           fontSize: 20,
                         ),
                       ),
-                    ]),
+                          card!=18?Container():SizedBox(height:10),
+                          card!=18?Container():
+                           GestureDetector(
+                            onTap: () {
+                              appbar=true;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => showActionCard(appbar)),
+                              );
+                            },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.black, width: 1),
+                                borderRadius: BorderRadius.circular(10)),
+                            elevation: 5,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                  child:Text('Use the "Action" Card if you need inspiration for initiating further movement in "free" areas of the body.')
+                              ),
+                            ),
+                          ),
+                          card!=18?Container():SizedBox(height:10),
+                        ]),
                   ),
                 )),
           ),
@@ -577,7 +625,7 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
     appbar=false;
     switch (card) {
       case 1:
-        return showActionCard();
+        return showActionCard(appbar);
         break;
 
       case 6:
@@ -605,9 +653,24 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
         return FlipCard(
           onFlip: () => _sound.playLocal("shuffle.mp3"),
           direction: FlipDirection.VERTICAL, // default
-          front: Image.asset('images/cards/0.png'),
+          front:
 
-          back: showActionCard(),
+          Center(
+              child: Container(
+                height:MediaQuery.of(context).size.height/1.5,width:MediaQuery.of(context).size.width/1.2,
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0,0,0,0),
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black, width: 2),
+                            borderRadius: BorderRadius.circular(20)),
+                        color:Colors.white,
+                        shadowColor: Colors.black,
+                        elevation: 5.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+              child: Image.asset('images/cards/0.png',height:MediaQuery.of(context).size.width/1.2)))))),
+          back: showActionCard(appbar),
         );
         break;
 
@@ -615,7 +678,21 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
         return FlipCard(
           onFlip: () => _sound.playLocal("shuffle.mp3"),
           direction: FlipDirection.VERTICAL, // default
-          front: Image.asset('images/cards/0.png'),
+          front:  Center(
+              child: Container(
+                  height:MediaQuery.of(context).size.height/1.5,width:MediaQuery.of(context).size.width/1.2,
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,0,0),
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.black, width: 2),
+                              borderRadius: BorderRadius.circular(20)),
+                          color:Colors.white,
+                          shadowColor: Colors.black,
+                          elevation: 5.0,
+                          child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset('images/cards/0.png',height:MediaQuery.of(context).size.width/1.2)))))),
           back: showEverydayCard(),
         );
         break;
@@ -624,7 +701,21 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
         return FlipCard(
           onFlip: () => _sound.playLocal("shuffle.mp3"),
           direction: FlipDirection.VERTICAL, // default
-          front: Image.asset('images/cards/0.png'),
+          front:  Center(
+              child: Container(
+                  height:MediaQuery.of(context).size.height/1.5,width:MediaQuery.of(context).size.width/1.2,
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,0,0),
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.black, width: 2),
+                              borderRadius: BorderRadius.circular(20)),
+                          color:Colors.white,
+                          shadowColor: Colors.black,
+                          elevation: 5.0,
+                          child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset('images/cards/0.png',height:MediaQuery.of(context).size.width/1.2)))))),
           back: showNumberCard(),
         );
         break;
@@ -635,7 +726,21 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
             _sound.playLocal("shuffle.mp3");
           },
           direction: FlipDirection.VERTICAL, // default
-          front: Image.asset('images/cards/0.png'),
+          front:  Center(
+              child: Container(
+                  height:MediaQuery.of(context).size.height/1.5,width:MediaQuery.of(context).size.width/1.2,
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,0,0),
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.black, width: 2),
+                              borderRadius: BorderRadius.circular(20)),
+                          color:Colors.white,
+                          shadowColor: Colors.black,
+                          elevation: 5.0,
+                          child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset('images/cards/0.png',height:MediaQuery.of(context).size.width/1.2)))))),
           back: showEveryday2Card(appbar),
         );
         break;
@@ -644,7 +749,21 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
         return FlipCard(
           onFlip: () => _sound.playLocal("shuffle.mp3"),
           direction: FlipDirection.VERTICAL, // default
-          front: Image.asset('images/cards/0.png'),
+          front:  Center(
+              child: Container(
+                  height:MediaQuery.of(context).size.height/1.5,width:MediaQuery.of(context).size.width/1.2,
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,0,0),
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.black, width: 2),
+                              borderRadius: BorderRadius.circular(20)),
+                          color:Colors.white,
+                          shadowColor: Colors.black,
+                          elevation: 5.0,
+                          child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset('images/cards/0.png',height:MediaQuery.of(context).size.width/1.2)))))),
           back: showCard(card),
         );
         break;
@@ -719,7 +838,14 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
 
     return SafeArea(
       child: Center(
-        child: Image.asset('images/cards/$image.png'),
+        child: Card(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.black, width: 2),
+                borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Image.asset('images/cards/$image.png'),
+            )),
       ),
     );
   }

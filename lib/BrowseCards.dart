@@ -68,6 +68,7 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   @override
   Widget build(BuildContext context) {
+    bool appbar=false;
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: CupertinoNavigationBar(
@@ -111,7 +112,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                       viewportFraction: 1.0,
                       scale: 1.0,
                       children: <Widget>[
-                        CardWidget(context).showActionCard(),
+                        CardWidget(context).showActionCard(appbar),
                         CardWidget(context).showCard(2),
                         CardWidget(context).showCard(3),
                         CardWidget(context).showCard(4),
