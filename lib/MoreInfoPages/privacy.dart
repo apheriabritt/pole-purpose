@@ -67,7 +67,7 @@ class Privacy extends StatelessWidget {
           child: SafeArea(
               child: Container(
                 height: MediaQuery.of(context).size.height, // constrain height
-                child: CupertinoScrollbar(
+                child: CupertinoScrollbar(thickness:2.0,
                   controller: _controller,
                   isAlwaysShown: true,
                   child: Center(
