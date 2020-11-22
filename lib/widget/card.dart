@@ -91,7 +91,7 @@ class CardWidget {
                                   SizedBox(height: 10),
                                   Text(
                                     "Action",
-                                    textAlign:TextAlign.center,
+                                    textAlign:TextAlign.left,
                                     style: TextStyle(
                                       fontFamily: 'GillSansMT',
                                       fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class CardWidget {
                                   ),
                                   Text(
                                     "Utilise this card to play with quality of movement.If you always tend to move with smooth and flowing lines, how could you disrupt the flow by thinking about a jagged or sudden dynamic? This could alter something as simple as an arm raise.",
-                                    textAlign:TextAlign.center, style: TextStyle(
+                                    textAlign:TextAlign.left, style: TextStyle(
                                       fontFamily: 'GillSansMT',
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
@@ -111,7 +111,7 @@ class CardWidget {
                                   Text(" "),
                                   Text(
                                     "Descriptive Words",
-                                    textAlign:TextAlign.center,
+                                    textAlign:TextAlign.left,
                                     style: TextStyle(
                                       fontFamily: 'GillSansMT',
                                       fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class CardWidget {
                                   ),
                                   Text(
                                     "Rub, sink, rise, melt, bend, stretch, twist, swing, push, pull, rock, balance, shake, float, duck, dodge, jab, poke, shove, carve, freeze, wiggle, turn, fall, straighten, strike, chop, spin, kick, punch, wring, tickle, hug, hang, sway, open, close, flap, pluck, tap, grab, wrap, flick, pose, burst, glide, shrug, dig, blot, flee, chase, dash, hurl, gallop, bounce, rush, sail, plummet, scramble, smash, soar, speed, still, spring, sprint, skip, zoom, whisk, stride, jump, cat walk, shuffle, tip toe, grow, wriggle, polka, waddle, slither, swoon, prance, drag, tense, slow, land, burn, hold, escape, lift, restrict, flight, roll, suspend, collapse, trap, fling, weave, nail, squash, lean, tangle, low, fold, pop, cluster, bind, hop, weld, plant, stack, squeeze, draw out, spread, wedge, fading, shaded, sharp, hard, grotesque, obscure, weak, old, cold, young, flash, shadow, broken, excite, clarify, fragment, reverse, inversion, duration, position, compose, carry, allow, explore, light, heavy, space, shape, break, overlap, dominance, submission, force, follow, resist, ignore, run, repetition, under, behind, reach, lengthen, beyond, inside, outside, explain, mould, add, exaggerate, crawl, merge, absorb, abrupt, rearrange, lines, curves, sudden, jagged, smooth, continuous, even, relax, split, leave and re-enter.",
-                                    textAlign:TextAlign.center,style: TextStyle(
+                                    textAlign:TextAlign.left,style: TextStyle(
                                       fontFamily: 'GillSansMT',
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
@@ -216,7 +216,7 @@ Allow this card to really expand the way you think about movement. Ask yourself 
 
 Check watch, check e-mail, check current devices, cross and uncross legs, doodle, fiddle (play) with jewellery, sigh, hold breath, talk to self, twirl hair, move hair out of face, crack neck, lean forward, lean back or away, shrug shoulders, roll head, turn head, tilt head, rub neck, touch (drop) chin to chest, bat eyes, roll eyes, wipe off sweat, massage forehead, rub temples, play with beard or moustache, pull (tug) on ear, smooth eyebrows, wink, wipe away tears, choke, tighten, or grip jaw, swallow, put finger to lips (in thought or to shush someone), sip tea or coffee (other drinks), gulp down alcoholic drink, smile, smoke, push hair behind ears, mess with barrettes or ribbons or hats, push hair off face (own face or the face of others), hold someone’s hand, rub hands together, rub hands up and down arms, up and down legs, snap fingers, suck thumb or finger, tap or drum fingers on self or object, toss ball (or other object) hand to hand, trace scars or injuries, shake, or point finger, wrap arms around own body, wring hand, putting on clothes and taking clothes off
 ''',
-                        textAlign:TextAlign.center,style: TextStyle(
+                        textAlign:TextAlign.left,style: TextStyle(
                           fontFamily: 'GillSansMT',
                           fontWeight: FontWeight.normal,
                           color: Colors.black,
@@ -321,7 +321,7 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),
                         SizedBox(height: 010,),
                         Text(
                           "The Everyday Movement card can be used to expand your imagination from a stylised genre of movement, such as typical pole dance technique, to a more pedestrian style of movement that will offer fruitful ways of enhancing your pole and floor work. \n\nAllow this card to really expand the way you think about movement. Ask yourself what can be considered dance and how you could communicate more effectively by employing some of these everyday gestures.\n\nCheck watch, check e-mail, check current devices, cross and uncross legs, doodle, fiddle (play) with jewellery, sigh, hold breath, talk to self, twirl hair, move hair out of face, crack neck, lean forward, lean back or away, shrug shoulders, roll head, turn head, tilt head, rub neck, touch (drop) chin to chest, bat eyes, roll eyes, wipe off sweat, massage forehead, rub temples, play with beard or moustache, pull (tug) on ear, smooth eyebrows, wink, wipe away tears, choke, tighten, or grip jaw, swallow, put finger to lips (in thought or to shush someone), sip tea or coffee (other drinks), gulp down alcoholic drink, smile, smoke, push hair behind ears, mess with barrettes or ribbons or hats, push hair off face (own face or the face of others), hold someone’s hand, rub hands together, rub hands up and down arms, up and down legs, snap fingers, suck thumb or finger, tap or drum fingers on self or object, toss ball (or other object) hand to hand, trace scars or injuries, shake, or point finger, wrap arms around own body, wring hand, putting on clothes and taking clothes off.",
-                          textAlign:TextAlign.center,style: TextStyle(
+                          textAlign:TextAlign.left,style: TextStyle(
                             fontFamily: 'GillSansMT',
                             fontWeight: FontWeight.normal,
                             color: Colors.black,
@@ -391,7 +391,7 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),
                       SizedBox(height: 10),
                       Text(
                         "Using your mobile phone number, and the representations of the numbers below, you are going to create a motif of movement.\n\n0. Balance\n1. Swing\n2. Any Invert\n3. Falling\n4. Roll\n5. Travel\n6. Stillness\n7. Leg movement\n8. Isolation of any body part\n9. Basic spin\n\nIf your number was 07658952145, your motif would be: Balance » leg movement » stillness » isolation » basic spin » travel » any invert » swing » roll » travel.\n\nOnce you have your movement, allow each movement to flow organically from one to the other. What is the most direct route to get there? How close or far away from the pole would you have to be to start? How big or small would your movement have to be in order to get you to that next part of the motif?\n\nThis can be manipulated so there is pole movement only. Change the representation of each number to suit floor movement, pole movement or both. You could also use the action card for some ideas if you get stuck.\n\nTry with your phone number at first, but if you find that your number is too repetitive, it’s ok to change a couple of digits.",
-                        textAlign:TextAlign.center,style: TextStyle(
+                        textAlign:TextAlign.left,style: TextStyle(
                           fontFamily: 'GillSansMT',
                           fontWeight: FontWeight.normal,
                           color: Colors.black,
@@ -578,7 +578,7 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
                       SizedBox(height: 10),
                       Text(
                         content,
-                        textAlign:TextAlign.center,
+                        textAlign:TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'GillSansMT',
                           fontWeight: FontWeight.normal,
