@@ -160,7 +160,7 @@ bool appbar=false;
                       children: <Widget>[
                         Image.asset('images/cards/6.png',height:MediaQuery.of(context).size.height/2),
                         //image
-                    Text('Everyday Movements',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign: TextAlign.center,),
+                    Text('Everyday Movement',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign: TextAlign.center,),
                   ]),
                 )),
           ),
@@ -186,28 +186,9 @@ bool appbar=false;
                     child: ListView(
                         controller: _controller,
                         children: <Widget>[
-                      Text('Everyday Movements',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign:TextAlign.center),
+                      Text('Everyday Movement',style:TextStyle(fontSize:35,fontFamily: 'Xtreem'),textAlign:TextAlign.center),
                       SizedBox(height: 10),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black, width: 1),
-                            borderRadius: BorderRadius.circular(10)),
-                        elevation: 5,
-                        child: GestureDetector(
-                          onTap: () {
-                            appbar=true;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => showEveryday2Card(appbar)),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: new Text("Tap here to see example card for every day movement inspiration, but first try to think of some yourself as it will develop your creative potential."),
-                          ),
-                        ),
-                      ),
+
                       SizedBox(height: 010,),
                       Text(
                         '''The Everyday Movement card can be used to expand your imagination from a stylised genre of movement, such as typical pole dance technique, to a more pedestrian style of movement that will offer fruitful ways of enhancing your pole and floor work.
@@ -223,6 +204,26 @@ Check watch, check e-mail, check current devices, cross and uncross legs, doodle
                           fontSize: 20,
                         ),
                       ),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.black, width: 1),
+                                borderRadius: BorderRadius.circular(10)),
+                            elevation: 5,
+                            child: GestureDetector(
+                              onTap: () {
+                                appbar=true;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => showEveryday2Card(appbar)),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: new Text("Tap here to see example card for every day movements inspiration, but first try to think of some yourself as it will develop your creative potential."),
+                              ),
+                            ),
+                          ),
 
                     ]),
                   ),
@@ -320,7 +321,7 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),
                         ),
                         SizedBox(height: 010,),
                         Text(
-                          "The Everyday Movement card can be used to expand your imagination from a stylised genre of movement, such as typical pole dance technique, to a more pedestrian style of movement that will offer fruitful ways of enhancing your pole and floor work. \n\nAllow this card to really expand the way you think about movement. Ask yourself what can be considered dance and how you could communicate more effectively by employing some of these everyday gestures.\n\nCheck watch, check e-mail, check current devices, cross and uncross legs, doodle, fiddle (play) with jewellery, sigh, hold breath, talk to self, twirl hair, move hair out of face, crack neck, lean forward, lean back or away, shrug shoulders, roll head, turn head, tilt head, rub neck, touch (drop) chin to chest, bat eyes, roll eyes, wipe off sweat, massage forehead, rub temples, play with beard or moustache, pull (tug) on ear, smooth eyebrows, wink, wipe away tears, choke, tighten, or grip jaw, swallow, put finger to lips (in thought or to shush someone), sip tea or coffee (other drinks), gulp down alcoholic drink, smile, smoke, push hair behind ears, mess with barrettes or ribbons or hats, push hair off face (own face or the face of others), hold someone’s hand, rub hands together, rub hands up and down arms, up and down legs, snap fingers, suck thumb or finger, tap or drum fingers on self or object, toss ball (or other object) hand to hand, trace scars or injuries, shake, or point finger, wrap arms around own body, wring hand, putting on clothes and taking clothes off.",
+                          "The Everyday Movements card can be used to expand your imagination from a stylised genre of movement, such as typical pole dance technique, to a more pedestrian style of movement that will offer fruitful ways of enhancing your pole and floor work. \n\nAllow this card to really expand the way you think about movement. Ask yourself what can be considered dance and how you could communicate more effectively by employing some of these everyday gestures.\n\nCheck watch, check e-mail, check current devices, cross and uncross legs, doodle, fiddle (play) with jewellery, sigh, hold breath, talk to self, twirl hair, move hair out of face, crack neck, lean forward, lean back or away, shrug shoulders, roll head, turn head, tilt head, rub neck, touch (drop) chin to chest, bat eyes, roll eyes, wipe off sweat, massage forehead, rub temples, play with beard or moustache, pull (tug) on ear, smooth eyebrows, wink, wipe away tears, choke, tighten, or grip jaw, swallow, put finger to lips (in thought or to shush someone), sip tea or coffee (other drinks), gulp down alcoholic drink, smile, smoke, push hair behind ears, mess with barrettes or ribbons or hats, push hair off face (own face or the face of others), hold someone’s hand, rub hands together, rub hands up and down arms, up and down legs, snap fingers, suck thumb or finger, tap or drum fingers on self or object, toss ball (or other object) hand to hand, trace scars or injuries, shake, or point finger, wrap arms around own body, wring hand, putting on clothes and taking clothes off.",
                           textAlign:TextAlign.left,style: TextStyle(
                             fontFamily: 'GillSansMT',
                             fontWeight: FontWeight.normal,
@@ -412,7 +413,11 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),
    String content;
    if(card==0){title='';}
    if(card==1){title='Action & Descriptive Words';content="";}
-   if(card==2){title='Animal';content="Pick an animal and then draw shapes of this animal on a piece of paper. It doesn’t have to look perfect, just clear enough to offer creative impulse. Begin to think of ways that your body can create the iconic stance of this animal whilst recognising the route you need to take to get to that position.   As you go on, consider what body parts are connecting with the floor? How slow or fast does this animal move? Play with the movement quality.  Maybe you could start away from the pole, allowing the pathway to give you time to evolve into the form of an animal. How would that animal approach the pole? What is the first point of contact? Could the travelling pathway be used as a stimulus to create an innovative way of climbing?";}
+   if(card==2){title='Animal';content='''Pick an animal and then draw shapes of this animal on a piece of paper. It doesn’t have to look perfect, just clear enough to offer creative impulse. Begin to think of ways that your body can create the iconic stance of this animal whilst recognising the route you need to take to get to that position.   
+   
+As you go on, consider what body parts are connecting with the floor? How slow or fast does this animal move? Play with the movement quality.  
+
+Maybe you could start away from the pole, allowing the pathway to give you time to evolve into the form of an animal. How would that animal approach the pole? What is the first point of contact? Could the travelling pathway be used as a stimulus to create an innovative way of climbing?''';}
    if(card==3){title='Close Your Eyes';content='''Begin standing or seated anywhere in the space. Close your eyes and start to draw attention to some of the pathways you would usually take to reach pole. Repeat them, but really feel every moment. 
    
 Feeling and not seeing the movement will bring new intention to the way you approach the pole in future. Also, it will raise awareness of habitual movement. You can then challenge them by moving with an opposing quality and or aesthetic.
@@ -432,7 +437,9 @@ Also, don’t be afraid to use minimal movement such as walking, running, fallin
 Using words to stimulate action, put movements together and practice a couple of times to find a natural flow.    
    
 Think about changing the intention of your movement to two other emotional states; happy / sad, excited / overwhelmed or hungover / energetic. Pay attention to how the emphasis of change in mood affect your quality of movement. Try it a few times over and really exaggerate every step.''';}
-   if(card==8){title='Improvisation Freestyle';content='''Before any creative session, take some time to think about the way your body / mind is feeling as this will enable a clearer head and a willingness to create.  As you move into your warm up, focus on your breath as you move. Maybe you could freestyle or go over movement combinations that you already know. If you want to freestyle but tend to freeze up, set some parameters; 
+   if(card==8){title='Improvisation Freestyle';content='''Before any creative session, take some time to think about the way your body / mind is feeling as this will enable a clearer head and a willingness to create.  
+   
+As you move into your warm up, focus on your breath as you move. Maybe you could freestyle or go over movement combinations that you already know. If you want to freestyle but tend to freeze up, set some parameters; 
 
 •	Pole work only
 •	Floor work only
@@ -440,7 +447,11 @@ Think about changing the intention of your movement to two other emotional state
 •	No Standing
 •	Only allow two points of contact with the pole.
 ''';}
-   if(card==9){title='Inspiration from Objects';content='''Pick a random object from your bag or from the room you are working and write down 10 ideas about what this object could mean. For instance, if you found a hairbrush, you might think about pampering yourself or pretending you’re a popstar by singing into the brush. Ideas can be totally random and personal to you.  Create movement gestures for each idea, playing with order of movement to see how you can move from one gesture to the other as smoothly as possible.   Can you repeat any of these gestures on / with the pole? Don’t be afraid to change something to fit the pole. Choreography can be developed as many times as necessary. Maybe you could even see the pole as the object you picked up, how would this dictate the way you move? 
+   if(card==9){title='Inspiration from Objects';content='''Pick a random object from your bag or from the room you are working and write down 10 ideas about what this object could mean. For instance, if you found a hairbrush, you might think about pampering yourself or pretending you’re a popstar by singing into the brush. Ideas can be totally random and personal to you.  
+   
+Create movement gestures for each idea, playing with order of movement to see how you can move from one gesture to the other as smoothly as possible.   
+
+Can you repeat any of these gestures on / with the pole? Don’t be afraid to change something to fit the pole. Choreography can be developed as many times as necessary. Maybe you could even see the pole as the object you picked up, how would this dictate the way you move? 
 
 Note: this task is not about dancing with the object, but creating choreography from analysing an object.
 ''';}
