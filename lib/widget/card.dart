@@ -191,12 +191,17 @@ bool appbar=false;
 
                       SizedBox(height: 010,),
                       Text(
-                        '''The Everyday Movement card can be used to expand your imagination from a stylised genre of movement, such as typical pole dance technique, to a more pedestrian style of movement that will offer fruitful ways of enhancing your pole and floor work.
-                        
-Allow this card to really expand the way you think about movement. Ask yourself what can be considered dance and how you could communicate more effectively by employing some of these everyday gestures.
+                        '''Choose four everyday movements such as waving to somebody or putting clothes on. Write them down and begin to form each idea with your body.   
 
-Check watch, check e-mail, check current devices, cross and uncross legs, doodle, fiddle (play) with jewellery, sigh, hold breath, talk to self, twirl hair, move hair out of face, crack neck, lean forward, lean back or away, shrug shoulders, roll head, turn head, tilt head, rub neck, touch (drop) chin to chest, bat eyes, roll eyes, wipe off sweat, massage forehead, rub temples, play with beard or moustache, pull (tug) on ear, smooth eyebrows, wink, wipe away tears, choke, tighten, or grip jaw, swallow, put finger to lips (in thought or to shush someone), sip tea or coffee (other drinks), gulp down alcoholic drink, smile, smoke, push hair behind ears, mess with barrettes or ribbons or hats, push hair off face (own face or the face of others), hold someone’s hand, rub hands together, rub hands up and down arms, up and down legs, snap fingers, suck thumb or finger, tap or drum fingers on self or object, toss ball (or other object) hand to hand, trace scars or injuries, shake, or point finger, wrap arms around own body, wring hand, putting on clothes and taking clothes off
+Try to play with the size and the speed at which you perform the movement as this will really allow you to create something that is not so literal.   
+
+Once you are comfortable with how the movements look and the order in which they are linked together, think about performing them at different points next to or on the pole. How can the pole enhance this movement? Could you try executing these gestures in an invert or in an upright position on the pole?  
+
+Scroll down to see examples for every day movement inspiration, but first try to think of some yourself as it will develop your creative potential.
 ''',
+
+
+
                         textAlign:TextAlign.left,style: TextStyle(
                           fontFamily: 'GillSansMT',
                           fontWeight: FontWeight.normal,
@@ -220,7 +225,7 @@ Check watch, check e-mail, check current devices, cross and uncross legs, doodle
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: new Text("Tap here to see example card for every day movements inspiration, but first try to think of some yourself as it will develop your creative potential."),
+                                child: new Text("Tap here to see example card for everyday movements inspiration, but first try to think of some yourself as it will develop your creative potential."),
                               ),
                             ),
                           ),
