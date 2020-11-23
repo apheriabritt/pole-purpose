@@ -429,7 +429,8 @@ Feeling and not seeing the movement will bring new intention to the way you appr
   
 Tip: if you find it difficult to keep your eyes closed, wear a blindfold.
     ''';}
-   if(card==4){title='Combining Movement Phases';content='''To combine floor movement and pole movement with ease, you should practice transitions.  
+   if(card==4){title='Combining Movement Phases';content='''To combine floor movement and pole movement with ease, you should practice transitions.
+     
 To do this you will need at least two phrases of movement, either on the pole, off the pole or both. Perform each phrase, moving from the first to the second straight away, as smoothly as possible.  
 
 Think about direct and indirect pathways. What is the most obvious way to get there? What is the least obvious way? Try both until the two sections are linked seamlessly.   
