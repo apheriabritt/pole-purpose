@@ -75,7 +75,7 @@ class MoreInfo extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RSSDemo(),
+                          builder: (context) => Blog(),
                         ),
                       )
                     }),
