@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress/flutter_wordpress.dart' as wp;
-import 'package:html/parser.dart';
+import 'package:flutter_html/flutter_html.dart';
+
 
 
 class Blog extends StatefulWidget {
@@ -19,10 +20,10 @@ class _BlogState extends State<Blog> {
         postParams: wp.ParamsPostList(
           context: wp.WordPressContext.view,
           pageNum: 1,
-          perPage: 1,
+          perPage: 25,
         ),
         fetchAuthor: false,
-        fetchFeaturedMedia: true,
+        fetchFeaturedMedia: false,
         fetchComments: false);
 print('1');
     return posts;
@@ -80,11 +81,10 @@ print('1');
                 itemBuilder: (context, index) {
                   wp.Post post = snapshot.data[index];
     return ExpansionTile(
-                    title: Text(post.title.rendered.toString(),),
+                    title: Html(data:post.title.rendered.toString(),),
                       subtitle: Text(post.date.toString().replaceAll('T', ' ')),
                       children:[
-                      _getPostImage(post),
-                      Html(data:),
+                      Html(data:post.content.rendered.toString())
                     ]
                   );
                   InkWell(
