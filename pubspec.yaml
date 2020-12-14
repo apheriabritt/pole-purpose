@@ -40,6 +40,8 @@ dependencies:
   audioplayers: ^0.15.1
   flutter_wordpress: ^0.2.1
   flutter_html: ^1.1.1
+  webview_flutter: ^1.0.7
+
 
 
 dev_dependencies:

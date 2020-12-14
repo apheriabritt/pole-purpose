@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress/flutter_wordpress.dart' as wp;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 
 
@@ -73,20 +74,55 @@ print('1');
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator(),
-                );
+                  child: CircularProgressIndicator(backgroundColor: Colors.black,valueColor: AlwaysStoppedAnimation<Color>(Colors.white,),
+                ));
               }
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   wp.Post post = snapshot.data[index];
-    return ExpansionTile(
-                    title: Html(data:post.title.rendered.toString(),),
-                      subtitle: Text(post.date.toString().replaceAll('T', ' ')),
-                      children:[
-                      Html(data:post.content.rendered.toString())
-                    ]
-                  );
+    return GestureDetector(
+      onTap:(){
+    Navigator.of(context).push(PageRouteBuilder(
+    opaque: false,
+    pageBuilder: (BuildContext context, _, __) {
+      return
+        CupertinoPageScaffold(
+        backgroundColor: Colors.white,
+        navigationBar: CupertinoNavigationBar(
+          actionsForegroundColor: Colors.black,
+        middle:  Html(data:post.title.rendered.toString(),
+      )),
+      child: Material(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: WebView(
+              initialUrl: post.link,
+              javascriptMode: JavascriptMode.unrestricted,
+            ),
+          ))
+    );
+      ////////////////////
+    }));
+      }, //push to new page
+      child: Card(
+        shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        color:Colors.white,
+        shadowColor: Colors.black,
+        elevation: 5.0,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+                          title: Html(data:post.title.rendered.toString(),),
+                            subtitle: Text(post.date.toString().replaceAll('T', ' ')),
+            trailing: Icon(Icons.arrow_forward_ios)
+
+                        ),
+        ),
+      ),
+    );
                   InkWell(
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),

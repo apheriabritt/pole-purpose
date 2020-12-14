@@ -8,6 +8,8 @@ import 'notebookMain.dart';
 import 'savedSetsMain.dart';
 import 'widget/menuButton.dart';
 import 'package:pole_purpose/instructions.dart';
+import 'package:pole_purpose/MoreInfoPages/blog.dart';
+
 
 
 class HomePage extends StatelessWidget {
@@ -93,6 +95,17 @@ class HomePage extends StatelessWidget {
                     ),
                   )
                 }
+              ),
+              MenuButtonWidget(context).menuButton(
+                  'BLOG',
+                      () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Blog(),
+                      ),
+                    )
+                  }
               ),
             ],
           ),
