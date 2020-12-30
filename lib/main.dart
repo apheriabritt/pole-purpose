@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return new SafeArea(
       child: SplashScreen(
-        seconds: 5,
+        seconds: 2,
         navigateAfterSeconds: new AfterSplash(),
         image: Image.asset('images/assets/splash.png'),
         backgroundColor: Colors.white,
