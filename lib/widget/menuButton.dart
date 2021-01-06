@@ -12,7 +12,7 @@ class MenuButtonWidget {
             label,
             style: TextStyle(
               fontFamily: 'GillSansMT',  
-              fontSize: (MediaQuery.of(context).size.height > 900) ? 60 : 30
+              fontSize: (MediaQuery.of(context).size.width/15)
             ),
           ),
           padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
