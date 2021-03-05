@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:pole_purpose/HomePage.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ void main(){
   runApp(new MaterialApp(
     home: new MyApp(),
   ));
+
 }
 
 

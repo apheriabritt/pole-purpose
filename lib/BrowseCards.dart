@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:pole_purpose/pushhub.dart';
 import 'dart:math';
 import '3CardMix.dart';
 import 'MoreInfo.dart';
@@ -193,6 +194,7 @@ class _BrowseCardsState extends State<BrowseCards> {
           backgroundColor: Colors.white,
           elevation: 0.0,
           actions:[
+           // IconButton(icon:Icon(Icons.vpn_key),color:Colors.black.withOpacity(0.1),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PushHub(),));}),
             IconButton(icon:Icon(Icons.menu,color:Colors.black,size:35),onPressed: showModal,),
             Container(width:25)
           ]
