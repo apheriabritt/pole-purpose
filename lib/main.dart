@@ -4,6 +4,8 @@ import 'package:pole_purpose/HomePage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wordpress/flutter_wordpress.dart' as wp;
 
+import 'BrowseCards.dart';
+
 
 void main(){
   runApp(new MaterialApp(
@@ -62,7 +64,7 @@ class AfterSplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: BrowseCards(),
     );
   }
 }

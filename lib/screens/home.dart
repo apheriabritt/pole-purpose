@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
               size:  (MediaQuery.of(context).size.height > 900) ? 60 : 40,
             )
           ),
-          onTap: gotoMenu,  
+          onTap: (){Navigator.pop(context);}
         ),
         AnimatedContainer(
           duration: Duration(milliseconds: 200),

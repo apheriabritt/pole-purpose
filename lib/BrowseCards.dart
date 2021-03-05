@@ -2,6 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'dart:math';
+import '3CardMix.dart';
+import 'MoreInfo.dart';
+import 'MoreInfoPages/OnlineClasses.dart';
+import 'MoreInfoPages/blog.dart';
+import 'Start.dart';
+import 'instructions.dart';
+import 'notebookMain.dart';
+import 'screens/home.dart';
 import 'widget/card.dart';
 import 'package:pole_purpose/randomcard.dart';
 import 'randomcard.dart';
@@ -66,39 +74,142 @@ class _BrowseCardsState extends State<BrowseCards> {
     });
   }
 
+  void showModal(){
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 500,
+          child: Center(
+            child: ListView(
+              children: <Widget>[
+                TextButton(
+                  child:ListTile(
+                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      title: Text('HOME',style:TextStyle(color:Colors.black,fontSize:35))
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BrowseCards()));
+                  }
+                ),
+                TextButton(
+                  child:ListTile(
+                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      title: Text('CARD MIX',style:TextStyle(color:Colors.black,fontSize:35))
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CardMix(-1, -1, -1, -1)));
+                  },
+                ),
+                TextButton(
+                  child:ListTile(
+                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      title: Text('NOTES',style:TextStyle(color:Colors.black,fontSize:35))
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyHomePage(),
+                      ),
+                    );
+                  },
+                ),
+                TextButton(
+                  child:ListTile(
+                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      title: Text('INSTRUCTIONS',style:TextStyle(color:Colors.black,fontSize:35))
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Instructions(),
+                      ),
+                    );
+                  },
+                ),
+                TextButton(
+                  child:ListTile(
+                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      title: Text('MORE INFO',style:TextStyle(color:Colors.black,fontSize:35))
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MoreInfo(),
+                      ),
+                    );
+                  },
+                ),
+                TextButton(
+                  child:ListTile(
+                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      title: Text('ONLINE CLASSES',style:TextStyle(color:Colors.black,fontSize:35))
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OnlineClasses(),
+                      ),
+                    );
+                  },
+                ),
+                TextButton(
+                  child:ListTile(
+                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      title: Text('BLOG',style:TextStyle(color:Colors.black,fontSize:35))
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Blog(),
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     bool appbar=false;
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: CupertinoNavigationBar(
-          padding: EdgeInsetsDirectional.only(start: 0, end: 0),
-          leading: FlatButton(
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            padding: EdgeInsets.all(0),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              width: 90,
-              height: 60,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Icon(
-                  CupertinoIcons.back,
-                  color: Colors.black,
-                ),
-              ),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          actions:[
+            IconButton(icon:Icon(Icons.menu,color:Colors.black,size:35),onPressed: showModal,),
+            Container(width:25)
+          ]
+        ),
+        bottomNavigationBar: BottomAppBar(
+          elevation: 0.0,
+          child:Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:[
+                Icon(Icons.home,size:35),
+                Icon(Icons.shuffle,size:35),
+                Icon(Icons.event_note_sharp,size:35)
+              ]
             ),
-          ),
-          middle: const Text('Browse Cards',
-              style: TextStyle(
-                  fontFamily: 'GillSansMT',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18)),
+          )
         ),
         body: Container(
           child: SafeArea(
