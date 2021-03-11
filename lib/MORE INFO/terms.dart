@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
+import 'package:pole_purpose/CONSTANTS/longtextwidget.dart';
 
-import 'package:pole_purpose/widget/longText.dart';
 
 List<String> subtitles = [
   "USER TERMS",

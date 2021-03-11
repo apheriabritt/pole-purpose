@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/BLOG/blog.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
 import 'package:pole_purpose/CARD%20MIX/3CardMix.dart';
 import 'package:pole_purpose/INSTRUCTIONS/choreotips.dart';
@@ -9,12 +10,9 @@ import 'package:pole_purpose/INSTRUCTIONS/intro.dart';
 import 'package:pole_purpose/INSTRUCTIONS/safety.dart';
 import 'package:pole_purpose/MORE%20INFO/about.dart';
 import 'package:pole_purpose/MORE%20INFO/author.dart';
-import 'package:pole_purpose/MORE%20INFO/blog.dart';
 import 'package:pole_purpose/MORE%20INFO/copyright.dart';
 import 'package:pole_purpose/MORE%20INFO/privacy.dart';
 import 'package:pole_purpose/MORE%20INFO/terms.dart';
-import 'package:pole_purpose/MoreInfo.dart';
-import 'package:pole_purpose/NOTES/notebook.dart';
 import 'package:pole_purpose/ONLINE%20CLASSES/OnlineClasses.dart';
 
 
@@ -48,7 +46,7 @@ void showModal(){
               ),
               TextButton(
                 child:ListTile(
-                    leading:Icon(Icons.home,color:Colors.black,size:35),
+                    leading:Icon(Icons.shuffle,color:Colors.black,size:35),
                     title: Text('CARD MIX',style:TextStyle(color:Colors.black,fontSize:35))
                 ),
                 onPressed: (){
@@ -59,23 +57,9 @@ void showModal(){
                 },
               ),
               TextButton(
-                child:ListTile(
-                    leading:Icon(Icons.home,color:Colors.black,size:35),
-                    title: Text('NOTES',style:TextStyle(color:Colors.black,fontSize:35))
-                ),
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Notebook(),
-                    ),
-                  );
-                },
-              ),
-              TextButton(
                 onPressed:null,
                 child:ExpansionTile(
-                    leading:Icon(Icons.home,color:Colors.black,size:35),
+                    leading:Icon(Icons.school,color:Colors.black,size:35),
                     title: Text('INSTRUCTIONS',style:TextStyle(color:Colors.black,fontSize:35)),
                     children:[
                       GestureDetector(
@@ -157,7 +141,7 @@ void showModal(){
               TextButton(
                 onPressed:null,
                 child:ExpansionTile(
-                    leading:Icon(Icons.home,color:Colors.black,size:35),
+                    leading:Icon(Icons.help,color:Colors.black,size:35),
                     title: Text('MORE INFO',style:TextStyle(color:Colors.black,fontSize:35)),
                   children:[
                     GestureDetector(
@@ -251,7 +235,7 @@ void showModal(){
               ),
               TextButton(
                 child:ListTile(
-                    leading:Icon(Icons.home,color:Colors.black,size:35),
+                    leading:Icon(Icons.post_add,color:Colors.black,size:35),
                     title: Text('BLOG',style:TextStyle(color:Colors.black,fontSize:35))
                 ),
                 onPressed: (){

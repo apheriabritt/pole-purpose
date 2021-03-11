@@ -1,7 +1,7 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pole_purpose/services/playSound.dart';
+import 'package:pole_purpose/CONSTANTS/playSound.dart';
 
 class CardWidget {
   final BuildContext context;

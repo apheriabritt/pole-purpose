@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
+import 'package:pole_purpose/CONSTANTS/playSound.dart';
 import 'dart:math';
-import '../widget/card.dart';
-import 'package:pole_purpose/randomcard.dart';
-import 'package:pole_purpose/services/playSound.dart';
+import '../CONSTANTS/card.dart';
 
 class BrowseCards extends StatefulWidget {
   @override
@@ -29,29 +28,6 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   PlaySound _sound = PlaySound();
 
-  Widget randomButton() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10.0),
-        child: GestureDetector(
-          child: Icon(
-            CupertinoIcons.shuffle_thick,
-            color: Colors.black,
-            size: 30,
-          ),
-          onTap: () {
-            buttonPressed();
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RandomCard(),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
 
   buttonPressed() {
     setState(() {
@@ -73,20 +49,7 @@ class _BrowseCardsState extends State<BrowseCards> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: hamburger,
-        bottomNavigationBar: BottomAppBar(
-          elevation: 0.0,
-          child:Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:[
-                Icon(Icons.home,size:35),
-                Icon(Icons.shuffle,size:35),
-                Icon(Icons.event_note_sharp,size:35)
-              ]
-            ),
-          )
-        ),
+
         body: Container(
           child: SafeArea(
             child: Column(

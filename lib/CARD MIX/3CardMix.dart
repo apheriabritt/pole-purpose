@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CARD%20MIX/CardFocus.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
-import 'file:///D:/projects/pole-purpose/lib/CARD%20MIX/savedSetsPage.dart';
+import 'package:pole_purpose/CONSTANTS/playSound.dart';
 import 'dart:math';
-import '../widget/card.dart';
+import '../CONSTANTS/card.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pole_purpose/data/savedModels.dart';
-import 'package:pole_purpose/services/savedDatabase.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:pole_purpose/services/playSound.dart';
-import 'file:///D:/projects/pole-purpose/lib/CARD%20MIX/3CardMixTwo.dart';
+
 
 int randomCard1 = 0;
 int randomCard2 = 0;
@@ -38,34 +35,8 @@ class _CardMixState extends State<CardMix> {
 
   PlaySound _sound = PlaySound();
 
-  clickOnSaveButton(int index) {
-    randomSet = false;
-    if (index < 0) {
-      SavedDatabaseService.db.getNextAvailableId().then((value) =>
-      (SavedDatabaseService.db.addSavedSetInDB(SavedModel(
-          id: value,
-          card1: randomCard1,
-          card2: randomCard2,
-          card3: randomCard3))));
-    } else {
-      SavedDatabaseService.db.addSavedSetInDB(SavedModel(
-          id: index,
-          card1: randomCard1,
-          card2: randomCard2,
-          card3: randomCard3));
-    }
-    Navigator.pushReplacement(
-        context, CupertinoPageRoute(builder: (context) => SavedSets()));
-    setState(() {
 
-    });
-  }
 
-  handleDelete() {
-    SavedDatabaseService.db.deleteNoteInDB(id);
-    Navigator.pushReplacement(
-        context, CupertinoPageRoute(builder: (context) => SavedSets()));
-  }
 
   Widget randomButton() {
     if (card1 > 0) return Text("");
@@ -89,42 +60,11 @@ class _CardMixState extends State<CardMix> {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FloatingActionButton(
-            heroTag: 'save',
-            backgroundColor: Colors.black,
-            child: Icon(
-              Icons.save,
-              color: Colors.white,
-              size: (MediaQuery.of(context).size.height > 900) ? 32 : 24,
-            ),
-            onPressed: () {
-              clickOnSaveButton(randomSet ? -1 : this.id);
-            },
-          ),
-        ),
       ],
     );
   }
 
-  Widget iconDelete() {
-    return (!randomSet && card1 > 0)
-        ? Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: SafeArea(
-        child: GestureDetector(
-          onTap: handleDelete,
-          child: Icon(
-            CupertinoIcons.delete_simple,
-            color: Colors.black,
-            size: (MediaQuery.of(context).size.height > 900) ? 60 : 30,
-          ),
-        ),
-      ),
-    )
-        : Text("");
-  }
+
 
 
   clickRandomButton() {
@@ -155,19 +95,19 @@ class _CardMixState extends State<CardMix> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CardMixTwo(randomCard1, randomCard2, randomCard3, id)));
+                    CardFocus(randomCard1, randomCard2, randomCard3, id)));
       } else if (card == 2) {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CardMixTwo(randomCard2, randomCard3, randomCard1, id)));
+                    CardFocus(randomCard2, randomCard3, randomCard1, id)));
       } else if (card == 3) {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CardMixTwo(randomCard3, randomCard1, randomCard2, id)));
+                    CardFocus(randomCard3, randomCard1, randomCard2, id)));
       }
     }
     if (!randomSet && (card1 > 0)) {
@@ -175,17 +115,17 @@ class _CardMixState extends State<CardMix> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CardMixTwo(card1, card2, card3, id)));
+                builder: (context) => CardFocus(card1, card2, card3, id)));
       } else if (card == 2) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CardMixTwo(card2, card3, card1, id)));
+                builder: (context) => CardFocus(card2, card3, card1, id)));
       } else if (card == 3) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CardMixTwo(card3, card1, card2, id)));
+                builder: (context) => CardFocus(card3, card1, card2, id)));
       }
     }
   }
@@ -221,51 +161,51 @@ class _CardMixState extends State<CardMix> {
             child: Container(
               color: Colors.white,
               child: Column(children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    iconDelete(),
-                  ],
-                ),
+                SizedBox(height:30),
                 Expanded(
                   child: Hero(
                     tag: (id < 0) ? "set" : "set_$id",
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Column(
                       children: <Widget>[
-                        GestureDetector(
-                          onTap: () => onSetClick(1),
-                          child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 3 - 5,
-                              height: MediaQuery.of(context).size.height,
-                              child: CardWidget(context).showCardSetNotFlip(
-                                  randomSet || card2 > 0 ? 1 : 0,
-                                  [card1, card2, card3],
-                                  [randomCard1, randomCard2, randomCard3])),
-                        ),
-                        GestureDetector(
-                          onTap: () => onSetClick(2),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 3 - 5,
-                            height: MediaQuery.of(context).size.height,
-                            child: CardWidget(context).showCardSetNotFlip(
-                                randomSet || card2 > 0 ? 2 : 0,
-                                [card1, card2, card3],
-                                [randomCard1, randomCard2, randomCard3]),
+                        Transform.rotate(
+                          angle:pi/8,
+                          child: GestureDetector(
+                            onTap: () => onSetClick(1),
+                            child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height/3.75,
+                                child: CardWidget(context).showCardSetNotFlip(
+                                    randomSet || card2 > 0 ? 1 : 0,
+                                    [card1, card2, card3],
+                                    [randomCard1, randomCard2, randomCard3])),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => onSetClick(3),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 3 - 5,
-                            height: MediaQuery.of(context).size.height,
-                            child: CardWidget(context).showCardSetNotFlip(
-                                randomSet || card3 > 0 ? 3 : 0,
-                                [card1, card2, card3],
-                                [randomCard1, randomCard2, randomCard3]),
+                        Transform.rotate(
+                          angle:-pi/8,
+                          child: GestureDetector(
+                            onTap: () => onSetClick(2),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height/3.75,
+                              child: CardWidget(context).showCardSetNotFlip(
+                                  randomSet || card2 > 0 ? 2 : 0,
+                                  [card1, card2, card3],
+                                  [randomCard1, randomCard2, randomCard3]),
+                            ),
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle:pi/8,
+                          child: GestureDetector(
+                            onTap: () => onSetClick(3),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height/3.75,
+                              child: CardWidget(context).showCardSetNotFlip(
+                                  randomSet || card3 > 0 ? 3 : 0,
+                                  [card1, card2, card3],
+                                  [randomCard1, randomCard2, randomCard3]),
+                            ),
                           ),
                         ),
                       ],
