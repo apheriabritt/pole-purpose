@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'file:///D:/projects/pole-purpose/lib/CARD%20MIX/savedSetsPage.dart';
 import 'dart:math';
-import 'widget/card.dart';
+import '../widget/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'savedSetsMain.dart';
 import 'package:pole_purpose/data/savedModels.dart';
 import 'package:pole_purpose/services/savedDatabase.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -51,13 +51,13 @@ class _CardMixTwoState extends State<CardMixTwo> {
           card3: randomCard3));
     }
     Navigator.pushReplacement(
-        context, CupertinoPageRoute(builder: (context) => SavedSetsMain()));
+        context, CupertinoPageRoute(builder: (context) => SavedSets()));
   }
 
   handleDelete() {
     SavedDatabaseService.db.deleteNoteInDB(id);
     Navigator.pushReplacement(
-        context, CupertinoPageRoute(builder: (context) => SavedSetsMain()));
+        context, CupertinoPageRoute(builder: (context) => SavedSets()));
   }
 
   Widget randomButton() {

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress/flutter_wordpress.dart' as wp;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 
@@ -40,29 +41,10 @@ print('1');
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        backgroundColor: Colors.white,
-        navigationBar: CupertinoNavigationBar(
-        middle: const Text('Blog',
-        style: TextStyle(
-        fontFamily: 'GillSansMT',
-        fontWeight: FontWeight.bold,
-        fontSize: 18
-    ),
-    ),
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-
-            child: Icon(
-              CupertinoIcons.back,
-              color: Colors.black,
-            ),
-          ),
-
-        ),
-        child: Material(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: hamburger,
+      body: Material(
           child: Container(
           child: FutureBuilder(
             future: _fetchPosts(),

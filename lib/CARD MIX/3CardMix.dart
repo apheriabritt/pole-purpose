@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
+import 'file:///D:/projects/pole-purpose/lib/CARD%20MIX/savedSetsPage.dart';
 import 'dart:math';
-import 'widget/card.dart';
+import '../widget/card.dart';
 import 'package:flutter/cupertino.dart';
-import 'savedSetsMain.dart';
 import 'package:pole_purpose/data/savedModels.dart';
 import 'package:pole_purpose/services/savedDatabase.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:pole_purpose/services/playSound.dart';
-import 'package:pole_purpose/3CardMixTwo.dart';
+import 'file:///D:/projects/pole-purpose/lib/CARD%20MIX/3CardMixTwo.dart';
 
 int randomCard1 = 0;
 int randomCard2 = 0;
@@ -54,33 +55,56 @@ class _CardMixState extends State<CardMix> {
           card3: randomCard3));
     }
     Navigator.pushReplacement(
-        context, CupertinoPageRoute(builder: (context) => SavedSetsMain()));
+        context, CupertinoPageRoute(builder: (context) => SavedSets()));
+    setState(() {
+
+    });
   }
 
   handleDelete() {
     SavedDatabaseService.db.deleteNoteInDB(id);
     Navigator.pushReplacement(
-        context, CupertinoPageRoute(builder: (context) => SavedSetsMain()));
+        context, CupertinoPageRoute(builder: (context) => SavedSets()));
   }
 
   Widget randomButton() {
     if (card1 > 0) return Text("");
     if (card2 > 0) return Text("");
     if (card3 > 0) return Text("");
-    return FlatButton(
-      padding: EdgeInsets.all(0),
-      hoverColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      child: Icon(
-        CupertinoIcons.shuffle_thick,
-        color: Colors.black,
-        size: (MediaQuery.of(context).size.height > 900) ? 32 : 24,
-      ),
-      onPressed: () {
-        clickRandomButton();
-      },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FloatingActionButton(
+            heroTag:'shuffle',
+           backgroundColor: Colors.black,
+            child: Icon(
+              CupertinoIcons.shuffle_thick,
+              color: Colors.white,
+              size: (MediaQuery.of(context).size.height > 900) ? 32 : 24,
+            ),
+            onPressed: () {
+              clickRandomButton();
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FloatingActionButton(
+            heroTag: 'save',
+            backgroundColor: Colors.black,
+            child: Icon(
+              Icons.save,
+              color: Colors.white,
+              size: (MediaQuery.of(context).size.height > 900) ? 32 : 24,
+            ),
+            onPressed: () {
+              clickOnSaveButton(randomSet ? -1 : this.id);
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -102,25 +126,6 @@ class _CardMixState extends State<CardMix> {
         : Text("");
   }
 
-  Widget saveButton() {
-    return (randomSet)
-        ? Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: SafeArea(
-        child: GestureDetector(
-          child: Icon(
-            MaterialIcons.save,
-            color: Colors.black,
-            size: (MediaQuery.of(context).size.height > 900) ? 60 : 30,
-          ),
-          onTap: () {
-            clickOnSaveButton(randomSet ? -1 : this.id);
-          },
-        ),
-      ),
-    )
-        : Text("");
-  }
 
   clickRandomButton() {
     setState(() {
@@ -207,39 +212,11 @@ class _CardMixState extends State<CardMix> {
           // Returning true allows the pop to happen, returning false prevents it.
           return false;
         },
-        child: CupertinoPageScaffold(
+        child: Scaffold(
           backgroundColor: Colors.white,
-          navigationBar: CupertinoNavigationBar(
-            padding: EdgeInsetsDirectional.only(start: 0, end: 0),
-            leading: FlatButton(
-              hoverColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                width: 90,
-                height: 60,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Icon(
-                    CupertinoIcons.back,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-            trailing: randomButton(),
-            middle: const Text('3 Card Mix',
-                style: TextStyle(
-                    fontFamily: 'GillSansMT',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18)),
-          ),
-          child: GestureDetector(
+          appBar: hamburger,
+          floatingActionButton: randomButton(),
+          body: GestureDetector(
             onTap: randomAllScreen,
             child: Container(
               color: Colors.white,
@@ -249,7 +226,6 @@ class _CardMixState extends State<CardMix> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    saveButton(),
                     iconDelete(),
                   ],
                 ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pole_purpose/MoreInfoPages/author.dart';
-import 'package:pole_purpose/MoreInfoPages/about.dart';
-import 'package:pole_purpose/MoreInfoPages/privacy.dart';
-import 'package:pole_purpose/MoreInfoPages/blog.dart';
-import 'package:pole_purpose/MoreInfoPages/copyright.dart';
-import 'package:pole_purpose/MoreInfoPages/terms.dart';
-import 'MoreInfoPages/OnlineClasses.dart';
+import 'package:pole_purpose/MORE%20INFO/author.dart';
+import 'package:pole_purpose/MORE%20INFO/about.dart';
+import 'package:pole_purpose/MORE%20INFO/privacy.dart';
+import 'package:pole_purpose/MORE%20INFO/blog.dart';
+import 'package:pole_purpose/MORE%20INFO/copyright.dart';
+import 'package:pole_purpose/MORE%20INFO/terms.dart';
+import 'ONLINE CLASSES/OnlineClasses.dart';
 import 'widget/menuButton.dart';
 
 class MoreInfo extends StatelessWidget {

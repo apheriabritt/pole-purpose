@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:pole_purpose/components/faderoute.dart';
 import 'package:pole_purpose/data/models.dart';
 import 'package:pole_purpose/screens/edit.dart';
@@ -11,12 +12,9 @@ import 'package:pole_purpose/screens/view.dart';
 import 'package:pole_purpose/services/noteDatabase.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import '../components/cards.dart';
-
-import 'package:pole_purpose/HomePage.dart';
-
-class MyHomePage extends StatefulWidget {
+class Notebook extends StatefulWidget {
   Function(Brightness brightness) changeTheme;
-  MyHomePage({Key key, this.title, Function(Brightness brightness) changeTheme})
+  Notebook({Key key, this.title, Function(Brightness brightness) changeTheme})
       : super(key: key) {
     this.changeTheme = changeTheme;
   }
@@ -24,10 +22,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _NotebookState createState() => _NotebookState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _NotebookState extends State<Notebook> {
   bool isFlagOn = false;
   bool headerShouldHide = false;
   List<NotesModel> notesList = [];
@@ -53,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: hamburger,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.black,
         onPressed: () {
@@ -97,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //                  ),
 //                ],
 //              ),
-              buildHeaderWidget(context),
+
               buildButtonRow(),
               buildImportantIndicatorText(),
               Container(height: 32),
@@ -193,43 +191,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  gotoMenu() {  
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));             
-  }
 
-  Widget buildHeaderWidget(BuildContext context) {
-    return Row(
-      children: <Widget>[
-         GestureDetector(
-          child: Container(
-            margin: EdgeInsets.only(top: 10, bottom: 32, left: 0),
-            child: Icon(
-              CupertinoIcons.back, 
-              color: Colors.black,
-              size:  (MediaQuery.of(context).size.height > 900) ? 60 : 40,
-            )
-          ),
-          onTap: (){Navigator.pop(context);}
-        ),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          curve: Curves.easeIn,
-          margin: EdgeInsets.only(top: 8, bottom: 32, left: 10),
-          width: headerShouldHide ? 0 : 200,
-          child: Text(
-            'Your Notes',
-            style: TextStyle(
-                fontFamily: 'ZillaSlab',
-                fontWeight: FontWeight.w700,
-                fontSize: 36,
-                color: Colors.black),
-            overflow: TextOverflow.clip,
-            softWrap: false,
-          ),
-        ),
-      ],
-    );
-  }
+
 
   Widget testListItem(Color color) {
     return new NoteCardComponent(

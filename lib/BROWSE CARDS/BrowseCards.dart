@@ -1,19 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:pole_purpose/pushhub.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'dart:math';
-import '3CardMix.dart';
-import 'MoreInfo.dart';
-import 'MoreInfoPages/OnlineClasses.dart';
-import 'MoreInfoPages/blog.dart';
-import 'Start.dart';
-import 'instructions.dart';
-import 'notebookMain.dart';
-import 'screens/home.dart';
-import 'widget/card.dart';
+import '../widget/card.dart';
 import 'package:pole_purpose/randomcard.dart';
-import 'randomcard.dart';
 import 'package:pole_purpose/services/playSound.dart';
 
 class BrowseCards extends StatefulWidget {
@@ -75,130 +66,13 @@ class _BrowseCardsState extends State<BrowseCards> {
     });
   }
 
-  void showModal(){
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 500,
-          child: Center(
-            child: ListView(
-              children: <Widget>[
-                TextButton(
-                  child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
-                      title: Text('HOME',style:TextStyle(color:Colors.black,fontSize:35))
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BrowseCards()));
-                  }
-                ),
-                TextButton(
-                  child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
-                      title: Text('CARD MIX',style:TextStyle(color:Colors.black,fontSize:35))
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CardMix(-1, -1, -1, -1)));
-                  },
-                ),
-                TextButton(
-                  child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
-                      title: Text('NOTES',style:TextStyle(color:Colors.black,fontSize:35))
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyHomePage(),
-                      ),
-                    );
-                  },
-                ),
-                TextButton(
-                  child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
-                      title: Text('INSTRUCTIONS',style:TextStyle(color:Colors.black,fontSize:35))
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Instructions(),
-                      ),
-                    );
-                  },
-                ),
-                TextButton(
-                  child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
-                      title: Text('MORE INFO',style:TextStyle(color:Colors.black,fontSize:35))
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MoreInfo(),
-                      ),
-                    );
-                  },
-                ),
-                TextButton(
-                  child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
-                      title: Text('ONLINE CLASSES',style:TextStyle(color:Colors.black,fontSize:35))
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OnlineClasses(),
-                      ),
-                    );
-                  },
-                ),
-                TextButton(
-                  child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
-                      title: Text('BLOG',style:TextStyle(color:Colors.black,fontSize:35))
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Blog(),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
+
   @override
   Widget build(BuildContext context) {
     bool appbar=false;
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          actions:[
-           // IconButton(icon:Icon(Icons.vpn_key),color:Colors.black.withOpacity(0.1),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PushHub(),));}),
-            IconButton(icon:Icon(Icons.menu,color:Colors.black,size:35),onPressed: showModal,),
-            Container(width:25)
-          ]
-        ),
+        appBar: hamburger,
         bottomNavigationBar: BottomAppBar(
           elevation: 0.0,
           child:Padding(

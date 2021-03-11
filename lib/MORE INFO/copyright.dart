@@ -1,30 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 
 class Copyright extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
-        navigationBar: CupertinoNavigationBar(
-          middle: const Text(
-            'Copyright',
-            style: TextStyle(
-              fontFamily: 'GillSansMT', fontWeight: FontWeight.bold, fontSize: 18 
-            ),
-          ),
-           leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              CupertinoIcons.back,
-              color: Colors.black,
-            ),
-          ),
-
-        ),
-        child: Material(
+        appBar: hamburger,
+        body: Material(
           child: SafeArea(
             child:Padding(
               padding: const EdgeInsets.all(8.0),

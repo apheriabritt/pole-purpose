@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'package:pole_purpose/HomePage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wordpress/flutter_wordpress.dart' as wp;
 
-import 'BrowseCards.dart';
+import 'BROWSE CARDS/BrowseCards.dart';
 
 
 void main(){

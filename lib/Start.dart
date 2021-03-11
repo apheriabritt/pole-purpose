@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pole_purpose/3CardMix.dart';
+import 'file:///D:/projects/pole-purpose/lib/CARD%20MIX/3CardMix.dart';
 import 'package:pole_purpose/screens/intructions.dart';
 
 import 'package:pole_purpose/PickACard.dart';

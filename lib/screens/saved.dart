@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:pole_purpose/CARD%20MIX/3CardMix.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:pole_purpose/data/savedModels.dart';
 import 'package:pole_purpose/services/savedDatabase.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/services.dart';
 
-import 'package:pole_purpose/3CardMix.dart';
 
-import 'package:pole_purpose/HomePage.dart';
 
 class MySavedPage extends StatefulWidget {
   MySavedPage({Key key, this.title})
@@ -54,35 +54,7 @@ class _MySavedPageState extends State<MySavedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CupertinoNavigationBar(
-          middle: const Text('Saved Sets',
-            style: TextStyle(
-              fontFamily: 'GillSansMT',  
-              fontWeight: FontWeight.bold, fontSize: 18
-            ),
-          ),
-           leading: GestureDetector(
-            onTap: () {
-              gotoMenu();
-            },
-            
-            child: Icon(
-              CupertinoIcons.back,
-              color: Colors.black,
-            ),
-          ),
-          trailing: GestureDetector(
-          child: Container(
-            child: Icon(
-              CupertinoIcons.refresh, 
-              color: Colors.black,
-              size:  (MediaQuery.of(context).size.height > 900) ? 56 : 36,
-            )
-          ),
-          onTap: refetchSavedMixFromDB,  
-        ),
-
-        ),
+      appBar: hamburger,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.black,
         onPressed: () {
@@ -403,11 +375,6 @@ class _MySavedPageState extends State<MySavedPage> {
     }
   }
 
- 
-  gotoMenu() {  
-        Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomePage()));
-  }
 
   void goto3CardMix(int card1, int card2, int card3, int id) {
     print("Goto card mix -> id: $id, $card1 $card2 $card3");

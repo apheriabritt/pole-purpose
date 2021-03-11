@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 
 import 'package:pole_purpose/widget/longText.dart';
 
@@ -39,28 +40,10 @@ class Terms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        backgroundColor: Colors.white,
-         
-        navigationBar: CupertinoNavigationBar(
-          middle: const Text(
-            'Terms',
-            style: TextStyle(
-              fontFamily: 'GillSansMT', fontWeight: FontWeight.bold, fontSize: 18 
-            ),
-          ),
-          leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            CupertinoIcons.back,
-            color: Colors.black,
-          ),
-          ),
-
-        ),
-        child: Material(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: hamburger,
+      body: Material(
           child: SafeArea(
               child: Container(
                 height: MediaQuery.of(context).size.height, // constrain height

@@ -1,31 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Author extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        backgroundColor: Colors.white,
-        navigationBar: CupertinoNavigationBar(
-          
-          middle: const Text('Author',
-            style: TextStyle(
-              fontFamily: 'GillSansMT', fontWeight: FontWeight.bold, fontSize: 18 
-            ),
-          ),
-           leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              CupertinoIcons.back,
-              color: Colors.black,
-            ),
-          ),
-
-        ),
-        child: Material(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: hamburger,
+      body: Material(
           color: Colors.white,
           child: SafeArea(
             child: Center(

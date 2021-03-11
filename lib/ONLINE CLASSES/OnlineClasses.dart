@@ -1,44 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OnlineClasses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text(
-          'Online Classes',
-          style: TextStyle(
-              fontFamily: 'GillSansMT',
-              fontWeight: FontWeight.bold,
-              fontSize: 18),
-        ),
-        padding: EdgeInsetsDirectional.only(start: 0, end: 0),
-        leading: FlatButton(
-          hoverColor: Colors.transparent,
-          focusColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          padding: EdgeInsets.all(0),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            width: 90,
-            height: 60,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Icon(
-                CupertinoIcons.back,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-      ),
-      child: Material(
+      appBar: hamburger,
+      body: Material(
         color: Colors.white,
         child: Stack(
           children: [

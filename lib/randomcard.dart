@@ -2,7 +2,7 @@ import 'dart:math';
 import 'widget/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pole_purpose/BrowseCards.dart';
+import 'file:///D:/projects/pole-purpose/lib/BROWSE%20CARDS/BrowseCards.dart';
 import 'package:pole_purpose/services/playSound.dart';
 
 class RandomCard extends StatefulWidget {
