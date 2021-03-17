@@ -41,7 +41,7 @@ print('1');
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: hamburger,
       body: Material(
@@ -71,21 +71,28 @@ print('1');
     opaque: false,
     pageBuilder: (BuildContext context, _, __) {
       return
-        CupertinoPageScaffold(
-        backgroundColor: Colors.white,
-        navigationBar: CupertinoNavigationBar(
-            actionsForegroundColor: Colors.black,
-        middle:  Html(data:post.title.rendered.toString(),
-      )),
-      child: Material(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: WebView(
-                initialUrl: post.link,
-                javascriptMode: JavascriptMode.unrestricted,
-              ),
-            ))
-    );
+        SafeArea(
+          child: Scaffold(extendBodyBehindAppBar: true,
+          backgroundColor: Colors.white,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton:
+      Padding(
+        padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+        child: FloatingActionButton(
+            backgroundColor: Colors.black,child:Icon(Icons.arrow_back),
+            onPressed: (){Navigator.pop(context);},
+        ),
+      ),
+      body: Material(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: WebView(
+                  initialUrl: post.link,
+                  javascriptMode: JavascriptMode.unrestricted,
+                ),
+              ))
+    ),
+        );
       ////////////////////
     }));
       }, //push to new page

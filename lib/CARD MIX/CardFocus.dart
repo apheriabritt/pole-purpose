@@ -34,7 +34,7 @@ class _CardFocusState extends State<CardFocus> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Scaffold(
+      child: Scaffold(extendBodyBehindAppBar: true,
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         floatingActionButton: Padding(
           padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),

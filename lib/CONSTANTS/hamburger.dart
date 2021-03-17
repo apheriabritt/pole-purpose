@@ -16,12 +16,10 @@ import 'package:pole_purpose/MORE%20INFO/terms.dart';
 import 'package:pole_purpose/ONLINE%20CLASSES/OnlineClasses.dart';
 
 
-var hamburger = AppBar(
-    backgroundColor: Colors.transparent,
-    elevation: 0.0,
-    actions:[
+var hamburger = PreferredSize(
       // IconButton(icon:Icon(Icons.vpn_key),color:Colors.black.withOpacity(0.1),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PushHub(),));}),
-      StatefulBuilder(
+    preferredSize: const Size.fromHeight(200.0),
+     child: StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
 void showModal(){
   showModalBottomSheet<void>(
@@ -161,18 +159,6 @@ void showModal(){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Blog(),
-                            ));
-                      },
-                      child: ListTile(
-                          title: Text('BLOG')
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap:(){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
                               builder: (context) => Copyright(),
                             ));
                       },
@@ -242,7 +228,18 @@ void showModal(){
     },
   );
     }
-          return IconButton(icon:Icon(Icons.menu,color:Colors.black,size:35),onPressed: showModal,);}),
-      Container(width:25)
-    ]
+          return
+            SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children:[ Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: FloatingActionButton(
+                      backgroundColor: Colors.white,
+                      child:Icon(Icons.menu,color:Colors.black,size:35),onPressed: showModal
+          ),
+                )],
+              ),
+            );}),
+
 );

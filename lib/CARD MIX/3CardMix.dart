@@ -152,7 +152,7 @@ class _CardMixState extends State<CardMix> {
           // Returning true allows the pop to happen, returning false prevents it.
           return false;
         },
-        child: Scaffold(
+        child: Scaffold(extendBodyBehindAppBar: true,
           backgroundColor: Colors.transparent,
           body: GestureDetector(
             onTap: randomAllScreen,
@@ -170,7 +170,7 @@ class _CardMixState extends State<CardMix> {
                             onTap: () => onSetClick(1),
                             child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height/4,
+                                height: MediaQuery.of(context).size.height/4.4,
                                 child: CardWidget(context).showCardSetNotFlip(
                                     randomSet || card2 > 0 ? 1 : 0,
                                     [card1, card2, card3],
@@ -183,7 +183,7 @@ class _CardMixState extends State<CardMix> {
                             onTap: () => onSetClick(2),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height/4,
+                              height: MediaQuery.of(context).size.height/4.4,
                               child: CardWidget(context).showCardSetNotFlip(
                                   randomSet || card2 > 0 ? 2 : 0,
                                   [card1, card2, card3],
@@ -197,7 +197,7 @@ class _CardMixState extends State<CardMix> {
                             onTap: () => onSetClick(3),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height/4,
+                              height: MediaQuery.of(context).size.height/4.4,
                               child: CardWidget(context).showCardSetNotFlip(
                                   randomSet || card3 > 0 ? 3 : 0,
                                   [card1, card2, card3],

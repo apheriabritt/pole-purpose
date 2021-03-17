@@ -7,7 +7,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         appBar: hamburger,
         body: Material(
@@ -29,15 +29,16 @@ Founded in 2015 by Rowena Gander, Pole Purpose provides easy to follow tools tha
                             opaque: false,
                             pageBuilder: (BuildContext context, _, __) {
                               return
-                                CupertinoPageScaffold(
+                                Scaffold(extendBodyBehindAppBar: true,
                                     backgroundColor: Colors.white,
-                                    navigationBar: CupertinoNavigationBar(
-                                        actionsForegroundColor: Colors.black,
-                                        middle:  Text('Rowena Gander'
-                                        )),
-                                    child: Material(
+                                    floatingActionButton:
+                                    FloatingActionButton(
+                                      backgroundColor: Colors.black,child:Icon(Icons.arrow_back),
+                                      onPressed: (){Navigator.pop(context);},
+                                    ),
+                                    body: Material(
                                         child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const  EdgeInsets.all(8.0),
                                           child: WebView(
                                             initialUrl: 'https://rowenagander.com',
                                             javascriptMode: JavascriptMode.unrestricted,
@@ -85,13 +86,14 @@ Founded in 2015 by Rowena Gander, Pole Purpose provides easy to follow tools tha
                             opaque: false,
                             pageBuilder: (BuildContext context, _, __) {
                               return
-                                CupertinoPageScaffold(
+                                Scaffold(extendBodyBehindAppBar: true,
                                     backgroundColor: Colors.white,
-                                    navigationBar: CupertinoNavigationBar(
-                                        actionsForegroundColor: Colors.black,
-                                        middle:  Text('Clare Bonthrone'
-                                        )),
-                                    child: Material(
+                                    floatingActionButton:
+                                    FloatingActionButton(
+                                      backgroundColor: Colors.black,child:Icon(Icons.arrow_back),
+                                      onPressed: (){Navigator.pop(context);},
+                                    ),
+                                    body: Material(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: WebView(
@@ -124,13 +126,14 @@ Founded in 2015 by Rowena Gander, Pole Purpose provides easy to follow tools tha
                             opaque: false,
                             pageBuilder: (BuildContext context, _, __) {
                               return
-                                CupertinoPageScaffold(
+                                Scaffold(extendBodyBehindAppBar: true,
                                     backgroundColor: Colors.white,
-                                    navigationBar: CupertinoNavigationBar(
-                                        actionsForegroundColor: Colors.black,
-                                        middle:  Text('Lucas Nicolou'
-                                        )),
-                                    child: Material(
+                                    floatingActionButton:
+                                    FloatingActionButton(
+                                      backgroundColor: Colors.black,child:Icon(Icons.arrow_back),
+                                      onPressed: (){Navigator.pop(context);},
+                                    ),
+                                    body: Material(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: WebView(
@@ -163,13 +166,14 @@ Founded in 2015 by Rowena Gander, Pole Purpose provides easy to follow tools tha
                             opaque: false,
                             pageBuilder: (BuildContext context, _, __) {
                               return
-                                CupertinoPageScaffold(
+                                Scaffold(extendBodyBehindAppBar: true,
                                     backgroundColor: Colors.white,
-                                    navigationBar: CupertinoNavigationBar(
-                                        actionsForegroundColor: Colors.black,
-                                        middle:  Text('Britt Wood'
-                                        )),
-                                    child: Material(
+                                    floatingActionButton:
+                                    FloatingActionButton(
+                                      backgroundColor: Colors.black,child:Icon(Icons.arrow_back),
+                                      onPressed: (){Navigator.pop(context);},
+                                    ),
+                                    body: Material(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: WebView(

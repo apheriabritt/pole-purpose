@@ -13,7 +13,7 @@ class CardWidget {
   ScrollController _controller = ScrollController();
 
   Widget showActionCard(bool appbar) {
-    return Scaffold(
+    return Scaffold(extendBodyBehindAppBar: true,
         appBar: appbar!=true?PreferredSize(child:Container(),preferredSize: Size(0,0),): CupertinoNavigationBar(
     padding: EdgeInsetsDirectional.only(start: 0, end: 0),
     leading: FlatButton(
@@ -241,7 +241,7 @@ Scroll down to see examples for every day movement inspiration, but first try to
 
 
   Widget showEveryday2Card(bool appbar) {
-    return Scaffold(
+    return Scaffold(extendBodyBehindAppBar: true,
       appBar: appbar!=true?PreferredSize(child:Container(),preferredSize: Size(0,0),): CupertinoNavigationBar(
         padding: EdgeInsetsDirectional.only(start: 0, end: 0),
         leading: FlatButton(

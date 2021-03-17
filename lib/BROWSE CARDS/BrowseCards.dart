@@ -84,19 +84,31 @@ class _BrowseCardsState extends State<BrowseCards> {
     bool appbar=false;
     CardList.shuffle();
 
-    return Scaffold(
+    return Scaffold(extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         appBar: hamburger,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton:
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+          child: FloatingActionButton(
+            backgroundColor: Colors.black,
+            heroTag: 'faveit',
+            child:Icon(Icons.favorite_border,
+
+            )
+          ),
+        ),
         body: Container(
           child: SafeArea(
             child: Column(
               children: <Widget>[
                 Expanded(
                   flex: 9,
-                 child: Scaffold(
+                 child: Scaffold(extendBodyBehindAppBar: true,
                    backgroundColor: Colors.transparent,
                       bottomNavigationBar:Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
                         child: BottomAppBar(
                           elevation: 0.0,
                           color: Colors.transparent,
@@ -120,7 +132,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 });}
                                 },
                                   heroTag: 'switch',
-                                  child: cardIcon,backgroundColor: Colors.black),
+                                  child: cardIcon,backgroundColor: Colors.white),
                              FloatingActionButton(
                                 heroTag: 'homeshuffle',
                                 onPressed: (){
@@ -132,7 +144,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                               FloatingActionButton(
                                 ///only show favourites
                                   heroTag: 'fave',
-                                  child: Icon(Icons.favorite,size:35),backgroundColor: Colors.black
+                                  child: Icon(Icons.favorite_border,size:35,color: Colors.black,),backgroundColor: Colors.white
                               ),
                           ])),
                       ),

@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class OnlineClasses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: hamburger,
       body: Material(
