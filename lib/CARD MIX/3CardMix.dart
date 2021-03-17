@@ -145,6 +145,7 @@ class _CardMixState extends State<CardMix> {
       clickRandomButton();
     }
     return Material(
+      color: Colors.transparent,
       child: WillPopScope(
         onWillPop: () async {
           Navigator.pop(context);
@@ -152,6 +153,7 @@ class _CardMixState extends State<CardMix> {
           return false;
         },
         child: Scaffold(
+          backgroundColor: Colors.transparent,
           body: GestureDetector(
             onTap: randomAllScreen,
             child: Container(

@@ -7,7 +7,7 @@ import 'package:pole_purpose/CONSTANTS/playSound.dart';
 import 'dart:math';
 import '../CONSTANTS/card.dart';
 bool single=true;
-Icon cardIcon = Icon(Icons.circle,size:35);
+Widget cardIcon = Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
 class BrowseCards extends StatefulWidget {
   @override
   _BrowseCardsState createState() => _BrowseCardsState();
@@ -109,14 +109,14 @@ class _BrowseCardsState extends State<BrowseCards> {
                                     print('change to group');
                                     setState(() {
                                       single = false;
-                                      cardIcon=Icon(Icons.group_work_outlined,size:35);
-                                    });}
+
+                                      cardIcon=Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png');                                    });}
                                     //switch to single or to group, also change the icon
                                   else{
                                 setState(() {
                                   print('change to single');
                                 single = true;
-                                cardIcon=Icon(Icons.circle,size:35);
+                                cardIcon=Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
                                 });}
                                 },
                                   heroTag: 'switch',
