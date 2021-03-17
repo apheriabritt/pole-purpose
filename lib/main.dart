@@ -25,19 +25,6 @@ class _MyAppState extends State<MyApp> {
     baseUrl: 'https://polepurpose.com',
   );
 
-  _fetchPosts() {
-    Future<List<wp.Post>> posts = wordPress.fetchPosts(
-        postParams: wp.ParamsPostList(
-          context: wp.WordPressContext.view,
-          pageNum: 1,
-          perPage: 10,
-        ),
-        fetchAuthor: true,
-        fetchFeaturedMedia: true,
-        fetchComments: true);
-    print('got posts');
-    return posts;
-  }
 
   @override
   Widget build(BuildContext context) {

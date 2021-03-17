@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:pole_purpose/CARD%20MIX/3CardMix.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:pole_purpose/CONSTANTS/playSound.dart';
 import 'dart:math';
@@ -45,54 +46,90 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> CardList = [
+      CardWidget(context).showCard(2),
+      CardWidget(context).showCard(3),
+      CardWidget(context).showCard(4),
+      CardWidget(context).showCard(5),
+      CardWidget(context).showEverydayCard(),
+      CardWidget(context).showCard(7),
+      CardWidget(context).showCard(8),
+      CardWidget(context).showCard(9),
+      CardWidget(context).showCard(10),
+      CardWidget(context).showCard(11),
+      CardWidget(context).showCard(12),
+      CardWidget(context).showCard(13),
+      CardWidget(context).showCard(14),
+      CardWidget(context).showCard(15),
+      CardWidget(context).showCard(16),
+      CardWidget(context).showCard(17),
+      CardWidget(context).showCard(18),
+      CardWidget(context).showCard(19),
+      CardWidget(context).showCard(20),
+      CardWidget(context).showCard(21),
+      CardWidget(context).showCard(22),
+      CardWidget(context).showNumberCard(),
+      CardWidget(context).showEveryday2Card(null),
+    ];
+    var singleCard= Swiper.children(
+        onIndexChanged: (i) => {_sound.playLocal("shuffle.mp3")},
+        viewportFraction: 1.0,
+        scale: 1.0,
+        children:
+        CardList
+    );
+
     bool appbar=false;
+    CardList.shuffle();
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: hamburger,
-
         body: Container(
           child: SafeArea(
             child: Column(
               children: <Widget>[
                 Expanded(
                   flex: 9,
-                  child: Container(
-                    child: Swiper.children(
-                      onIndexChanged: (i) => {_sound.playLocal("shuffle.mp3")},
-                      viewportFraction: 1.0,
-                      scale: 1.0,
-                      children: <Widget>[
-                        CardWidget(context).showActionCard(appbar),
-                        CardWidget(context).showCard(2),
-                        CardWidget(context).showCard(3),
-                        CardWidget(context).showCard(4),
-                        CardWidget(context).showCard(5),
-                        CardWidget(context).showEverydayCard(),
-                        CardWidget(context).showCard(7),
-                        CardWidget(context).showCard(8),
-                        CardWidget(context).showCard(9),
-                        CardWidget(context).showCard(10),
-                        CardWidget(context).showCard(11),
-                        CardWidget(context).showCard(12),
-                        CardWidget(context).showCard(13),
-                        CardWidget(context).showCard(14),
-                        CardWidget(context).showCard(15),
-                        CardWidget(context).showCard(16),
-                        CardWidget(context).showCard(17),
-                        CardWidget(context).showCard(18),
-                        CardWidget(context).showCard(19),
-                        CardWidget(context).showCard(20),
-                        CardWidget(context).showCard(21),
-                        CardWidget(context).showCard(22),
-                        CardWidget(context).showNumberCard(),
-                        CardWidget(context).showEveryday2Card(null),
-                      ],
+                  child: DefaultTabController(
+                    length: 3,
+                    child: Scaffold(
+                      bottomNavigationBar:Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                        child: TabBar(
+                          indicatorColor: Colors.transparent,
+                            tabs: [
+                              Tab(child:FloatingActionButton(
+                                  heroTag: 'fave',
+                                  child: Icon(Icons.circle,size:35),backgroundColor: Colors.black),),
+                             FloatingActionButton(
+                                heroTag: 'homeshuffle',
+                                onPressed: (){
+                                  setState(() {
+                                  });
+                                },
+                                child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
+                              Tab(child:FloatingActionButton(
+                                  heroTag: 'sets',
+                                  child: Icon(Icons.group_work_outlined,size:35),backgroundColor: Colors.black)
+                              ),
+                            ],
+                          ),
+                      ),
+                      body: TabBarView(
+                        children: [
+                          singleCard,
+                          Icon(Icons.directions_transit),
+                          CardMix(-1, -1, -1, -1)
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-        ));
+        ),
+    );
   }
 }
+

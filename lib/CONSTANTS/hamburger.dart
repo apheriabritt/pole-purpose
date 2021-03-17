@@ -45,18 +45,6 @@ void showModal(){
                   }
               ),
               TextButton(
-                child:ListTile(
-                    leading:Icon(Icons.shuffle,color:Colors.black,size:35),
-                    title: Text('CARD MIX',style:TextStyle(color:Colors.black,fontSize:35))
-                ),
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CardMix(-1, -1, -1, -1)));
-                },
-              ),
-              TextButton(
                 onPressed:null,
                 child:ExpansionTile(
                     leading:Icon(Icons.school,color:Colors.black,size:35),

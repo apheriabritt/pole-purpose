@@ -153,15 +153,11 @@ class _CardMixState extends State<CardMix> {
           return false;
         },
         child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: hamburger,
-          floatingActionButton: randomButton(),
           body: GestureDetector(
             onTap: randomAllScreen,
             child: Container(
-              color: Colors.white,
               child: Column(children: <Widget>[
-                SizedBox(height:30),
+                SizedBox(height:10),
                 Expanded(
                   child: Hero(
                     tag: (id < 0) ? "set" : "set_$id",
@@ -173,7 +169,7 @@ class _CardMixState extends State<CardMix> {
                             onTap: () => onSetClick(1),
                             child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height/3.75,
+                                height: MediaQuery.of(context).size.height/4,
                                 child: CardWidget(context).showCardSetNotFlip(
                                     randomSet || card2 > 0 ? 1 : 0,
                                     [card1, card2, card3],
@@ -186,7 +182,7 @@ class _CardMixState extends State<CardMix> {
                             onTap: () => onSetClick(2),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height/3.75,
+                              height: MediaQuery.of(context).size.height/4,
                               child: CardWidget(context).showCardSetNotFlip(
                                   randomSet || card2 > 0 ? 2 : 0,
                                   [card1, card2, card3],
@@ -200,7 +196,7 @@ class _CardMixState extends State<CardMix> {
                             onTap: () => onSetClick(3),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height/3.75,
+                              height: MediaQuery.of(context).size.height/4,
                               child: CardWidget(context).showCardSetNotFlip(
                                   randomSet || card3 > 0 ? 3 : 0,
                                   [card1, card2, card3],
