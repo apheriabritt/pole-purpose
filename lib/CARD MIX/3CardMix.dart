@@ -85,7 +85,6 @@ class _CardMixState extends State<CardMix> {
       randomSet = true;
     });
 
-    _sound.playLocal("shuffle.mp3");
   }
 
   onSetClick(int card) {

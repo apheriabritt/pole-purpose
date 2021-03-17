@@ -17,7 +17,7 @@ import 'package:pole_purpose/ONLINE%20CLASSES/OnlineClasses.dart';
 
 
 var hamburger = AppBar(
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.transparent,
     elevation: 0.0,
     actions:[
       // IconButton(icon:Icon(Icons.vpn_key),color:Colors.black.withOpacity(0.1),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PushHub(),));}),

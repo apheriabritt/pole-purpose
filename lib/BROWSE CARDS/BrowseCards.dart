@@ -6,7 +6,8 @@ import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:pole_purpose/CONSTANTS/playSound.dart';
 import 'dart:math';
 import '../CONSTANTS/card.dart';
-
+bool single=true;
+Icon cardIcon = Icon(Icons.circle,size:35);
 class BrowseCards extends StatefulWidget {
   @override
   _BrowseCardsState createState() => _BrowseCardsState();
@@ -14,6 +15,7 @@ class BrowseCards extends StatefulWidget {
 
 int randomCard = 1;
 int n = 6;
+
 
 // ignore: missing_return
 
@@ -81,6 +83,7 @@ class _BrowseCardsState extends State<BrowseCards> {
 
     bool appbar=false;
     CardList.shuffle();
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: hamburger,
@@ -90,41 +93,53 @@ class _BrowseCardsState extends State<BrowseCards> {
               children: <Widget>[
                 Expanded(
                   flex: 9,
-                  child: DefaultTabController(
-                    length: 3,
-                    child: Scaffold(
+                 child: Scaffold(
+                   backgroundColor: Colors.transparent,
                       bottomNavigationBar:Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                        child: TabBar(
-                          indicatorColor: Colors.transparent,
-                            tabs: [
-                              Tab(child:FloatingActionButton(
-                                  heroTag: 'fave',
-                                  child: Icon(Icons.circle,size:35),backgroundColor: Colors.black),),
+                        child: BottomAppBar(
+                          elevation: 0.0,
+                          color: Colors.transparent,
+                          child:Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children:[
+                         FloatingActionButton(
+                                onPressed:() {
+                                  if (single == true) {
+                                    print('change to group');
+                                    setState(() {
+                                      single = false;
+                                      cardIcon=Icon(Icons.group_work_outlined,size:35);
+                                    });}
+                                    //switch to single or to group, also change the icon
+                                  else{
+                                setState(() {
+                                  print('change to single');
+                                single = true;
+                                cardIcon=Icon(Icons.circle,size:35);
+                                });}
+                                },
+                                  heroTag: 'switch',
+                                  child: cardIcon,backgroundColor: Colors.black),
                              FloatingActionButton(
                                 heroTag: 'homeshuffle',
                                 onPressed: (){
+                                  _sound.playLocal("shuffle.mp3");
                                   setState(() {
                                   });
                                 },
                                 child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
-                              Tab(child:FloatingActionButton(
-                                  heroTag: 'sets',
-                                  child: Icon(Icons.group_work_outlined,size:35),backgroundColor: Colors.black)
+                              FloatingActionButton(
+                                ///only show favourites
+                                  heroTag: 'fave',
+                                  child: Icon(Icons.favorite,size:35),backgroundColor: Colors.black
                               ),
-                            ],
-                          ),
+                          ])),
                       ),
-                      body: TabBarView(
-                        children: [
-                          singleCard,
-                          Icon(Icons.directions_transit),
-                          CardMix(-1, -1, -1, -1)
-                        ],
-                      ),
+                      body:
+                          single==true?singleCard:CardMix(-1, -1, -1, -1),
                     ),
-                  ),
-                ),
+                  )
               ],
             ),
           ),
