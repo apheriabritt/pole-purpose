@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -84,6 +86,7 @@ class _BrowseCardsState extends State<BrowseCards> {
     bool appbar=false;
     CardList.shuffle();
 
+
     return Scaffold(extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         appBar: hamburger,
@@ -94,9 +97,22 @@ class _BrowseCardsState extends State<BrowseCards> {
           child: FloatingActionButton(
             backgroundColor: Colors.black,
             heroTag: 'faveit',
-            child:Icon(Icons.favorite_border,
+            child:Icon(Icons.favorite_border),
+            onPressed:() async{
+              //upload to favourites: favourites>uid>list
+              final FirebaseAuth auth = FirebaseAuth.instance;
+             FirebaseUser user = await auth.currentUser();
+             print(user.uid);
+              DatabaseReference ref = FirebaseDatabase.instance.reference();
 
-            )
+              var data =
+              {
+                "faveList": 'faveList',
+              };
+
+             await ref.child("favourites").child(user.uid).set(data);
+              print('here hmm');
+            },
           ),
         ),
         body: Container(
@@ -143,6 +159,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
                               FloatingActionButton(
                                 ///only show favourites
+                                onPressed:null,
                                   heroTag: 'fave',
                                   child: Icon(Icons.favorite_border,size:35,color: Colors.black,),backgroundColor: Colors.white
                               ),

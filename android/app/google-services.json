@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "714064116048",
+    "firebase_url": "https://pole-purpose-988a1-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "pole-purpose-988a1",
+    "storage_bucket": "pole-purpose-988a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714064116048:android:b998c29a14bda03a4d1455",
+        "android_client_info": {
+          "package_name": "com.pole.purpose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714064116048-k3j0q46iqt3rq472gg760c0un642aln4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2wijwS3McsB312L5ggl_Oupl5QbGBBhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714064116048-k3j0q46iqt3rq472gg760c0un642aln4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

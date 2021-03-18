@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pole_purpose/AUTH/services.dart';
+import 'package:pole_purpose/AUTH/wrapper.dart';
+import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wordpress/flutter_wordpress.dart' as wp;
@@ -51,8 +54,15 @@ class _MyAppState extends State<MyApp> {
 class AfterSplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BrowseCards(),
-    );
+    //constant widget that shows the current workout if there is one?
+    return StreamProvider<User>.value(
+        value: AuthService().user,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(textTheme: TextTheme(
+              subhead: TextStyle(fontFamily: 'apheriafont', fontSize: 22),
+              body1: TextStyle(fontFamily: 'apheriafont', fontSize: 18))),
+          home: Wrapper(),
+        ));
   }
 }
