@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/CONSTANTS/playSound.dart';
 
+//i might re enter the card info into a FBDB.
+//then get the card widget
+
 class CardWidget {
   final BuildContext context;
 
@@ -84,51 +87,54 @@ class CardWidget {
                   child: Scrollbar(thickness:2.0,
                     isAlwaysShown: true,
                     controller: _controller,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       controller: _controller,
-                        children: <Widget>[
-                      Text('Action & Descriptive Words',style:TextStyle(fontSize: 35,fontFamily: 'Xtreem'),textAlign:TextAlign.center),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "Action",
-                                    textAlign:TextAlign.left,
-                                    style: TextStyle(
-                                      fontFamily: 'GillSansMT',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize:20,
+
+                      child: Column(
+                          children: <Widget>[
+                        Text('Action & Descriptive Words',style:TextStyle(fontSize: 35,fontFamily: 'Xtreem'),textAlign:TextAlign.center),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Action",
+                                      textAlign:TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'GillSansMT',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize:20,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "Utilise this card to play with quality of movement.If you always tend to move with smooth and flowing lines, how could you disrupt the flow by thinking about a jagged or sudden dynamic? This could alter something as simple as an arm raise.",
-                                    textAlign:TextAlign.left, style: TextStyle(
-                                      fontFamily: 'GillSansMT',
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                      fontSize: 20,
+                                    Text(
+                                      "Utilise this card to play with quality of movement.If you always tend to move with smooth and flowing lines, how could you disrupt the flow by thinking about a jagged or sudden dynamic? This could alter something as simple as an arm raise.",
+                                      textAlign:TextAlign.left, style: TextStyle(
+                                        fontFamily: 'GillSansMT',
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                  Text(" "),
-                                  Text(
-                                    "Descriptive Words",
-                                    textAlign:TextAlign.left,
-                                    style: TextStyle(
-                                      fontFamily: 'GillSansMT',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 20,
+                                    Text(" "),
+                                    Text(
+                                      "Descriptive Words",
+                                      textAlign:TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'GillSansMT',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "Rub, sink, rise, melt, bend, stretch, twist, swing, push, pull, rock, balance, shake, float, duck, dodge, jab, poke, shove, carve, freeze, wiggle, turn, fall, straighten, strike, chop, spin, kick, punch, wring, tickle, hug, hang, sway, open, close, flap, pluck, tap, grab, wrap, flick, pose, burst, glide, shrug, dig, blot, flee, chase, dash, hurl, gallop, bounce, rush, sail, plummet, scramble, smash, soar, speed, still, spring, sprint, skip, zoom, whisk, stride, jump, cat walk, shuffle, tip toe, grow, wriggle, polka, waddle, slither, swoon, prance, drag, tense, slow, land, burn, hold, escape, lift, restrict, flight, roll, suspend, collapse, trap, fling, weave, nail, squash, lean, tangle, low, fold, pop, cluster, bind, hop, weld, plant, stack, squeeze, draw out, spread, wedge, fading, shaded, sharp, hard, grotesque, obscure, weak, old, cold, young, flash, shadow, broken, excite, clarify, fragment, reverse, inversion, duration, position, compose, carry, allow, explore, light, heavy, space, shape, break, overlap, dominance, submission, force, follow, resist, ignore, run, repetition, under, behind, reach, lengthen, beyond, inside, outside, explain, mould, add, exaggerate, crawl, merge, absorb, abrupt, rearrange, lines, curves, sudden, jagged, smooth, continuous, even, relax, split, leave and re-enter.",
-                                    textAlign:TextAlign.left,style: TextStyle(
-                                      fontFamily: 'GillSansMT',
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                      fontSize:20,
+                                    Text(
+                                      "Rub, sink, rise, melt, bend, stretch, twist, swing, push, pull, rock, balance, shake, float, duck, dodge, jab, poke, shove, carve, freeze, wiggle, turn, fall, straighten, strike, chop, spin, kick, punch, wring, tickle, hug, hang, sway, open, close, flap, pluck, tap, grab, wrap, flick, pose, burst, glide, shrug, dig, blot, flee, chase, dash, hurl, gallop, bounce, rush, sail, plummet, scramble, smash, soar, speed, still, spring, sprint, skip, zoom, whisk, stride, jump, cat walk, shuffle, tip toe, grow, wriggle, polka, waddle, slither, swoon, prance, drag, tense, slow, land, burn, hold, escape, lift, restrict, flight, roll, suspend, collapse, trap, fling, weave, nail, squash, lean, tangle, low, fold, pop, cluster, bind, hop, weld, plant, stack, squeeze, draw out, spread, wedge, fading, shaded, sharp, hard, grotesque, obscure, weak, old, cold, young, flash, shadow, broken, excite, clarify, fragment, reverse, inversion, duration, position, compose, carry, allow, explore, light, heavy, space, shape, break, overlap, dominance, submission, force, follow, resist, ignore, run, repetition, under, behind, reach, lengthen, beyond, inside, outside, explain, mould, add, exaggerate, crawl, merge, absorb, abrupt, rearrange, lines, curves, sudden, jagged, smooth, continuous, even, relax, split, leave and re-enter.",
+                                      textAlign:TextAlign.left,style: TextStyle(
+                                        fontFamily: 'GillSansMT',
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                        fontSize:20,
+                                      ),
                                     ),
-                                  ),
             ]),
+                    ),
                   ),
                 )),
           ),
@@ -843,7 +849,11 @@ padding: const EdgeInsets.fromLTRB(0,0,0,0),child: Card(
         image = "0";
         return SafeArea(
           child: Center(
-            child: Image.asset('images/cards/$image.png'),
+            child: Card(
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.black, width: 2),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Image.asset('images/cards/$image.png')),
           ),
         );
 

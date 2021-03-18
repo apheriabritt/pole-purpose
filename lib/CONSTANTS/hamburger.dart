@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/BLOG/blog.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
-import 'package:pole_purpose/CARD%20MIX/3CardMix.dart';
 import 'package:pole_purpose/INSTRUCTIONS/choreotips.dart';
 import 'package:pole_purpose/INSTRUCTIONS/developmovement.dart';
 import 'package:pole_purpose/INSTRUCTIONS/futherinfo.dart';
