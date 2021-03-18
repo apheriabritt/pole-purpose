@@ -4,12 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:pole_purpose/CONSTANTS/playSound.dart';
 import 'dart:math';
 import '../CONSTANTS/card.dart';
 bool single=true;
+bool faveToggle=false;
 Widget cardIcon = Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
 class BrowseCards extends StatefulWidget {
   @override
@@ -18,6 +20,7 @@ class BrowseCards extends StatefulWidget {
 
 List<Widget> CardList = List<Widget>();
 List faveList=[];
+
 
 // ignore: missing_return
 
@@ -103,73 +106,133 @@ class _BrowseCardsState extends State<BrowseCards> {
         floatingActionButton:
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-          child: FloatingActionButton(
-            backgroundColor: Colors.black,
-            heroTag: 'faveit',
-            child:Icon(Icons.favorite_border),
-            onPressed:() async{
-              ///need to decifer between one 1 and 3 cards
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+             single==true? Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: FloatingActionButton(
+                    heroTag:'list',
+                    backgroundColor: Colors.black,
+                    onPressed: (){
+                      Navigator.of(context).push(PageRouteBuilder(
+                          opaque: false,
+                          pageBuilder: (BuildContext context, _, __) {
+                            return Scaffold(
+                              floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+                                floatingActionButton: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                                  child: FloatingActionButton(
+                                      child:Icon(Icons.arrow_back),
+                                      backgroundColor: Colors.black,
+                                      onPressed:(){Navigator.pop(context);}
+                                  ),
+                                ),
+                                body:Center(child:
+                                    Transform.scale(
+                                      scale:1,
+                                      child:StaggeredGridView.count(
+                                          crossAxisCount: 1,
+                                        children:
+                                        CardList
+                                      ),
+                                    )
+                                )
+                            );
+                          }));
+                    },
+                    child:Icon(Icons.list)
+                ),
+              ):Container(),
+              faveToggle==true? Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: FloatingActionButton(
+                    heroTag:'delete',
+                    backgroundColor: Colors.black,
+                    onPressed: null,
+                    child:Icon(Icons.delete)
+                ),
+              ):Container(),
+              faveToggle==false?FloatingActionButton(
+                backgroundColor: Colors.black,
+                heroTag: 'faveit',
+                child:Icon(Icons.favorite_border),
+                onPressed:() async{
+                  ///need to decifer between one 1 and 3 cards
 
-              //upload to favourites: favourites>uid>list
-              final FirebaseAuth auth = FirebaseAuth.instance;
-             FirebaseUser user = await auth.currentUser();
-             print(user.uid);
-             print(CardList.first.key.toString());
-             //get fave data
-              //add current key to that list
-              //upload list to database
-              print('single is $single');
-              if(single==true){
-              DatabaseReference ref = FirebaseDatabase.instance.reference();
-              String faveListString;
-              await ref
-                  .child('favourites/SINGLE/${user.uid}/faveList')
-                  .once()
-                  .then((snapshot){faveListString=snapshot.value;});
-              if (faveListString==null){faveListString='[]';}
-              faveList = await json.decode(faveListString);
-              String currentCard = CardList.first.key.toString();
-              faveList.add(currentCard.substring(2, currentCard.length-2));
-              faveList = faveList.toSet().toList();
-              //remove duplicates
-              faveListString = json.encode(faveList);
-              var data =
-              {
-                "faveList": faveListString,
-              };
+                  //upload to favourites: favourites>uid>list
+                  final FirebaseAuth auth = FirebaseAuth.instance;
+                 FirebaseUser user = await auth.currentUser();
+                 print(user.uid);
+                 print(CardList.first.key.toString());
+                 //get fave data
+                  //add current key to that list
+                  //upload list to database
+                  print('single is $single');
+                  if(single==true){
+                  DatabaseReference ref = FirebaseDatabase.instance.reference();
+                  String faveListString;
+                  await ref
+                      .child('favourites/SINGLE/${user.uid}/faveList')
+                      .once()
+                      .then((snapshot){faveListString=snapshot.value;});
+                  if (faveListString==null){faveListString='[]';}
+                  faveList = await json.decode(faveListString);
+                  String currentCard = CardList.first.key.toString();
+                  faveList.add(currentCard.substring(2, currentCard.length-2));
+                  faveList = faveList.toSet().toList();
+                  //remove duplicates
+                  faveListString = json.encode(faveList);
+                  var data =
+                  {
+                    "faveList": faveListString,
+                  };
 
-             await ref.child("favourites").child('SINGLE').child(user.uid).set(data);
-              print('here hmm');
-            }
-            else{
-              ///3 card mix
-               print('3 card mix');
-               print('card 1: $card1');
-               print('card 2: $card2');
-               print('card 3: $card3');
-               DatabaseReference ref = FirebaseDatabase.instance.reference();
-               String currentCard1=card1.key.toString();
-               String currentCard2=card2.key.toString();
-               String currentCard3=card3.key.toString();
-               currentCard1 = currentCard1.substring(3, currentCard1.length-3);
-               currentCard2 = currentCard2.substring(3, currentCard2.length-3);
-               currentCard3 = currentCard3.substring(3, currentCard3.length-3);
+                 await ref.child("favourites").child('SINGLE').child(user.uid).set(data);
+                  print('here hmm');
+                }
+                else{
+                  ///3 card mix
+                   print('3 card mix');
+                   print('card 1: $card1');
+                   print('card 2: $card2');
+                   print('card 3: $card3');
+                   DatabaseReference ref = FirebaseDatabase.instance.reference();
+                   String currentCard1=card1.key.toString();
+                   String currentCard2=card2.key.toString();
+                   String currentCard3=card3.key.toString();
+                   currentCard1 = currentCard1.substring(3, currentCard1.length-3);
+                   currentCard2 = currentCard2.substring(3, currentCard2.length-3);
+                   currentCard3 = currentCard3.substring(3, currentCard3.length-3);
 
-               String setName = '$currentCard1$currentCard2$currentCard3';
-               print('set name is: $setName');
+                   String setName = '$currentCard1$currentCard2$currentCard3';
+                   print('set name is: $setName');
 
-               //remove duplicates
-               var data =
-               {
-                 "card1": currentCard1,
-                 "card2": currentCard2,
-                 "card3": currentCard3,
+                   //remove duplicates
+                   var data =
+                   {
+                     "card1": currentCard1,
+                     "card2": currentCard2,
+                     "card3": currentCard3,
 
-               };
+                   };
 
-               await ref.child("favourites").child('MIX').child(user.uid).child(setName).set(data);
-              }
-            },
+                   await ref.child("favourites").child('MIX').child(user.uid).child(setName).set(data);
+                  }
+                },
+              ):Container(),
+              faveToggle==true? Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: FloatingActionButton(
+                  heroTag:'edit',
+                    backgroundColor: Colors.black,
+                    onPressed: null,
+                    child:Icon(Icons.edit)
+                ),
+              ):Container()
+            ],
+
           ),
         ),
         body: Container(
@@ -215,14 +278,31 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
                               FloatingActionButton(
                                 ///only show favourites
-                                onPressed:null,
+                                onPressed:(){
+                                  //only show favourites
+                                  //toggle on
+                                  if(faveToggle==false){
+                                  setState(() {
+                                    faveToggle=true;
+                                  });}
+                                  else{
+                                    setState(() {
+                                    faveToggle=false;
+                                    });}
+                                  },
                                   heroTag: 'fave',
-                                  child: Icon(Icons.favorite_border,size:35,color: Colors.black,),backgroundColor: Colors.white
+                                  child: Icon(faveToggle==false?Icons.favorite_border:Icons.favorite,size:35,color: Colors.black,),backgroundColor: Colors.white
                               ),
                           ])),
                       ),
                       body:
-                          single==true?singleCard:threeCard
+                          Stack(
+                              children: [
+
+                              single==true?singleCard:threeCard,
+
+
+                              ])
                     ),
                   )
               ],
