@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/favourites.dart';
@@ -49,11 +50,14 @@ class _BrowseCardsState extends State<BrowseCards> {
   int currentCard1index;
   int currentCard2index;
   int currentCard3index;
+  var faveIcon = Icons.favorite_border;
 
   @override
   Widget build(BuildContext context) {
+    ///this needs to be the list of cards with their details... just put it into FB.
     CardList =['test 1','test 2','test 3'];
     CardList.shuffle();
+
     currentCard=CardList.first;
     currentCard1index=Random().nextInt(CardList.length);
     currentCard2index=Random().nextInt(CardList.length);
@@ -81,17 +85,22 @@ class _BrowseCardsState extends State<BrowseCards> {
    Widget card3=WidgetCardList[currentCard3index];
 
     var singleCard=
+    Padding(
+      padding: EdgeInsets.all(33),
+    child:
     Swiper.children(
+        viewportFraction: 0.95,
+        scale: 0.9,
         onIndexChanged: (i) {
+
           _sound.playLocal("shuffle.mp3");
           print('hi');
           currentCard=CardList[i];
+
         },
-        viewportFraction: 1.0,
-        scale: 1.0,
         children:
           WidgetCardList
-    );
+    ));
     var threeCard=
    Padding(
      padding: EdgeInsets.all(25),
@@ -179,24 +188,27 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 body:Center(child:
                                 Transform.scale(
                                   scale:1,
-                                  child:StaggeredGridView.countBuilder(
-                                    crossAxisCount: 4,
-                                    itemCount: CardList.length,
-                                    itemBuilder: (BuildContext context, int index) => Card(
-                                      elevation: 0.0,
-                                      color: Colors.transparent,
-                                      child: Column(
-                                        children: <Widget>[
-                                          Transform.scale(
-                                              scale:0.75,
-                                              child: SingleCard(CardList[index])),
-                                        ],
+                                  child:Padding(
+                                    padding: const EdgeInsets.fromLTRB(10, 100, 10, 0),
+                                    child: StaggeredGridView.countBuilder(
+                                      crossAxisCount: 4,
+                                      itemCount: CardList.length,
+                                      itemBuilder: (BuildContext context, int index) => Card(
+                                        elevation: 0.0,
+                                        color: Colors.transparent,
+                                         child:Column(
+                                            children: <Widget>[
+                                              Transform.scale(
+                                                  scale:1,
+                                                  child: SingleCard(CardList[index])),
+                                            ],
+                                        ),
                                       ),
+                                      staggeredTileBuilder: (int index) =>
+                                      new StaggeredTile.fit(2),
+                                      mainAxisSpacing: 4.0,
+                                      crossAxisSpacing: 4.0,
                                     ),
-                                    staggeredTileBuilder: (int index) =>
-                                    new StaggeredTile.fit(2),
-                                    mainAxisSpacing: 4.0,
-                                    crossAxisSpacing: 4.0,
                                   ),
                                 )
                                 )
@@ -210,7 +222,7 @@ class _BrowseCardsState extends State<BrowseCards> {
 
           ),
         ),
-        body: Container(
+      body: Container(
           child: SafeArea(
             child: Column(
               children: <Widget>[
@@ -220,10 +232,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                    backgroundColor: Colors.transparent,
                       bottomNavigationBar:Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-                        child: BottomAppBar(
-                          elevation: 0.0,
-                          color: Colors.transparent,
-                          child:Row(
+                        child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children:[
                          FloatingActionButton(
@@ -254,9 +263,9 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 FloatingActionButton(
                                   backgroundColor: Colors.white,
                                   heroTag: 'faveit',
-                                  child:Icon(Icons.favorite_border,color:Colors.black),
+                                  child:Icon(faveIcon,color:Colors.black),
                                   onPressed:() async{
-                                    ///need to show alert
+                                    ///need to show alert and fill heart
                                     ///need to show icon if already favourites and cant do anything with it or maybe unfave
                                     print('card to be faved is $currentCard');
                                     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -307,10 +316,10 @@ class _BrowseCardsState extends State<BrowseCards> {
 
                                       await ref.child("favourites").child('MIX').child(user.uid).child(setName).set(data);
                                     }
+
                                   },
                                 )
                           ])),
-                      ),
                       body:
                           Stack(
                               children: [

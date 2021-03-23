@@ -9,23 +9,44 @@ import 'package:pole_purpose/CONSTANTS/playSound.dart';
 Widget SingleCard(String id){
   return StatefulBuilder(
       builder: (context, setState) {
-        return Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: FlipCard(
-            front: Card(child: Center(child: Column(
-              children: [
-                Text(id),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                      'images/assets/splash.png', height: MediaQuery
-                      .of(context)
-                      .size
-                      .width),
-                ),
-              ],
-            )), elevation: 10,),
-            back: Card(child: Center(child: Text(id)), elevation: 10,),
+        return Container(
+          child: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: FlipCard(
+              direction: FlipDirection.HORIZONTAL,
+              front: FittedBox(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  child: Center(child: Column(
+                  children: [
+                    Text(id),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Image.asset(
+                            'images/assets/splash.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
+                    ),
+                  ],
+                )), elevation: 10,),
+              ),
+              back: FittedBox(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  child: Center(child: Column(
+                    children: [
+                      Text(id),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Image.asset(
+                            'images/assets/splash.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
+                      ),
+                    ],
+                  )), elevation: 10,),
+              ),
+            ),
           ),
         );
       });

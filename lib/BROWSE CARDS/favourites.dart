@@ -147,13 +147,23 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
       itemCount: MixFaveList.length,
       itemBuilder: (_, index) {
         return MixFaveList==[]? Text('no favourites mixes yet...'):
-        Row(
+         Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SingleCard(MixFaveList[index].card1),
-      SingleCard(MixFaveList[index].card2),
-      SingleCard(MixFaveList[index].card3)
+        Container(
+              width:MediaQuery.of(context).size.width/3.5,
+              child: SingleCard(MixFaveList[index].card1)),
+      Container(
+            width:MediaQuery.of(context).size.width/3.5,
+            child: SingleCard(MixFaveList[index].card2)),
+      Container(
+            width:MediaQuery.of(context).size.width/3.5,
+            child: SingleCard(MixFaveList[index].card3))
       ],
-      );})
+        ),
+         );})
           ])]
       ),
     ));
