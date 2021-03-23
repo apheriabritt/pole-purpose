@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pole_purpose/CONSTANTS/card.dart';
+import 'package:pole_purpose/CONSTANTS/loading.dart';
 
 class Mix
 
@@ -19,11 +20,13 @@ class Favourites extends StatefulWidget {
   _FavouritesState createState() => _FavouritesState();
 }
 
-class _FavouritesState extends State<Favourites> {
+class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   String favelist;
   List SingleFaveList= [];
   List<Mix> MixFaveList= [];
-
+  TabController _tabController;
+  int count=0;
+  bool loading=true;
 
   FirebaseUser user;
   ///get favourites
@@ -37,15 +40,15 @@ class _FavouritesState extends State<Favourites> {
     ///SINGLE CARD
     DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
         "favourites/SINGLE/${user.uid}/faveList");
-    postsRef.once().then((DataSnapshot snap) {
+    await postsRef.once().then((DataSnapshot snap) {
       SingleFaveList.clear();
-        SingleFaveList = jsonDecode(snap.value);
+        SingleFaveList = jsonDecode(snap.value);});
         print(SingleFaveList);
 
     ///THREE CARD
-      DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
+      DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
           "favourites/MIX/${user.uid}");
-      postsRef.once().then((DataSnapshot snap) {
+      await postsRef2.once().then((DataSnapshot snap) {
         var KEYS = snap.value.keys;
         var DATA = snap.value;
         for (var individualKey in KEYS) {
@@ -56,20 +59,39 @@ class _FavouritesState extends State<Favourites> {
           );
         MixFaveList.add(mix);
       }});
-      setState(() {});
-    });
+      print('got em');
+      setState(() {
+        loading=false;
+      });
   }
 
   void initState() {
     super.initState();
    getFaves();
+    void _handleTabChange() {
+      if (_tabController.indexIsChanging) {
+        print('changed');
+      setState(() {
+
+      });}
+    }
+
+    _tabController = TabController(
+        vsync: this,
+        length: 2
+    );
+    _tabController.addListener(_handleTabChange);
+  }
+
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
 
     @override
   Widget build(BuildContext context) {
-
-    return DefaultTabController(
+    return loading==true?Loading():DefaultTabController(
       length:2,
       child: Scaffold(
         appBar: AppBar(
@@ -77,6 +99,7 @@ class _FavouritesState extends State<Favourites> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         bottom: TabBar(
+          controller: _tabController,
           indicatorColor: Colors.black,
         tabs: [
           Tab(icon: Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png',width: 50,)),
@@ -94,6 +117,7 @@ class _FavouritesState extends State<Favourites> {
             ),
           ),
           body:TabBarView(
+            controller: _tabController,
             children: [Center(child:
             Transform.scale(
               scale:1,
@@ -123,16 +147,13 @@ class _FavouritesState extends State<Favourites> {
       itemCount: MixFaveList.length,
       itemBuilder: (_, index) {
         return MixFaveList==[]? Text('no favourites mixes yet...'):
-        
-        Expanded(
-          child: Row(
+        Row(
       children: [
-          SingleCard(MixFaveList[index].card1),
+        SingleCard(MixFaveList[index].card1),
       SingleCard(MixFaveList[index].card2),
       SingleCard(MixFaveList[index].card3)
       ],
-      ),
-        );})
+      );})
           ])]
       ),
     ));
