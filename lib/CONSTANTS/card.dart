@@ -7,12 +7,27 @@ import 'package:pole_purpose/CONSTANTS/playSound.dart';
 //then get the card widget
 
 Widget SingleCard(String id){
-  return Padding(
-    padding: const EdgeInsets.all(25.0),
-    child: FlipCard(
-      front: Card(child: Center(child: Text(id)),elevation: 10,),
-      back: Card(child: Center(child: Text(id)),elevation: 10,),
-    ),
-  );
+  return StatefulBuilder(
+      builder: (context, setState) {
+        return Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: FlipCard(
+            front: Card(child: Center(child: Column(
+              children: [
+                Text(id),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                      'images/assets/splash.png', height: MediaQuery
+                      .of(context)
+                      .size
+                      .width),
+                ),
+              ],
+            )), elevation: 10,),
+            back: Card(child: Center(child: Text(id)), elevation: 10,),
+          ),
+        );
+      });
 }
 
