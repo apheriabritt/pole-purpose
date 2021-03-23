@@ -103,7 +103,7 @@ class _BrowseCardsState extends State<BrowseCards> {
     ));
     var threeCard=
    Padding(
-     padding: EdgeInsets.all(25),
+     padding: EdgeInsets.all(50),
        child:Stack(
     children:[
         Positioned(
