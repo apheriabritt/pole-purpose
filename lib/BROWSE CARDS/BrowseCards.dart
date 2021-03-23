@@ -132,10 +132,24 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 body:Center(child:
                                     Transform.scale(
                                       scale:1,
-                                      child:StaggeredGridView.count(
-                                          crossAxisCount: 1,
-                                        children:
-                                        CardList
+                                      child:StaggeredGridView.countBuilder(
+                                        crossAxisCount: 4,
+                                        itemCount: CardList.length,
+                                        itemBuilder: (BuildContext context, int index) => Card(
+                                          elevation: 0.0,
+                                          color: Colors.transparent,
+                                          child: Column(
+                                            children: <Widget>[
+                                          Transform.scale(
+                                              scale:0.75,
+                                              child: CardList[index]),
+                                            ],
+                                          ),
+                                        ),
+                                        staggeredTileBuilder: (int index) =>
+                                        new StaggeredTile.fit(2),
+                                        mainAxisSpacing: 4.0,
+                                        crossAxisSpacing: 4.0,
                                       ),
                                     )
                                 )
