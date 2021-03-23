@@ -55,7 +55,7 @@ class _BrowseCardsState extends State<BrowseCards> {
   @override
   Widget build(BuildContext context) {
     ///this needs to be the list of cards with their details... just put it into FB.
-    CardList =['test 1','test 2','test 3'];
+    CardList =['1','2','3'];
     CardList.shuffle();
 
     currentCard=CardList.first;
@@ -85,6 +85,7 @@ class _BrowseCardsState extends State<BrowseCards> {
    Widget card3=WidgetCardList[currentCard3index];
 
     var singleCard=
+
     Padding(
       padding: EdgeInsets.all(33),
     child:

@@ -22,8 +22,8 @@ class Favourites extends StatefulWidget {
 
 class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   String favelist;
-  List SingleFaveList= [];
-  List<Mix> MixFaveList= [];
+  List SingleFaveList=[];
+  List<Mix> MixFaveList=[];
   TabController _tabController;
   int count=0;
   bool loading=true;
@@ -41,14 +41,17 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
     DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
         "favourites/SINGLE/${user.uid}/faveList");
     await postsRef.once().then((DataSnapshot snap) {
+      if(snap.value!=null){
       SingleFaveList.clear();
-        SingleFaveList = jsonDecode(snap.value);});
+        SingleFaveList = jsonDecode(snap.value);}});
         print(SingleFaveList);
 
     ///THREE CARD
       DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
           "favourites/MIX/${user.uid}");
       await postsRef2.once().then((DataSnapshot snap) {
+        print('snap is $snap');
+        if(snap.value!=null){
         var KEYS = snap.value.keys;
         var DATA = snap.value;
         for (var individualKey in KEYS) {
@@ -58,7 +61,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
               DATA[individualKey]['card3']
           );
         MixFaveList.add(mix);
-      }});
+      }}});
       print('got em');
       setState(() {
         loading=false;
@@ -91,7 +94,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
 
     @override
   Widget build(BuildContext context) {
-    return loading==true?Loading():DefaultTabController(
+    return DefaultTabController(
       length:2,
       child: Scaffold(
         appBar: AppBar(
@@ -118,10 +121,13 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
           ),
           body:TabBarView(
             controller: _tabController,
-            children: [Center(child:
+            children: [
+              SingleFaveList==[]?Text('no favourites'):
+              Center(child:
             Transform.scale(
               scale:1,
-              child:StaggeredGridView.countBuilder(
+              child:
+              StaggeredGridView.countBuilder(
                 crossAxisCount: 4,
                 itemCount: SingleFaveList.length, //userfavelist,
                 itemBuilder: (BuildContext context, int index) => Card(
@@ -129,7 +135,10 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
                   color: Colors.transparent,
                   ///needs to be just the cards that match the thing so need to sort out the card widget
                   child:
-                      SingleCard(SingleFaveList[index])
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SingleCard(SingleFaveList[index]),
+                      )
                 ),
                 staggeredTileBuilder: (int index) =>
                 new StaggeredTile.fit(2),
@@ -139,7 +148,8 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
             )
             ),
             ///MIX VIEW
-            ListView(
+              MixFaveList==[]?Text('no favourites'):
+              ListView(
             children: [
             ListView.builder(
       physics: ScrollPhysics(),
