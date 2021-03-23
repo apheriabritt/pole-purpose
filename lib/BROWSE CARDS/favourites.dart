@@ -4,15 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:pole_purpose/CONSTANTS/card.dart';
 
+class Mix
 
-class ThreeCard
 {
 
-  String card1,card2,card3; ///the list of all single cards faved needs to be json decoded
-
-  ThreeCard(this.card1,this.card2,this.card3);
-
+  String card1,card2,card3;
+Mix(this.card1,this.card2,this.card3);
 }
 
 class Favourites extends StatefulWidget {
@@ -23,24 +22,42 @@ class Favourites extends StatefulWidget {
 class _FavouritesState extends State<Favourites> {
   String favelist;
   List SingleFaveList= [];
+  List<Mix> MixFaveList= [];
+
+
   FirebaseUser user;
   ///get favourites
   ///
 
   void getFaves() async{
-    ///SINGLE CARD
+
     final FirebaseAuth auth = FirebaseAuth.instance;
     user = await auth.currentUser();
+
+    ///SINGLE CARD
     DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
         "favourites/SINGLE/${user.uid}/faveList");
     postsRef.once().then((DataSnapshot snap) {
       SingleFaveList.clear();
         SingleFaveList = jsonDecode(snap.value);
         print(SingleFaveList);
+
+    ///THREE CARD
+      DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
+          "favourites/MIX/${user.uid}");
+      postsRef.once().then((DataSnapshot snap) {
+        var KEYS = snap.value.keys;
+        var DATA = snap.value;
+        for (var individualKey in KEYS) {
+          Mix mix = new Mix(
+              DATA[individualKey]['card1'],
+              DATA[individualKey]['card2'],
+              DATA[individualKey]['card3']
+          );
+        MixFaveList.add(mix);
+      }});
       setState(() {});
     });
-    ///for the fave list, get the details for each card
-    ///THREE CARD... STRUGGLING WITH IT TBC
   }
 
   void initState() {
@@ -86,7 +103,9 @@ class _FavouritesState extends State<Favourites> {
                 itemBuilder: (BuildContext context, int index) => Card(
                   elevation: 0.0,
                   color: Colors.transparent,
-                  child: Text(SingleFaveList[index])
+                  ///needs to be just the cards that match the thing so need to sort out the card widget
+                  child:
+                      SingleCard(SingleFaveList[index])
                 ),
                 staggeredTileBuilder: (int index) =>
                 new StaggeredTile.fit(2),
@@ -96,9 +115,26 @@ class _FavouritesState extends State<Favourites> {
             )
             ),
             ///MIX VIEW
-            Container()
-          ])
+            ListView(
+            children: [
+            ListView.builder(
+      physics: ScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: MixFaveList.length,
+      itemBuilder: (_, index) {
+        return MixFaveList==[]? Text('no favourites mixes yet...'):
+        
+        Expanded(
+          child: Row(
+      children: [
+          SingleCard(MixFaveList[index].card1),
+      SingleCard(MixFaveList[index].card2),
+      SingleCard(MixFaveList[index].card3)
+      ],
       ),
-    );
+        );})
+          ])]
+      ),
+    ));
   }
 }

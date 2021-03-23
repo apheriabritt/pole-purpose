@@ -19,8 +19,12 @@ class BrowseCards extends StatefulWidget {
   _BrowseCardsState createState() => _BrowseCardsState();
 }
 
-List<Widget> CardList = List<Widget>();
+List<String> CardList;
 List faveList=[];
+
+void getCards() async{
+
+}
 
 
 // ignore: missing_return
@@ -36,41 +40,66 @@ class _BrowseCardsState extends State<BrowseCards> {
   ];
 
   PlaySound _sound = PlaySound();
+  String currentCard;
 
+  String currentCard1;
+  String currentCard2;
+  String currentCard3;
+
+  int currentCard1index;
+  int currentCard2index;
+  int currentCard3index;
 
   @override
   Widget build(BuildContext context) {
+    CardList =['test 1','test 2','test 3'];
+    CardList.shuffle();
+    currentCard=CardList.first;
+    currentCard1index=Random().nextInt(CardList.length);
+    currentCard2index=Random().nextInt(CardList.length);
+    currentCard3index=Random().nextInt(CardList.length);
 
+    currentCard1=CardList[currentCard1index];
+    currentCard2=CardList[currentCard2index];
+    currentCard3=CardList[currentCard3index];
 
-   var animalKey = Key('animal');
-    var eyesKey = Key('eyes');
-    var combiningKey = Key('combining');
+    print('current card is $currentCard');
+    print('current card 1 is $currentCard1');
+    print('current card 2 is $currentCard2');
+    print('current card 3 is $currentCard3');
 
-    Widget AnimalCard=Container(key:animalKey,child:CardWidget(context).showCard(2));
-    Widget EyesCard=Container(key:eyesKey,child:CardWidget(context).showCard(3));
-    Widget CombiningCard=Container(key:combiningKey,child:CardWidget(context).showCard(4));
+    List<Widget> WidgetCardList = [];
+    CardList.forEach((item){
+      print('item is $item');
+     Widget WidgetA = SingleCard(item);
+      WidgetCardList.add(WidgetA);});
+///need a list of ids. i guess from fb. (like faves) then show those ids via SingleCard. CardList will contain ids.
+    ///Widget list
 
-    CardList = [
-      AnimalCard,
-      EyesCard,
-      CombiningCard
-    ];
-   Widget card1=CardList[Random().nextInt(CardList.length)];
-   Widget card2=CardList[Random().nextInt(CardList.length)];
-   Widget card3=CardList[Random().nextInt(CardList.length)];
-    var singleCard= Swiper.children(
-        onIndexChanged: (i) => {_sound.playLocal("shuffle.mp3")},
+   Widget card1=WidgetCardList[currentCard1index];
+   Widget card2=WidgetCardList[currentCard2index];
+   Widget card3=WidgetCardList[currentCard3index];
+
+    var singleCard=
+    Swiper.children(
+        onIndexChanged: (i) {
+          _sound.playLocal("shuffle.mp3");
+          print('hi');
+          currentCard=CardList[i];
+        },
         viewportFraction: 1.0,
         scale: 1.0,
         children:
-        CardList
+          WidgetCardList
     );
     var threeCard=
-    Stack(
+   Padding(
+     padding: EdgeInsets.all(25),
+       child:Stack(
     children:[
         Positioned(
           child: Transform.scale(
-            scale: 0.5,
+            scale: 0.4,
             alignment: Alignment.topRight,
             child: Transform.rotate(
                 angle:pi/12,
@@ -78,20 +107,20 @@ class _BrowseCardsState extends State<BrowseCards> {
           ),
         ),
       Transform.scale(
-        scale: 0.5,
+        scale: 0.4,
         alignment: Alignment.center,
         child: Transform.rotate(
             angle:-pi/12,
             child: card2),
       ),
       Transform.scale(
-        scale: 0.5,
+        scale: 0.4,
         alignment: Alignment.bottomLeft,
         child: Transform.rotate(
             angle:pi/12,
             child: card3),
       )
-    ]);
+    ]));
 
 
 
@@ -160,7 +189,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                         children: <Widget>[
                                           Transform.scale(
                                               scale:0.75,
-                                              child: CardList[index]),
+                                              child: SingleCard(CardList[index])),
                                         ],
                                       ),
                                     ),
@@ -223,18 +252,17 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 },
                                 child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
                                 FloatingActionButton(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
                                   heroTag: 'faveit',
-                                  child:Icon(Icons.favorite_border),
+                                  child:Icon(Icons.favorite_border,color:Colors.black),
                                   onPressed:() async{
                                     ///need to show alert
                                     ///need to show icon if already favourites and cant do anything with it or maybe unfave
-
-                                    //upload to favourites: favourites>uid>list
+                                    print('card to be faved is $currentCard');
                                     final FirebaseAuth auth = FirebaseAuth.instance;
                                     FirebaseUser user = await auth.currentUser();
                                     print(user.uid);
-                                    print(CardList.first.key.toString());
+                                    //print(CardList.first.key.toString());
                                     //get fave data
                                     //add current key to that list
                                     //upload list to database
@@ -248,8 +276,8 @@ class _BrowseCardsState extends State<BrowseCards> {
                                           .then((snapshot){faveListString=snapshot.value;});
                                       if (faveListString==null){faveListString='[]';}
                                       faveList = await json.decode(faveListString);
-                                      String currentCard = CardList.first.key.toString();
-                                      faveList.add(currentCard.substring(2, currentCard.length-2));
+                                      //= CardList.first.key.toString();
+                                      faveList.add(currentCard);
                                       faveList = faveList.toSet().toList();
                                       //remove duplicates
                                       faveListString = json.encode(faveList);
@@ -263,17 +291,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                     }
                                     else{
                                       ///3 card mix
-                                      print('3 card mix');
-                                      print('card 1: $card1');
-                                      print('card 2: $card2');
-                                      print('card 3: $card3');
                                       DatabaseReference ref = FirebaseDatabase.instance.reference();
-                                      String currentCard1=card1.key.toString();
-                                      String currentCard2=card2.key.toString();
-                                      String currentCard3=card3.key.toString();
-                                      currentCard1 = currentCard1.substring(3, currentCard1.length-3);
-                                      currentCard2 = currentCard2.substring(3, currentCard2.length-3);
-                                      currentCard3 = currentCard3.substring(3, currentCard3.length-3);
 
                                       String setName = '$currentCard1$currentCard2$currentCard3';
                                       print('set name is: $setName');
