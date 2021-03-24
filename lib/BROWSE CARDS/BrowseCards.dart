@@ -20,12 +20,10 @@ class BrowseCards extends StatefulWidget {
   _BrowseCardsState createState() => _BrowseCardsState();
 }
 
-List<String> CardList;
+List<String> CardList =['1','2','3'];
 List faveList=[];
+String currentCard;
 
-void getCards() async{
-
-}
 
 
 // ignore: missing_return
@@ -41,7 +39,6 @@ class _BrowseCardsState extends State<BrowseCards> {
   ];
 
   PlaySound _sound = PlaySound();
-  String currentCard;
 
   String currentCard1;
   String currentCard2;
@@ -55,8 +52,7 @@ class _BrowseCardsState extends State<BrowseCards> {
   @override
   Widget build(BuildContext context) {
     ///this needs to be the list of cards with their details... just put it into FB.
-    CardList =['1','2','3'];
-    CardList.shuffle();
+
 
     currentCard=CardList.first;
     currentCard1index=Random().nextInt(CardList.length);
@@ -136,7 +132,35 @@ class _BrowseCardsState extends State<BrowseCards> {
 
     ////////
     bool appbar=false;
-    CardList.shuffle();
+
+    void isFaved() async{
+      if(single==true){
+        final FirebaseAuth auth = FirebaseAuth.instance;
+        FirebaseUser user = await auth.currentUser();
+        DatabaseReference ref = FirebaseDatabase.instance.reference();
+        String faveListString;
+        await ref
+            .child('favourites/SINGLE/${user.uid}/faveList')
+            .once()
+            .then((snapshot){faveListString=snapshot.value;});
+        if (faveListString==null){faveListString='[]';}
+        faveList = await json.decode(faveListString);
+        //= CardList.first.key.toString();
+        if(faveList.contains(currentCard)){
+          print('this card is faved');
+          setState(() {
+            faveIcon=Icons.favorite;
+          });
+        }
+        else{
+          print('this card is faved');
+          setState(() {
+            faveIcon=Icons.favorite_border;
+              });
+
+      }
+    }}
+    isFaved();
 
 
     return Scaffold(extendBodyBehindAppBar: true,
@@ -257,6 +281,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 heroTag: 'homeshuffle',
                                 onPressed: (){
                                   _sound.playLocal("shuffle.mp3");
+                                  CardList.shuffle();
                                   setState(() {
                                   });
                                 },
@@ -266,6 +291,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                   heroTag: 'faveit',
                                   child:Icon(faveIcon,color:Colors.black),
                                   onPressed:() async{
+                                    ///get single fave list. if currentcard is in list, fill heart
                                     ///need to show alert and fill heart
                                     ///need to show icon if already favourites and cant do anything with it or maybe unfave
                                     print('card to be faved is $currentCard');
@@ -287,7 +313,11 @@ class _BrowseCardsState extends State<BrowseCards> {
                                       if (faveListString==null){faveListString='[]';}
                                       faveList = await json.decode(faveListString);
                                       //= CardList.first.key.toString();
-                                      faveList.add(currentCard);
+                                      if(faveList.contains(currentCard)){
+                                        faveList.remove(currentCard);
+                                        faveIcon=Icons.favorite_border;
+                                      }
+                                      else{faveList.add(currentCard);}
                                       faveList = faveList.toSet().toList();
                                       //remove duplicates
                                       faveListString = json.encode(faveList);
