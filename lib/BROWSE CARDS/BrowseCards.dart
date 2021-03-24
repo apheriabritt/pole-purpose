@@ -165,6 +165,11 @@ String setName;
             "favourites/MIX/${user.uid}");
         await postsRef2.once().then((DataSnapshot snap) {
           print('snap is $snap');
+          if(snap.value==null){
+            setState(() {
+              faveIcon=Icons.favorite_border;
+            });
+          }
           if(snap.value!=null){
             var KEYS = snap.value.keys;
             var DATA = snap.value;
