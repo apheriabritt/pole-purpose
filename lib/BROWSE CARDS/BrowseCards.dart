@@ -253,11 +253,12 @@ String setName;
                                       itemBuilder: (BuildContext context, int index) => Card(
                                         elevation: 0.0,
                                         color: Colors.transparent,
-                                         child:Column(
+                                         child:Stack(
                                             children: <Widget>[
                                               Transform.scale(
                                                   scale:1,
                                                   child: SingleCard(CardList[index])),
+                                              //FAB
                                             ],
                                         ),
                                       ),
