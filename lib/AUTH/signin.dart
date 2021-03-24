@@ -24,23 +24,7 @@ class _SignInState extends State<SignIn> {
   String password ='';
   String error ='';
 
-  void ForgotPassword() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-              title: new Text("forgot password?",style: TextStyle(fontFamily: 'apheriafont', fontSize: 30.0,color: Colors.blue),),
-              content: new Text("send an email to britt@adapt.co.uk and i will send you a password reset link :)",style: TextStyle(fontFamily: 'apheriafont', fontSize: 20.0,color: Colors.black),),
-              actions: <Widget>[
-                // usually buttons at the bottom of the dialog
-                new FlatButton(
-                  child: new Text("ok!",style: TextStyle(fontFamily: 'apheriafont', fontSize: 30.0,color: Colors.blue),),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
 
-                )]);});}
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +105,6 @@ class _SignInState extends State<SignIn> {
                     leading: Icon(Icons.help, color: Colors.white),
                     title: Text('forgot password!', style: TextStyle(color: Colors.white)),
                     trailing: Icon(Icons.arrow_forward, color: Colors.white),
-                    onTap: ForgotPassword
                 ),
               ),
 

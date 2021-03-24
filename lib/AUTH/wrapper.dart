@@ -7,8 +7,6 @@ import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
 import 'package:provider/provider.dart';
 
-
-
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,6 @@ class Wrapper extends StatelessWidget {
             {
               "uid": snapshot.data.uid,
               "username": snapshot.data.displayName,
-              "avatar": snapshot.data.photoUrl,
               "email": snapshot.data.email,
               "pushid": pushtoken
 

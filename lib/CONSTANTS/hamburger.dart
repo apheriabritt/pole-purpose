@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/AUTH/services.dart';
+import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/BLOG/blog.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
 import 'package:pole_purpose/INSTRUCTIONS/choreotips.dart';
@@ -13,6 +15,7 @@ import 'package:pole_purpose/MORE%20INFO/copyright.dart';
 import 'package:pole_purpose/MORE%20INFO/privacy.dart';
 import 'package:pole_purpose/MORE%20INFO/terms.dart';
 import 'package:pole_purpose/ONLINE%20CLASSES/OnlineClasses.dart';
+import 'package:pole_purpose/PUSH%20NOTIFS/PUSHHUB.dart';
 
 
 var hamburger = PreferredSize(
@@ -217,6 +220,34 @@ void showModal(){
                     MaterialPageRoute(
                       builder: (context) => Blog(),
                     ),
+                  );
+                },
+              ),
+              TextButton(
+                child:ListTile(
+                    leading:Icon(Icons.logout,color:Colors.black,size:35),
+                    title: Text('SIGN OUT',style:TextStyle(color:Colors.black,fontSize:35))
+                ),
+                onPressed: ()
+                  async {
+                    final AuthService _auth = AuthService();
+                    await _auth.signOut();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Wrapper()),
+                    );
+                },
+              ),
+              TextButton(
+                child:ListTile(
+                    leading:Icon(Icons.notifications_active,color:Colors.black,size:35),
+                    title: Text('PUSH HUB',style:TextStyle(color:Colors.black,fontSize:35))
+                ),
+                onPressed: ()
+                async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PushCentre()),
                   );
                 },
               )
