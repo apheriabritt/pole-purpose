@@ -43,6 +43,8 @@ class _BrowseCardsState extends State<BrowseCards> {
 
 
 String setName;
+  List threecardkeylist=[];
+
 
 
   @override
@@ -157,10 +159,11 @@ String setName;
       }
     }
     else{
+        threecardkeylist.clear();
+        print('cleared list: $threecardkeylist');
         DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
             "favourites/MIX/${user.uid}");
         await postsRef2.once().then((DataSnapshot snap) {
-          List threecardkeylist=[];
           print('snap is $snap');
           if(snap.value!=null){
             var KEYS = snap.value.keys;
@@ -181,7 +184,7 @@ String setName;
               else if(match!=true){
                 print('NO MATCH');
               setState(() {
-                  faveIcon=Icons.favorite_border;
+                faveIcon=Icons.favorite_border;
                 });}
               }
 
@@ -362,6 +365,15 @@ String setName;
                                       print('here hmm');
                                     }
                                     else{
+                                      bool match;
+                                      if(threecardkeylist.contains(setName)){
+                                        match=true;
+                                        FirebaseDatabase.instance.reference().child("favourites").child('MIX').child(user.uid).child(setName).remove();
+                                        setState(() {
+                                          faveIcon=Icons.favorite_border;
+                                        });
+                                      }
+                                      else if(match!=true){
                                       setState(() {
                                         faveIcon=Icons.favorite;
                                       });
@@ -382,7 +394,7 @@ String setName;
 
                                       await ref.child("favourites").child('MIX').child(user.uid).child(setName).set(data);
 
-                                    }
+                                    }}
 
                                   },
                                 )
