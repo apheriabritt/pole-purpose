@@ -15,6 +15,8 @@ import '../CONSTANTS/card.dart';
 bool single=true;
 bool faveToggle=false;
 Widget cardIcon = Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
+var faveIcon = Icons.favorite_border;
+
 class BrowseCards extends StatefulWidget {
   @override
   _BrowseCardsState createState() => _BrowseCardsState();
@@ -23,20 +25,15 @@ class BrowseCards extends StatefulWidget {
 List<String> CardList =['1','2','3'];
 List faveList=[];
 String currentCard;
-
+int currentCard1index=0;
+int currentCard2index=0;
+int currentCard3index=0;
 
 
 // ignore: missing_return
 
 class _BrowseCardsState extends State<BrowseCards> {
-  var backTextTitle = ["", "Action", "Descriptive Words", "Everyday Movement", "Everyday Movements"];
-  var backTextList = [
-    "",
-    "Rub, sink, rise, melt, bend, stretch, twist, swing, push, pull, rock, balance, shake, float, duck, dodge, jab, poke, shove, carve, freeze, wiggle, turn, fall, straighten, strike, chop, spin, kick, punch, wring, tickle, hug, hang, sway, open, close, flap, pluck, tap, grab, wrap, flick, pose, burst, glide, shrug, dig, blot, flee, chase, dash, hurl, gallop, bounce, rush, sail, plummet, scramble, smash, soar, speed, still, spring, sprint, skip, zoom, whisk, stride, jump, cat walk, shuffle, tip toe, grow, wriggle, polka, waddle, slither, swoon, prance, drag, tense, slow, land, burn, hold, escape, lift, restrict, flight, roll, suspend, collapse, trap, fling, weave, nail, squash, lean, tangle, low, fold, pop, cluster, bind, hop, weld, plant, stack, squeeze, draw out, spread, wedge, fading, shaded, sharp, hard, grotesque, obscure, weak, old, cold, young, flash, shadow, broken, excite, clarify, fragment, reverse, inversion, duration, position, compose, carry, allow, explore, light, heavy, space, shape, break, overlap, dominance, submission, force, follow, resist, ignore, run, repetition, under, behind, reach, lengthen, beyond, inside, outside, explain, mould, add, exaggerate, crawl, merge, absorb, abrupt, rearrange, lines, curves, sudden, jagged, smooth, continuous, even, relax, split, leave and re-enter.",
-    "Choose four everyday movements such as waving to somebody or putting clothes on. Write them down and begin to form each idea with your body.Try to play with the size and the speed at which you perform the movement as this will really allow you to create something that is not so literal.Once you are comfortable with how the movements look and the order in which they are linked together, think about performing them at different points next to or on the pole. How can the pole enhance this movement? Could you try executing these gestures in an invert or in an upright position on the pole?See example card for every day movement inspiration, but first try to think of some yourself as it will develop your creative potential.",
-    "The Everyday Movement card can be used to expand your imagination from a stylised genre of movement, such as typical pole dance technique, to a more pedestrian style of movement that will offer fruitful ways of enhancing your pole and floor work.  Allow this card to really expand the way you think about movement. Ask yourself what can be considered dance and how you could communicate more effectively by employing some of these everyday gestures.Check watch, check e-mail, check current devices, cross and uncross legs, doodle, fiddle (play) with jewellery, sigh, hold breath, talk to self, twirl hair, move hair out of face, crack neck, lean forward, lean back or away, shrug shoulders, roll head, turn head, tilt head, rub neck, touch (drop) chin to chest, bat eyes, roll eyes, wipe off sweat, massage forehead, rub temples, play with beard or moustache, pull (tug) on ear, smooth eyebrows, wink, wipe away tears, choke, tighten, or grip jaw, swallow, put finger to lips (in thought or to shush someone), sip tea or coffee (other drinks), gulp down alcoholic drink, smile, smoke, push hair behind ears, mess with barrettes or ribbons or hats, push hair off face (own face or the face of others), hold someone’s hand, rub hands together, rub hands up and down arms, up and down legs, snap fingers, suck thumb or finger, tap or drum fingers on self or object, toss ball (or other object) hand to hand, trace scars or injuries, shake, or point finger, wrap arms around own body, wring hand, putting on clothes and taking clothes off.",
-    ""
-  ];
+
 
   PlaySound _sound = PlaySound();
 
@@ -44,10 +41,9 @@ class _BrowseCardsState extends State<BrowseCards> {
   String currentCard2;
   String currentCard3;
 
-  int currentCard1index;
-  int currentCard2index;
-  int currentCard3index;
-  var faveIcon = Icons.favorite_border;
+
+String setName;
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +51,13 @@ class _BrowseCardsState extends State<BrowseCards> {
 
 
     currentCard=CardList.first;
-    currentCard1index=Random().nextInt(CardList.length);
-    currentCard2index=Random().nextInt(CardList.length);
-    currentCard3index=Random().nextInt(CardList.length);
+
 
     currentCard1=CardList[currentCard1index];
     currentCard2=CardList[currentCard2index];
     currentCard3=CardList[currentCard3index];
+    setName = '$currentCard1$currentCard2$currentCard3';
+
 
     print('current card is $currentCard');
     print('current card 1 is $currentCard1');
@@ -134,9 +130,9 @@ class _BrowseCardsState extends State<BrowseCards> {
     bool appbar=false;
 
     void isFaved() async{
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      FirebaseUser user = await auth.currentUser();
       if(single==true){
-        final FirebaseAuth auth = FirebaseAuth.instance;
-        FirebaseUser user = await auth.currentUser();
         DatabaseReference ref = FirebaseDatabase.instance.reference();
         String faveListString;
         await ref
@@ -153,13 +149,46 @@ class _BrowseCardsState extends State<BrowseCards> {
           });
         }
         else{
-          print('this card is faved');
+          print('this card is not faved');
           setState(() {
             faveIcon=Icons.favorite_border;
               });
 
       }
-    }}
+    }
+    else{
+        DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
+            "favourites/MIX/${user.uid}");
+        await postsRef2.once().then((DataSnapshot snap) {
+          List threecardkeylist=[];
+          print('snap is $snap');
+          if(snap.value!=null){
+            var KEYS = snap.value.keys;
+            var DATA = snap.value;
+            for (var individualKey in KEYS) {
+              String threecardkey=DATA[individualKey]['id'];
+              print('key is: ${DATA[individualKey]['id']}');
+              threecardkeylist.add(threecardkey);}
+              print('set name is $setName');
+            bool match;
+              if(threecardkeylist.contains(setName)){
+                print('MATCH');
+                match =true;
+                setState(() {
+                  faveIcon=Icons.favorite;
+                });
+              }
+              else if(match!=true){
+                print('NO MATCH');
+              setState(() {
+                  faveIcon=Icons.favorite_border;
+                });}
+              }
+
+            });
+        print('got em');
+      }
+    }
     isFaved();
 
 
@@ -282,6 +311,9 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 onPressed: (){
                                   _sound.playLocal("shuffle.mp3");
                                   CardList.shuffle();
+                                  currentCard1index=Random().nextInt(CardList.length);
+                                  currentCard2index=Random().nextInt(CardList.length);
+                                  currentCard3index=Random().nextInt(CardList.length);
                                   setState(() {
                                   });
                                 },
@@ -330,10 +362,12 @@ class _BrowseCardsState extends State<BrowseCards> {
                                       print('here hmm');
                                     }
                                     else{
-                                      ///3 card mix
+                                      setState(() {
+                                        faveIcon=Icons.favorite;
+                                      });
+                                      ///3 card mix...find a way to light up the heart... i guess same as before
                                       DatabaseReference ref = FirebaseDatabase.instance.reference();
 
-                                      String setName = '$currentCard1$currentCard2$currentCard3';
                                       print('set name is: $setName');
 
                                       //remove duplicates
@@ -342,10 +376,12 @@ class _BrowseCardsState extends State<BrowseCards> {
                                         "card1": currentCard1,
                                         "card2": currentCard2,
                                         "card3": currentCard3,
+                                        "id" : setName
 
                                       };
 
                                       await ref.child("favourites").child('MIX').child(user.uid).child(setName).set(data);
+
                                     }
 
                                   },

@@ -11,8 +11,8 @@ class Mix
 
 {
 
-  String card1,card2,card3;
-Mix(this.card1,this.card2,this.card3);
+  String card1,card2,card3,id;
+Mix(this.card1,this.card2,this.card3,this.id);
 }
 
 class Favourites extends StatefulWidget {
@@ -58,7 +58,9 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
           Mix mix = new Mix(
               DATA[individualKey]['card1'],
               DATA[individualKey]['card2'],
-              DATA[individualKey]['card3']
+              DATA[individualKey]['card3'],
+              DATA[individualKey]['id']
+
           );
         MixFaveList.add(mix);
       }}});
