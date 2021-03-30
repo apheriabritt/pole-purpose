@@ -16,9 +16,10 @@ import 'dart:math';
 import '../CONSTANTS/card.dart';
 bool single=true;
 bool faveToggle=false;
-String currentCard;
 List<PPCard> CardList = [];
-
+int currentCard1index=0;
+int currentCard2index=0;
+int currentCard3index=0;
 
 Widget cardIcon = Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
 var faveIcon = Icons.favorite_border;
@@ -29,9 +30,7 @@ class BrowseCards extends StatefulWidget {
 }
 
 List faveList=[];
-int currentCard1index=0;
-int currentCard2index=0;
-int currentCard3index=0;
+
 bool loading=true;
 Widget card1;
 Widget card2;
@@ -42,16 +41,11 @@ Widget card3;
 
 class _BrowseCardsState extends State<BrowseCards> {
   PlaySound _sound = PlaySound();
-  String currentCard1;
-  String currentCard2;
-  String currentCard3;
   String setName;
   List threecardkeylist=[];
-
   void initState() {
-    super.initState();
-    getData();
-    }
+  getData();}
+
 
   void isFaved() async{
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -67,22 +61,17 @@ class _BrowseCardsState extends State<BrowseCards> {
       faveList = await json.decode(faveListString);
       //= CardList.first.key.toString();
 
-      print('current card is $currentCard');
-      if(faveList.contains(currentCard)){
-        setState(() {
-          print('current card is $currentCard');
+      if(faveList.contains(CardList[currentCard1index].id)){
+          print('current card is ${CardList[currentCard1index].id}');
           print('fave list is $faveList');
           print('match!');
           faveIcon=Icons.favorite;
-        });
       }
       else{
-        setState(() {
-          print('current card is $currentCard');
+          print('current card is ${CardList[currentCard1index].id}');
           print('fave list is $faveList');
           print('no match!');
           faveIcon=Icons.favorite_border;
-        });
 
       }
     }
@@ -92,9 +81,7 @@ class _BrowseCardsState extends State<BrowseCards> {
           "favourites/MIX/${user.uid}");
       await postsRef2.once().then((DataSnapshot snap) {
         if(snap.value==null){
-          setState(() {
             faveIcon=Icons.favorite_border;
-          });
         }
         if(snap.value!=null){
           var KEYS = snap.value.keys;
@@ -103,16 +90,15 @@ class _BrowseCardsState extends State<BrowseCards> {
             String threecardkey=DATA[individualKey]['id'];
             threecardkeylist.add(threecardkey);}
           bool match;
+          print('three card fave list is $threecardkeylist');
+          print('currently showing set: $setName');
           if(threecardkeylist.contains(setName)){
             match =true;
-            setState(() {
               faveIcon=Icons.favorite;
-            });
           }
           else if(match!=true){
-            setState(() {
               faveIcon=Icons.favorite_border;
-            });}
+            }
         }
 
       });
@@ -120,6 +106,7 @@ class _BrowseCardsState extends State<BrowseCards> {
   }
 
     getData() async {
+    print('hello!');
       DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
           "cards");
      await postsRef.once().then((DataSnapshot snap) {
@@ -138,17 +125,17 @@ class _BrowseCardsState extends State<BrowseCards> {
         print('Length: $CardList.length');
       });
 
-
-
-      currentCard1=CardList[currentCard1index].id;
-      currentCard2=CardList[currentCard2index].id;
-      currentCard3=CardList[currentCard3index].id;
-      setName = '$currentCard1$currentCard2$currentCard3';
-      card1=SingleCard(CardList.first.id,CardList.first.title,CardList.first.content);
+      currentCard1index=Random().nextInt(CardList.length);
+      currentCard2index=Random().nextInt(CardList.length);
+      currentCard3index=Random().nextInt(CardList.length);
+      card1=SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
       card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
       card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
-
-
+      setName = '${CardList[currentCard1index].id}${CardList[currentCard2index].id}${CardList[currentCard3index].id}';
+      print('index 1 is $currentCard1index');
+      print('at start up, new card is ${CardList[currentCard1index].title}');
+      print('at start up, card mix is $setName');
+      await isFaved();
       loading=false;
     }
 
@@ -158,7 +145,6 @@ class _BrowseCardsState extends State<BrowseCards> {
   @override
   Widget build(BuildContext context) {
     var singleCard=
-
     Padding(
       padding: EdgeInsets.all(33),
     child:
@@ -166,7 +152,7 @@ class _BrowseCardsState extends State<BrowseCards> {
    );
     var threeCard=
    Padding(
-     padding: EdgeInsets.all(75),
+     padding: EdgeInsets.fromLTRB(75, 75, 75, 35),
        child:Container(
          height:MediaQuery.of(context).size.height,
          width:MediaQuery.of(context).size.width,
@@ -337,20 +323,12 @@ class _BrowseCardsState extends State<BrowseCards> {
                                   child: cardIcon,backgroundColor: Colors.white),
                              FloatingActionButton(
                                 heroTag: 'homeshuffle',
-                                onPressed: (){
+                                onPressed: () async{
                                   print('shuffle!');
                                   _sound.playLocal("shuffle.mp3");
+                                  await getData();
                                   setState(() {
-                                    CardList.shuffle();
-                                    currentCard=CardList.first.id;
-                                    currentCard1index=Random().nextInt(CardList.length);
-                                    currentCard2index=Random().nextInt(CardList.length);
-                                    currentCard3index=Random().nextInt(CardList.length);
-                                    card1=SingleCard(CardList.first.id,CardList.first.title,CardList.first.content);
-                                    card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
-                                    card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
-                                    print('at shuffle, new card is $currentCard');
-                                    isFaved();
+
                                   });
                                 },
                                 child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
@@ -378,11 +356,11 @@ class _BrowseCardsState extends State<BrowseCards> {
                                       if (faveListString==null){faveListString='[]';}
                                       faveList = await json.decode(faveListString);
                                       //= CardList.first.key.toString();
-                                      if(faveList.contains(currentCard)){
-                                        faveList.remove(currentCard);
+                                      if(faveList.contains({CardList[currentCard1index]})){
+                                        faveList.remove({CardList[currentCard1index]});
                                         faveIcon=Icons.favorite_border;
                                       }
-                                      else{faveList.add(currentCard);}
+                                      else{faveList.add({CardList[currentCard1index]});}
                                       faveList = faveList.toSet().toList();
                                       //remove duplicates
                                       faveListString = json.encode(faveList);
@@ -413,9 +391,9 @@ class _BrowseCardsState extends State<BrowseCards> {
                                       //remove duplicates
                                       var data =
                                       {
-                                        "card1": currentCard1,
-                                        "card2": currentCard2,
-                                        "card3": currentCard3,
+                                        "card1": {CardList[currentCard1index]},
+                                        "card2": {CardList[currentCard2index]},
+                                        "card3": {CardList[currentCard3index]},
                                         "id" : setName
 
                                       };
