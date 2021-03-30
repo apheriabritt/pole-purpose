@@ -406,6 +406,10 @@ class _BrowseCardsState extends State<BrowseCards> {
                                     }
                                     else{
                                       bool match;
+                                      String doom1=CardList[currentCard1index].id;
+                                      String doom2=CardList[currentCard1index].id;
+                                      String doom3=CardList[currentCard1index].id;
+
                                       if(threecardkeylist.contains(setName)){
                                         match=true;
                                         FirebaseDatabase.instance.reference().child("favourites").child('MIX').child(user.uid).child(setName).remove();
@@ -424,14 +428,17 @@ class _BrowseCardsState extends State<BrowseCards> {
                                       //remove duplicates
                                       var data =
                                       {
-                                        "card1": {CardList[currentCard1index]},
-                                        "card2": {CardList[currentCard2index]},
-                                        "card3": {CardList[currentCard3index]},
+                                        "card1": doom1,
+                                        "card2":doom2,
+                                        "card3": doom3,
                                         "id" : setName
 
                                       };
 
                                       await ref.child("favourites").child('MIX').child(user.uid).child(setName).set(data);
+                                      setState(() {
+
+                                      });
 
                                     }}
 

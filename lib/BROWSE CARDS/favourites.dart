@@ -186,7 +186,8 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
             )
             ),
             ///MIX VIEW
-              MixFaveList==[]?Text('no favourites'):
+              ///
+              MixFaveList==[]?Center(child: Text('no favourites',style:TextStyle(color:Colors.black))):
               ListView(
             children: [
             ListView.builder(
@@ -194,9 +195,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
       shrinkWrap: true,
       itemCount: MixFaveList.length,
       itemBuilder: (_, index) {
-
-        return MixFaveList==[]? Text('no favourites mixes yet...'):
-         Padding(
+         return Padding(
            padding: const EdgeInsets.all(8.0),
            child: Row(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
