@@ -222,7 +222,7 @@ void showModal(){
                   child: FloatingActionButton(
                     heroTag: 'help',
                       backgroundColor: Colors.black,
-                      child:Icon(Icons.help,color:Colors.white,size:35),onPressed: help
+                      child:Text('?',style:TextStyle(fontSize:30)),onPressed: help
                   ),
                 ),Padding(
                   padding: const EdgeInsets.fromLTRB(0, 25, 25, 0),

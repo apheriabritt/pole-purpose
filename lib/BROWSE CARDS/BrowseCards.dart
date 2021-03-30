@@ -144,10 +144,10 @@ class _BrowseCardsState extends State<BrowseCards> {
       currentCard2=CardList[currentCard2index].id;
       currentCard3=CardList[currentCard3index].id;
       setName = '$currentCard1$currentCard2$currentCard3';
-
       card1=SingleCard(CardList.first.id,CardList.first.title,CardList.first.content);
       card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
       card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
+
 
       loading=false;
     }
@@ -343,6 +343,12 @@ class _BrowseCardsState extends State<BrowseCards> {
                                   setState(() {
                                     CardList.shuffle();
                                     currentCard=CardList.first.id;
+                                    currentCard1index=Random().nextInt(CardList.length);
+                                    currentCard2index=Random().nextInt(CardList.length);
+                                    currentCard3index=Random().nextInt(CardList.length);
+                                    card1=SingleCard(CardList.first.id,CardList.first.title,CardList.first.content);
+                                    card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
+                                    card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
                                     print('at shuffle, new card is $currentCard');
                                     isFaved();
                                   });
