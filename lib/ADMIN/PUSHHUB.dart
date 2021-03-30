@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:pole_purpose/CONSTANTS/appbar.dart';
 
 class PushCentre extends StatefulWidget {
   @override
@@ -116,6 +117,7 @@ class _PushCentreState extends State<PushCentre> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: customAppBarjustback,
         extendBodyBehindAppBar: true,
         floatingActionButton: FloatingActionButton.extended(onPressed: () {
           if (validateAndSave()) {

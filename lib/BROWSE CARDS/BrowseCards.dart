@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:pole_purpose/ADMIN/uploadCards.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/favourites.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:pole_purpose/CONSTANTS/playSound.dart';
@@ -22,7 +23,6 @@ class BrowseCards extends StatefulWidget {
   _BrowseCardsState createState() => _BrowseCardsState();
 }
 
-List<String> CardList =['1','2','3'];
 List faveList=[];
 String currentCard;
 int currentCard1index=0;
@@ -33,17 +33,39 @@ int currentCard3index=0;
 // ignore: missing_return
 
 class _BrowseCardsState extends State<BrowseCards> {
-
-
   PlaySound _sound = PlaySound();
-
   String currentCard1;
   String currentCard2;
   String currentCard3;
-
-
-String setName;
+  String setName;
+  List<PPCard> CardList = [];
   List threecardkeylist=[];
+
+  void initState() {
+    super.initState();
+    DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
+        "cards");
+    postsRef.once().then((DataSnapshot snap) {
+      var KEYS = snap.value.keys;
+      var DATA = snap.value;
+
+      CardList.clear();
+
+      for (var individualKey in KEYS) {
+        PPCard ppcard = new PPCard(
+          DATA[individualKey]['title'],
+          DATA[individualKey]['image'],
+          DATA[individualKey]['id'],
+          DATA[individualKey]['content'],
+        );
+        CardList.add(ppcard);
+      }
+      print('Length: $CardList.length');
+      setState(() {
+
+      });
+    });}
+
 
 
 
@@ -52,24 +74,20 @@ String setName;
     ///this needs to be the list of cards with their details... just put it into FB.
 
 
-    currentCard=CardList.first;
+    currentCard=CardList.first.id;
 
 
-    currentCard1=CardList[currentCard1index];
-    currentCard2=CardList[currentCard2index];
-    currentCard3=CardList[currentCard3index];
+    currentCard1=CardList[currentCard1index].id;
+    currentCard2=CardList[currentCard2index].id;
+    currentCard3=CardList[currentCard3index].id;
     setName = '$currentCard1$currentCard2$currentCard3';
 
 
-    print('current card is $currentCard');
-    print('current card 1 is $currentCard1');
-    print('current card 2 is $currentCard2');
-    print('current card 3 is $currentCard3');
+
 
     List<Widget> WidgetCardList = [];
     CardList.forEach((item){
-      print('item is $item');
-     Widget WidgetA = SingleCard(item);
+     Widget WidgetA = SingleCard(item.id);
       WidgetCardList.add(WidgetA);});
 ///need a list of ids. i guess from fb. (like faves) then show those ids via SingleCard. CardList will contain ids.
     ///Widget list
@@ -89,8 +107,7 @@ String setName;
         onIndexChanged: (i) {
 
           _sound.playLocal("shuffle.mp3");
-          print('hi');
-          currentCard=CardList[i];
+          currentCard=CardList[i].id;
 
         },
         children:
@@ -145,13 +162,11 @@ String setName;
         faveList = await json.decode(faveListString);
         //= CardList.first.key.toString();
         if(faveList.contains(currentCard)){
-          print('this card is faved');
           setState(() {
             faveIcon=Icons.favorite;
           });
         }
         else{
-          print('this card is not faved');
           setState(() {
             faveIcon=Icons.favorite_border;
               });
@@ -160,11 +175,9 @@ String setName;
     }
     else{
         threecardkeylist.clear();
-        print('cleared list: $threecardkeylist');
         DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
             "favourites/MIX/${user.uid}");
         await postsRef2.once().then((DataSnapshot snap) {
-          print('snap is $snap');
           if(snap.value==null){
             setState(() {
               faveIcon=Icons.favorite_border;
@@ -175,26 +188,21 @@ String setName;
             var DATA = snap.value;
             for (var individualKey in KEYS) {
               String threecardkey=DATA[individualKey]['id'];
-              print('key is: ${DATA[individualKey]['id']}');
               threecardkeylist.add(threecardkey);}
-              print('set name is $setName');
             bool match;
               if(threecardkeylist.contains(setName)){
-                print('MATCH');
                 match =true;
                 setState(() {
                   faveIcon=Icons.favorite;
                 });
               }
               else if(match!=true){
-                print('NO MATCH');
               setState(() {
                 faveIcon=Icons.favorite_border;
                 });}
               }
 
             });
-        print('got em');
       }
     }
     isFaved();
@@ -262,7 +270,7 @@ String setName;
                                             children: <Widget>[
                                               Transform.scale(
                                                   scale:1,
-                                                  child: SingleCard(CardList[index])),
+                                                  child: SingleCard(CardList[index].id)),
                                               //FAB
                                             ],
                                         ),
@@ -301,14 +309,12 @@ String setName;
                          FloatingActionButton(
                                 onPressed:() {
                                   if (single == true) {
-                                    print('change to group');
                                     setState(() {
                                       single = false;
                                       cardIcon=Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png');                                    });}
                                     //switch to single or to group, also change the icon
                                   else{
                                 setState(() {
-                                  print('change to single');
                                 single = true;
                                 cardIcon=Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
                                 });}
@@ -335,15 +341,12 @@ String setName;
                                     ///get single fave list. if currentcard is in list, fill heart
                                     ///need to show alert and fill heart
                                     ///need to show icon if already favourites and cant do anything with it or maybe unfave
-                                    print('card to be faved is $currentCard');
                                     final FirebaseAuth auth = FirebaseAuth.instance;
                                     FirebaseUser user = await auth.currentUser();
-                                    print(user.uid);
                                     //print(CardList.first.key.toString());
                                     //get fave data
                                     //add current key to that list
                                     //upload list to database
-                                    print('single is $single');
                                     if(single==true){
                                       DatabaseReference ref = FirebaseDatabase.instance.reference();
                                       String faveListString;
@@ -368,7 +371,6 @@ String setName;
                                       };
 
                                       await ref.child("favourites").child('SINGLE').child(user.uid).set(data);
-                                      print('here hmm');
                                     }
                                     else{
                                       bool match;
@@ -386,7 +388,6 @@ String setName;
                                       ///3 card mix...find a way to light up the heart... i guess same as before
                                       DatabaseReference ref = FirebaseDatabase.instance.reference();
 
-                                      print('set name is: $setName');
 
                                       //remove duplicates
                                       var data =

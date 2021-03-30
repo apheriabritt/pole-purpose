@@ -6,23 +6,38 @@ import 'package:pole_purpose/CONSTANTS/playSound.dart';
 
 ///i might re enter the card info into a FBDB.
 //then get the card widget
-
+String title;
+String content;
+String image;
+bool loading=true;
 Widget SingleCard(String id){
   return StatefulBuilder(
       builder: (context, setState) {
-        ///get card info from DB with the key id?
-        ///or just DB in here...
-        String name=id;
-        if(id=='0'){name='card 0';}
-        if(id=='1'){name='card 1';}
-        if(id=='2'){name='card 2';}
-        if(id=='3'){name='card 3';}
-        if(id=='4'){name='card 4';}
-        if(id=='5'){name='card 5';}
-        if(id=='6'){name='card 6';}
+        ///get fb info using id.
+      print('id is $id');
+      getData() async{
+      await FirebaseDatabase.instance
+          .reference()
+          .child('cards/$id/title')
+          .once()
+          .then((snapshot){title=snapshot.value;});
+      await FirebaseDatabase.instance
+          .reference()
+          .child('cards/$id/image')
+          .once()
+          .then((snapshot){image=snapshot.value;});
+      await FirebaseDatabase.instance
+          .reference()
+          .child('cards/$id/content')
+          .once()
+          .then((snapshot){content=snapshot.value;});
+      setState(() {
+        loading=false;
+      });
+      }
+      getData();
 
-        String info;
-        return Container(
+        return loading==true?Container():Container(
           child: Padding(
             padding: const EdgeInsets.all(0.0),
             child: FlipCard(
@@ -36,12 +51,13 @@ Widget SingleCard(String id){
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(name),
+                      child: Text(title),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                            'images/cards/$id.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
+                      child:
+                      Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
+                      //Image.asset('images/cards/$id.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
                     ),
                   ],
                 )), elevation: 10,),
@@ -55,13 +71,16 @@ Widget SingleCard(String id){
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(name),
-
+                        child: Text(title),
                       ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(content)),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: Image.asset(
-                            'images/cards/$id.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
+                        child:
+                        Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
+                         // Image.asset('images/cards/$id.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
                       ),
                     ],
                   )), elevation: 10,),

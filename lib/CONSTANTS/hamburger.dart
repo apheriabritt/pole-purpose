@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/ADMIN/cardHome.dart';
 import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/BLOG/blog.dart';
@@ -15,7 +16,7 @@ import 'package:pole_purpose/MORE%20INFO/copyright.dart';
 import 'package:pole_purpose/MORE%20INFO/privacy.dart';
 import 'package:pole_purpose/MORE%20INFO/terms.dart';
 import 'package:pole_purpose/ONLINE%20CLASSES/OnlineClasses.dart';
-import 'package:pole_purpose/PUSH%20NOTIFS/PUSHHUB.dart';
+import 'package:pole_purpose/ADMIN/PUSHHUB.dart';
 
 
 var hamburger = PreferredSize(
@@ -248,6 +249,19 @@ void showModal(){
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PushCentre()),
+                  );
+                },
+              ),
+              TextButton(
+                child:ListTile(
+                    leading:Icon(Icons.add,color:Colors.black,size:35),
+                    title: Text('UPLOAD CARDS',style:TextStyle(color:Colors.black,fontSize:35))
+                ),
+                onPressed: ()
+                async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ViewPPCards()),
                   );
                 },
               )
