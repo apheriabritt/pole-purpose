@@ -106,6 +106,7 @@ class _BrowseCardsState extends State<BrowseCards> {
   }
 
     getData() async {
+    CardList.clear();
     print('hello!');
       DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
           "cards");
@@ -311,7 +312,8 @@ class _BrowseCardsState extends State<BrowseCards> {
                                   if (single == true) {
                                     setState(() {
                                       single = false;
-                                      cardIcon=Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png');                                    });}
+                                      cardIcon=Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png');
+                                    });}
                                     //switch to single or to group, also change the icon
                                   else{
                                 setState(() {
