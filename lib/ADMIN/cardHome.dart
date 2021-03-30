@@ -122,9 +122,6 @@ Widget PPCardsUI(String title,image,id,content) {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children:[
                         Text(title,style:TextStyle(color: Colors.black)),
-                        Image.network(
-                            image,
-                            width: 100),
                       ]),
                 ],
               ),
@@ -136,6 +133,7 @@ Widget PPCardsUI(String title,image,id,content) {
           child: StatefulBuilder(
               builder: (context, setState) {
                 return FloatingActionButton(
+                  mini:true,
                     backgroundColor: Colors.black,
                     heroTag: id,
                     onPressed: () {
@@ -221,6 +219,7 @@ Widget PPCardsUI(String title,image,id,content) {
 
 
                 return FloatingActionButton(
+                  mini:true,
                     backgroundColor: Colors.black,
                     heroTag: '${id}delete',
                     onPressed: deletecheck,

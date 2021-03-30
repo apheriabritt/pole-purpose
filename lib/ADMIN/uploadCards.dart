@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pole_purpose/CONSTANTS/appbar.dart';
 
@@ -79,15 +78,6 @@ class _AddPPCardsState extends State<AddPPCards> {
     }
   }
 
-  Future getImage() async
-  {
-    var tempImage = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 20);
-
-    setState(() {
-      image = tempImage;
-    });
-  }
   void upload()async{
     var dbTimeKey = new DateTime.now();
     String stringimage;
@@ -113,7 +103,7 @@ class _AddPPCardsState extends State<AddPPCards> {
     {
       "title": title,
       "content": content,
-      "image" :stringimage,
+      "image" :'',
       "id":id,
 
 
@@ -122,35 +112,7 @@ class _AddPPCardsState extends State<AddPPCards> {
     Navigator.pop(context);
   }
 
-  void error(){
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-              title: new Text("oops!", style: TextStyle(
-                  fontFamily: 'apheriafont',
-                  fontSize: 30.0,
-                  color: Colors.black),),
-              content: new Text("you must upload at least 1 image",
-                style: TextStyle(fontFamily: 'apheriafont',
-                    fontSize: 25.0,
-                    color: Colors.black),),
-              actions: <Widget>[
-                // usually buttons at the bottom of the dialog
-                new FlatButton(
-                  child: new Text("close", style: TextStyle(
-                      fontFamily: 'apheriafont',
-                      fontSize: 30.0,
-                      color: Colors.black),),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
 
-                )
-              ]);
-        }
-    );}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,12 +125,9 @@ class _AddPPCardsState extends State<AddPPCards> {
             child:Icon(Icons.send,color:Colors.white),
             onPressed: (){
               if(validateAndSave())
-              {if (image == null&&data.image==null) {
-                error();
-              }
-              else {
+               {
+
                 upload();
-              }
               };}),
         extendBodyBehindAppBar: true,
         body: Container(
@@ -224,30 +183,7 @@ class _AddPPCardsState extends State<AddPPCards> {
                         return content = value;
                       },
                     ),
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: SizedBox(
-                            height: 266,
-                            child: Card(
-                                color: Colors.transparent,elevation:0.0,
-                                child: new Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: GestureDetector(
-                                          onTap: getImage,
-                                          child:
-                                          Container(
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Text("upload image",
-                                                    style: TextStyle(fontSize: 25,
-                                                        color: Colors.black)),
-                                              )),
-                                        ),
-                                      )
-                                    ]))))
+
 
 
                   ],

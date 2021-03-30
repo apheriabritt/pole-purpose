@@ -10,11 +10,16 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:pole_purpose/ADMIN/uploadCards.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/favourites.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
+import 'package:pole_purpose/CONSTANTS/loading.dart';
 import 'package:pole_purpose/CONSTANTS/playSound.dart';
 import 'dart:math';
 import '../CONSTANTS/card.dart';
 bool single=true;
 bool faveToggle=false;
+String currentCard;
+List<PPCard> CardList = [];
+
+
 Widget cardIcon = Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
 var faveIcon = Icons.favorite_border;
 
@@ -24,10 +29,13 @@ class BrowseCards extends StatefulWidget {
 }
 
 List faveList=[];
-String currentCard;
 int currentCard1index=0;
 int currentCard2index=0;
 int currentCard3index=0;
+bool loading=true;
+Widget card1;
+Widget card2;
+Widget card3;
 
 
 // ignore: missing_return
@@ -38,58 +46,117 @@ class _BrowseCardsState extends State<BrowseCards> {
   String currentCard2;
   String currentCard3;
   String setName;
-  List<PPCard> CardList = [];
   List threecardkeylist=[];
 
   void initState() {
     super.initState();
-    DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
-        "cards");
-    postsRef.once().then((DataSnapshot snap) {
-      var KEYS = snap.value.keys;
-      var DATA = snap.value;
+    getData();
+    }
 
-      CardList.clear();
+  void isFaved() async{
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser user = await auth.currentUser();
+    if(single==true){
+      DatabaseReference ref = FirebaseDatabase.instance.reference();
+      String faveListString;
+      await ref
+          .child('favourites/SINGLE/${user.uid}/faveList')
+          .once()
+          .then((snapshot){faveListString=snapshot.value;});
+      if (faveListString==null){faveListString='[]';}
+      faveList = await json.decode(faveListString);
+      //= CardList.first.key.toString();
 
-      for (var individualKey in KEYS) {
-        PPCard ppcard = new PPCard(
-          DATA[individualKey]['title'],
-          DATA[individualKey]['image'],
-          DATA[individualKey]['id'],
-          DATA[individualKey]['content'],
-        );
-        CardList.add(ppcard);
+      print('current card is $currentCard');
+      if(faveList.contains(currentCard)){
+        setState(() {
+          print('current card is $currentCard');
+          print('fave list is $faveList');
+          print('match!');
+          faveIcon=Icons.favorite;
+        });
       }
-      print('Length: $CardList.length');
-    });}
+      else{
+        setState(() {
+          print('current card is $currentCard');
+          print('fave list is $faveList');
+          print('no match!');
+          faveIcon=Icons.favorite_border;
+        });
+
+      }
+    }
+    else{
+      threecardkeylist.clear();
+      DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
+          "favourites/MIX/${user.uid}");
+      await postsRef2.once().then((DataSnapshot snap) {
+        if(snap.value==null){
+          setState(() {
+            faveIcon=Icons.favorite_border;
+          });
+        }
+        if(snap.value!=null){
+          var KEYS = snap.value.keys;
+          var DATA = snap.value;
+          for (var individualKey in KEYS) {
+            String threecardkey=DATA[individualKey]['id'];
+            threecardkeylist.add(threecardkey);}
+          bool match;
+          if(threecardkeylist.contains(setName)){
+            match =true;
+            setState(() {
+              faveIcon=Icons.favorite;
+            });
+          }
+          else if(match!=true){
+            setState(() {
+              faveIcon=Icons.favorite_border;
+            });}
+        }
+
+      });
+    }
+  }
+
+    getData() async {
+      DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
+          "cards");
+     await postsRef.once().then((DataSnapshot snap) {
+        var KEYS = snap.value.keys;
+        var DATA = snap.value;
+
+        for (var individualKey in KEYS) {
+          PPCard ppcard = new PPCard(
+            DATA[individualKey]['title'],
+            DATA[individualKey]['image'],
+            DATA[individualKey]['id'],
+            DATA[individualKey]['content'],
+          );
+          CardList.add(ppcard);
+        }
+        print('Length: $CardList.length');
+      });
+
+
+
+      currentCard1=CardList[currentCard1index].id;
+      currentCard2=CardList[currentCard2index].id;
+      currentCard3=CardList[currentCard3index].id;
+      setName = '$currentCard1$currentCard2$currentCard3';
+
+      card1=SingleCard(CardList.first.id,CardList.first.title,CardList.first.content);
+      card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
+      card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
+
+      loading=false;
+    }
 
 
 
 
   @override
   Widget build(BuildContext context) {
-    ///this needs to be the list of cards with their details... just put it into FB.
-
-
-    currentCard=CardList.first.id;
-
-
-    currentCard1=CardList[currentCard1index].id;
-    currentCard2=CardList[currentCard2index].id;
-    currentCard3=CardList[currentCard3index].id;
-    setName = '$currentCard1$currentCard2$currentCard3';
-
-    Widget card1=SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
-    Widget card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
-    Widget card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
-
-
-
-
-///need a list of ids. i guess from fb. (like faves) then show those ids via SingleCard. CardList will contain ids.
-    ///Widget list
-
-
     var singleCard=
 
     Padding(
@@ -99,7 +166,7 @@ class _BrowseCardsState extends State<BrowseCards> {
    );
     var threeCard=
    Padding(
-     padding: EdgeInsets.all(50),
+     padding: EdgeInsets.all(75),
        child:Container(
          height:MediaQuery.of(context).size.height,
          width:MediaQuery.of(context).size.width,
@@ -111,7 +178,7 @@ class _BrowseCardsState extends State<BrowseCards> {
               children: [
                 Transform.scale(
                     scale: 0.5,
-                    alignment: Alignment.topRight,
+                    alignment: Alignment.topLeft,
                     child: Transform.rotate(
                         angle:pi/12,
                         child: card1),
@@ -136,7 +203,7 @@ class _BrowseCardsState extends State<BrowseCards> {
         children: [
           Transform.scale(
                 scale: 0.5,
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.bottomRight,
                 child: Transform.rotate(
                     angle:pi/12,
                     child: card3),
@@ -152,64 +219,7 @@ class _BrowseCardsState extends State<BrowseCards> {
     ////////
     bool appbar=false;
 
-    void isFaved() async{
-      final FirebaseAuth auth = FirebaseAuth.instance;
-      FirebaseUser user = await auth.currentUser();
-      if(single==true){
-        DatabaseReference ref = FirebaseDatabase.instance.reference();
-        String faveListString;
-        await ref
-            .child('favourites/SINGLE/${user.uid}/faveList')
-            .once()
-            .then((snapshot){faveListString=snapshot.value;});
-        if (faveListString==null){faveListString='[]';}
-        faveList = await json.decode(faveListString);
-        //= CardList.first.key.toString();
-        if(faveList.contains(currentCard)){
-          setState(() {
-            faveIcon=Icons.favorite;
-          });
-        }
-        else{
-          setState(() {
-            faveIcon=Icons.favorite_border;
-              });
 
-      }
-    }
-    else{
-        threecardkeylist.clear();
-        DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
-            "favourites/MIX/${user.uid}");
-        await postsRef2.once().then((DataSnapshot snap) {
-          if(snap.value==null){
-            setState(() {
-              faveIcon=Icons.favorite_border;
-            });
-          }
-          if(snap.value!=null){
-            var KEYS = snap.value.keys;
-            var DATA = snap.value;
-            for (var individualKey in KEYS) {
-              String threecardkey=DATA[individualKey]['id'];
-              threecardkeylist.add(threecardkey);}
-            bool match;
-              if(threecardkeylist.contains(setName)){
-                match =true;
-                setState(() {
-                  faveIcon=Icons.favorite;
-                });
-              }
-              else if(match!=true){
-              setState(() {
-                faveIcon=Icons.favorite_border;
-                });}
-              }
-
-            });
-      }
-    }
-    isFaved();
 
 
     return Scaffold(extendBodyBehindAppBar: true,
@@ -328,12 +338,13 @@ class _BrowseCardsState extends State<BrowseCards> {
                              FloatingActionButton(
                                 heroTag: 'homeshuffle',
                                 onPressed: (){
+                                  print('shuffle!');
                                   _sound.playLocal("shuffle.mp3");
-                                  CardList.shuffle();
-                                  currentCard1index=Random().nextInt(CardList.length);
-                                  currentCard2index=Random().nextInt(CardList.length);
-                                  currentCard3index=Random().nextInt(CardList.length);
                                   setState(() {
+                                    CardList.shuffle();
+                                    currentCard=CardList.first.id;
+                                    print('at shuffle, new card is $currentCard');
+                                    isFaved();
                                   });
                                 },
                                 child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
@@ -411,7 +422,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 )
                           ])),
                       body:
-                          Stack(
+                         loading==true?Loading(): Stack(
                               children: [
 
                               single==true?singleCard:threeCard,
