@@ -61,9 +61,6 @@ class _BrowseCardsState extends State<BrowseCards> {
         CardList.add(ppcard);
       }
       print('Length: $CardList.length');
-      setState(() {
-
-      });
     });}
 
 
@@ -82,37 +79,24 @@ class _BrowseCardsState extends State<BrowseCards> {
     currentCard3=CardList[currentCard3index].id;
     setName = '$currentCard1$currentCard2$currentCard3';
 
+    Widget card1=SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
+    Widget card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
+    Widget card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
 
 
 
-    List<Widget> WidgetCardList = [];
-    CardList.forEach((item){
-     Widget WidgetA = SingleCard(item.id);
-      WidgetCardList.add(WidgetA);});
+
 ///need a list of ids. i guess from fb. (like faves) then show those ids via SingleCard. CardList will contain ids.
     ///Widget list
 
-   Widget card1=WidgetCardList[currentCard1index];
-   Widget card2=WidgetCardList[currentCard2index];
-   Widget card3=WidgetCardList[currentCard3index];
 
     var singleCard=
 
     Padding(
       padding: EdgeInsets.all(33),
     child:
-    Swiper.children(
-        viewportFraction: 0.95,
-        scale: 0.9,
-        onIndexChanged: (i) {
-
-          _sound.playLocal("shuffle.mp3");
-          currentCard=CardList[i].id;
-
-        },
-        children:
-          WidgetCardList
-    ));
+    Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content))
+   );
     var threeCard=
    Padding(
      padding: EdgeInsets.all(50),
@@ -290,7 +274,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                             children: <Widget>[
                                               Transform.scale(
                                                   scale:1,
-                                                  child: SingleCard(CardList[index].id)),
+                                                  child: SingleCard(CardList[index].id,CardList[index].title,CardList[index].content)),
                                               //FAB
                                             ],
                                         ),

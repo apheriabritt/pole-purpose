@@ -6,16 +6,14 @@ import 'package:pole_purpose/CONSTANTS/playSound.dart';
 
 ///i might re enter the card info into a FBDB.
 //then get the card widget
-String title;
-String content;
-String image;
 bool loading=true;
-Widget SingleCard(String id){
+Widget SingleCard(String id,title,content){
   return StatefulBuilder(
       builder: (context, setState) {
+
         ///get fb info using id.
-      print('id is $id');
       getData() async{
+        print('getting card data');
       await FirebaseDatabase.instance
           .reference()
           .child('cards/$id/title')
@@ -23,17 +21,10 @@ Widget SingleCard(String id){
           .then((snapshot){title=snapshot.value;});
       await FirebaseDatabase.instance
           .reference()
-          .child('cards/$id/image')
-          .once()
-          .then((snapshot){image=snapshot.value;});
-      await FirebaseDatabase.instance
-          .reference()
           .child('cards/$id/content')
           .once()
           .then((snapshot){content=snapshot.value;});
-      setState(() {
         loading=false;
-      });
       }
       getData();
 
@@ -43,24 +34,26 @@ Widget SingleCard(String id){
             child: FlipCard(
               direction: FlipDirection.HORIZONTAL,
               front: FittedBox(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  child: Center(child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(title),
+                child: Container(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child:
-                      Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
-                      //Image.asset('images/cards/$id.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
-                    ),
-                  ],
-                )), elevation: 10,),
+                    child: Center(child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(id,style:TextStyle(fontFamily: 'Xtreem',fontSize:50)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child:
+                        //Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
+                        Image.asset('images/assets/CARDS/$id.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
+                      ),
+                    ],
+                  )), elevation: 10,),
+                ),
               ),
               back: FittedBox(
                 ///do this at the end

@@ -78,8 +78,7 @@ flutter:
   assets:
     - images/
     - images/pageimages/
-    - images/cards/
-    - images/cards/cardbacks/
+    - images/assets/CARDS/
     - images/assets/
     - assets/
     
