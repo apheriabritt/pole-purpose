@@ -4,12 +4,6 @@ import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/BLOG/blog.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
-import 'package:pole_purpose/INSTRUCTIONS/choreotips.dart';
-import 'package:pole_purpose/INSTRUCTIONS/developmovement.dart';
-import 'package:pole_purpose/INSTRUCTIONS/futherinfo.dart';
-import 'package:pole_purpose/INSTRUCTIONS/glossary.dart';
-import 'package:pole_purpose/INSTRUCTIONS/intro.dart';
-import 'package:pole_purpose/INSTRUCTIONS/safety.dart';
 import 'package:pole_purpose/MORE%20INFO/about.dart';
 import 'package:pole_purpose/MORE%20INFO/author.dart';
 import 'package:pole_purpose/MORE%20INFO/copyright.dart';
@@ -24,6 +18,35 @@ var hamburger = PreferredSize(
     preferredSize: const Size.fromHeight(200.0),
      child: StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+      void help(){
+        showModalBottomSheet<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              height: 500,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ListView(
+                    children: <Widget>[
+                      Text('Instructions',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
+                      Text('Intro',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
+                      Text('Further Info',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
+                      Text('Choreo Tips',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
+                      Text('Develop Movement',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
+                      Text('Glossary',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
+                      Text('Safety',textAlign: TextAlign.center,style:TextStyle(fontSize:25))
+
+
+
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      }
 void showModal(){
   showModalBottomSheet<void>(
     context: context,
@@ -48,90 +71,8 @@ void showModal(){
               TextButton(
                 onPressed:null,
                 child:ExpansionTile(
-                    leading:Icon(Icons.school,color:Colors.black,size:35),
-                    title: Text('INSTRUCTIONS',style:TextStyle(color:Colors.black,fontSize:35)),
-                    children:[
-                      GestureDetector(
-                        onTap:(){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Intro(),
-                              ));
-                        },
-                        child: ListTile(
-                            title: Text('INTRO')
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap:(){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FurtherInfo(),
-                              ));
-                        },
-                        child: ListTile(
-                          title: Text('FURTHER INFO')
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap:(){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChoreoTips(),
-                              ));
-                        },
-                        child: ListTile(
-                            title: Text('CHOREO TIPS')
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap:(){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DevelopMovement(),
-                              ));
-                        },
-                        child: ListTile(
-                            title: Text('DEVELOP MOVEMENT')
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap:(){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Glossary(),
-                              ));
-                        },
-                        child: ListTile(
-                            title: Text('GLOSSARY')
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap:(){
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => Safety(),
-                        ));
-                        },
-                        child: ListTile(
-                            title: Text('SAFETY')
-                        ),
-                      )
-                    ]
-                ),
-
-              ),
-              TextButton(
-                onPressed:null,
-                child:ExpansionTile(
                     leading:Icon(Icons.help,color:Colors.black,size:35),
-                    title: Text('MORE INFO',style:TextStyle(color:Colors.black,fontSize:35)),
+                    title: Text('INFO',style:TextStyle(color:Colors.black,fontSize:35)),
                   children:[
                     GestureDetector(
                       onTap:(){
@@ -277,8 +218,16 @@ void showModal(){
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children:[ Padding(
-                  padding: const EdgeInsets.all(25.0),
+                  padding: const EdgeInsets.fromLTRB(0, 25, 15, 0),
                   child: FloatingActionButton(
+                    heroTag: 'help',
+                      backgroundColor: Colors.black,
+                      child:Icon(Icons.help,color:Colors.white,size:35),onPressed: help
+                  ),
+                ),Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 25, 25, 0),
+                  child: FloatingActionButton(
+                    heroTag: 'menu',
                       backgroundColor: Colors.white,
                       child:Icon(Icons.menu,color:Colors.black,size:35),onPressed: showModal
           ),

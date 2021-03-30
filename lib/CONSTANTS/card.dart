@@ -63,27 +63,7 @@ Widget SingleCard(String id){
                 )), elevation: 10,),
               ),
               back: FittedBox(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  child: Center(child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(title),
-                      ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(content)),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child:
-                        Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
-                         // Image.asset('images/cards/$id.png',fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1),
-                      ),
-                    ],
-                  )), elevation: 10,),
+                ///do this at the end
               ),
             ),
           ),

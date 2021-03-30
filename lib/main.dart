@@ -302,10 +302,8 @@ class _MyAppState extends State<MyApp> {
         value: AuthService().user,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(textTheme: TextTheme(
-              subhead: TextStyle(fontFamily: 'apheriafont', fontSize: 22),
-              body1: TextStyle(fontFamily: 'apheriafont', fontSize: 18))),
-          home: Wrapper(),
+          theme: ThemeData(fontFamily: 'ZillaSlab'),
+    home: Wrapper(),
         ));
   }
 }

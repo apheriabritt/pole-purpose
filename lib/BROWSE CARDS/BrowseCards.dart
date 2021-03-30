@@ -116,32 +116,52 @@ class _BrowseCardsState extends State<BrowseCards> {
     var threeCard=
    Padding(
      padding: EdgeInsets.all(50),
-       child:Stack(
+       child:Container(
+         height:MediaQuery.of(context).size.height,
+         width:MediaQuery.of(context).size.width,
+         child: Center(
+           child: Stack(
+             alignment: Alignment.center,
     children:[
-        Positioned(
-          child: Transform.scale(
-            scale: 0.4,
-            alignment: Alignment.topRight,
-            child: Transform.rotate(
-                angle:pi/12,
-                child: card1),
+            Column(
+              children: [
+                Transform.scale(
+                    scale: 0.5,
+                    alignment: Alignment.topRight,
+                    child: Transform.rotate(
+                        angle:pi/12,
+                        child: card1),
+                  ),
+              ],
+            ),
+
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Transform.scale(
+                scale: 0.5,
+                alignment: Alignment.center,
+                child: Transform.rotate(
+                    angle:-pi/20,
+                    child: card2),
           ),
-        ),
-      Transform.scale(
-        scale: 0.4,
-        alignment: Alignment.center,
-        child: Transform.rotate(
-            angle:-pi/12,
-            child: card2),
+        ],
       ),
-      Transform.scale(
-        scale: 0.4,
-        alignment: Alignment.bottomLeft,
-        child: Transform.rotate(
-            angle:pi/12,
-            child: card3),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Transform.scale(
+                scale: 0.5,
+                alignment: Alignment.bottomLeft,
+                child: Transform.rotate(
+                    angle:pi/12,
+                    child: card3),
+          ),
+        ],
       )
-    ]));
+    ]),
+         ),
+       ));
 
 
 

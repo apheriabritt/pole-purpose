@@ -136,7 +136,7 @@ Widget PPCardsUI(String title,image,id,content) {
           child: StatefulBuilder(
               builder: (context, setState) {
                 return FloatingActionButton(
-                    backgroundColor: Colors.amber,
+                    backgroundColor: Colors.black,
                     heroTag: id,
                     onPressed: () {
                       Navigator.push(
@@ -174,7 +174,7 @@ Widget PPCardsUI(String title,image,id,content) {
                           title: new Text("just checking...", style: TextStyle(
                               fontFamily: 'apheriafont',
                               fontSize: 30.0,
-                              color: Colors.amber),),
+                              color: Colors.black),),
                           content: Container(
                             height:200,
                             child: Column(
@@ -192,7 +192,7 @@ Widget PPCardsUI(String title,image,id,content) {
                                       child: new Text("no...", style: TextStyle(
                                           fontFamily: 'apheriafont',
                                           fontSize: 30.0,
-                                          color: Colors.amber),),
+                                          color: Colors.black),),
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
@@ -202,7 +202,7 @@ Widget PPCardsUI(String title,image,id,content) {
                                       child: new Text("yes", style: TextStyle(
                                           fontFamily: 'apheriafont',
                                           fontSize: 30.0,
-                                          color: Colors.amber),),
+                                          color: Colors.black),),
                                       onPressed: () {
                                         Navigator.pop(context);
                                         delete();
@@ -221,7 +221,7 @@ Widget PPCardsUI(String title,image,id,content) {
 
 
                 return FloatingActionButton(
-                    backgroundColor: Colors.amber,
+                    backgroundColor: Colors.black,
                     heroTag: '${id}delete',
                     onPressed: deletecheck,
 
