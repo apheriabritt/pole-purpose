@@ -20,6 +20,7 @@ List<PPCard> CardList = [];
 int currentCard1index=0;
 int currentCard2index=0;
 int currentCard3index=0;
+List faveList=[];
 
 Widget cardIcon = Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
 var faveIcon = Icons.favorite_border;
@@ -29,7 +30,7 @@ class BrowseCards extends StatefulWidget {
   _BrowseCardsState createState() => _BrowseCardsState();
 }
 
-List faveList=[];
+
 
 bool loading=true;
 Widget card1;
@@ -358,21 +359,50 @@ class _BrowseCardsState extends State<BrowseCards> {
                                           .then((snapshot){faveListString=snapshot.value;});
                                       if (faveListString==null){faveListString='[]';}
                                       faveList = await json.decode(faveListString);
+                                      print('hii');
                                       //= CardList.first.key.toString();
-                                      if(faveList.contains({CardList[currentCard1index]})){
-                                        faveList.remove({CardList[currentCard1index]});
+                                      print('fave list is $faveList');
+                                      String doomcard = CardList[currentCard1index].id;
+                                      print('card is $doomcard');
+                                      if(faveList.contains(doomcard)){
+                                        print('removing');
+                                        faveList.remove(doomcard);
                                         faveIcon=Icons.favorite_border;
-                                      }
-                                      else{faveList.add({CardList[currentCard1index]});}
-                                      faveList = faveList.toSet().toList();
-                                      //remove duplicates
-                                      faveListString = json.encode(faveList);
-                                      var data =
-                                      {
-                                        "faveList": faveListString,
-                                      };
+                                        faveList = faveList.toSet().toList();
+                                        //remove duplicates
+                                        faveListString = json.encode(faveList);
+                                        var data =
+                                        {
+                                          "faveList": faveListString,
+                                        };
 
-                                      await ref.child("favourites").child('SINGLE').child(user.uid).set(data);
+                                        await ref.child("favourites").child('SINGLE').child(user.uid).set(data);
+                                        print('removed');
+                                        setState(() {
+
+                                        });
+                                      }
+                                      else{
+                                        faveIcon=Icons.favorite;
+                                        faveList.add(doomcard);
+                                        faveList = faveList.toSet().toList();
+                                        //remove duplicates
+                                        faveListString = json.encode(faveList);
+                                        print('adding $faveListString');
+
+                                        var data =
+                                        {
+                                          "faveList": faveListString,
+                                        };
+
+                                        await ref.child("favourites").child('SINGLE').child(user.uid).set(data);
+                                        print('added');
+                                        setState(() {
+
+                                        });
+                                      }
+
+
                                     }
                                     else{
                                       bool match;
