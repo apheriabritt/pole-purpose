@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:pole_purpose/ADMIN/uploadCards.dart';
 import 'package:pole_purpose/CONSTANTS/card.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 
@@ -24,6 +25,8 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   String favelist;
   List SingleFaveList=[];
   List<Mix> MixFaveList=[];
+  List<PPCard> CardList = [];
+
   TabController _tabController;
   int count=0;
   bool loading=true;
@@ -34,6 +37,26 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   ///
 
   void getFaves() async{
+
+    DatabaseReference postsRef3 = FirebaseDatabase.instance.reference().child(
+        "cards");
+    postsRef3.once().then((DataSnapshot snap) {
+      var KEYS = snap.value.keys;
+      var DATA = snap.value;
+
+      CardList.clear();
+
+      for (var individualKey in KEYS) {
+        PPCard ppcard = new PPCard(
+          DATA[individualKey]['title'],
+          DATA[individualKey]['image'],
+          DATA[individualKey]['id'],
+          DATA[individualKey]['content'],
+        );
+        CardList.add(ppcard);
+      }
+      print('Length: $CardList.length');
+    });
 
     final FirebaseAuth auth = FirebaseAuth.instance;
     user = await auth.currentUser();
@@ -134,20 +157,27 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
               child:
               StaggeredGridView.countBuilder(
                 crossAxisCount: 4,
-                itemCount: SingleFaveList.length, //userfavelist,
+                itemCount: CardList.length,
                 itemBuilder: (BuildContext context, int index) {
+                  if(SingleFaveList.contains(CardList[index].id)){
                   return Card(
                   elevation: 0.0,
                   color: Colors.transparent,
-                  ///needs to be just the cards that match the thing so need to sort out the card widget
-                  child:
+                  child:Stack(
+                    children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child:
-                        loadingcard==true?Container():
-                        SingleCard(SingleFaveList[index],'',''),
-                      )
-                );},
+                        child: Transform.scale(
+                            scale:1,
+                            child: SingleCard(CardList[index].id,CardList[index].title,CardList[index].content)),
+                      ),
+                      //FAB
+                    ],
+                  ),
+                  );}
+                  else{
+                  return Container();}
+                },
                 staggeredTileBuilder: (int index) =>
                 new StaggeredTile.fit(2),
                 mainAxisSpacing: 4.0,
