@@ -58,7 +58,7 @@ print('1');
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: CircularProgressIndicator(backgroundColor: Colors.black,valueColor: AlwaysStoppedAnimation<Color>(Colors.white,),
+                    child: Text('loading... please wait'
                   ));
                 }
                 return ListView.builder(

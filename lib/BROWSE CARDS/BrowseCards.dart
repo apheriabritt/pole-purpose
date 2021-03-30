@@ -106,14 +106,15 @@ class _BrowseCardsState extends State<BrowseCards> {
   }
 
     getData() async {
-    CardList.clear();
     print('hello!');
       DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
           "cards");
      await postsRef.once().then((DataSnapshot snap) {
+
+       print('oopsy');
         var KEYS = snap.value.keys;
         var DATA = snap.value;
-
+       CardList.clear();
         for (var individualKey in KEYS) {
           PPCard ppcard = new PPCard(
             DATA[individualKey]['title'],
@@ -209,7 +210,7 @@ class _BrowseCardsState extends State<BrowseCards> {
 
 
 
-    return Scaffold(extendBodyBehindAppBar: true,
+    return loading==true?Container():Scaffold(extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         appBar: hamburger,
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
