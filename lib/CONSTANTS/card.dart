@@ -6,29 +6,10 @@ import 'package:pole_purpose/CONSTANTS/playSound.dart';
 
 ///i might re enter the card info into a FBDB.
 //then get the card widget
-bool loading=true;
 Widget SingleCard(String id,title,content){
   return StatefulBuilder(
       builder: (context, setState) {
-
-        ///get fb info using id.
-      getData() async{
-        print('getting card data');
-      await FirebaseDatabase.instance
-          .reference()
-          .child('cards/$id/title')
-          .once()
-          .then((snapshot){title=snapshot.value;});
-      await FirebaseDatabase.instance
-          .reference()
-          .child('cards/$id/content')
-          .once()
-          .then((snapshot){content=snapshot.value;});
-        loading=false;
-      }
-      getData();
-
-        return loading==true?Container():Container(
+        return Container(
           child: Padding(
             padding: const EdgeInsets.all(0.0),
             child: FlipCard(
@@ -43,7 +24,7 @@ Widget SingleCard(String id,title,content){
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(id,style:TextStyle(fontFamily: 'Xtreem',fontSize:50)),
+                        child: Text(title,style:TextStyle(fontFamily: 'Xtreem',fontSize:50)),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(5.0),

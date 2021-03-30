@@ -27,6 +27,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   TabController _tabController;
   int count=0;
   bool loading=true;
+  bool loadingcard=true;
 
   FirebaseUser user;
   ///get favourites
@@ -135,21 +136,6 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
                 crossAxisCount: 4,
                 itemCount: SingleFaveList.length, //userfavelist,
                 itemBuilder: (BuildContext context, int index) {
-                  String title;
-                  String content;
-                  getData() async{
-                    await FirebaseDatabase.instance
-                        .reference()
-                        .child('cards/${SingleFaveList[index]}/title')
-                        .once()
-                        .then((snapshot){title=snapshot.value;});
-                    await FirebaseDatabase.instance
-                        .reference()
-                        .child('cards/${SingleFaveList[index]}/content')
-                        .once()
-                        .then((snapshot){content=snapshot.value;});
-                  }
-                  getData();
                   return Card(
                   elevation: 0.0,
                   color: Colors.transparent,
@@ -157,7 +143,9 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
                   child:
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: SingleCard(SingleFaveList[index],title,content),
+                        child:
+                        loadingcard==true?Container():
+                        SingleCard(SingleFaveList[index],'',''),
                       )
                 );},
                 staggeredTileBuilder: (int index) =>
@@ -176,45 +164,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
       shrinkWrap: true,
       itemCount: MixFaveList.length,
       itemBuilder: (_, index) {
-        String title1;
-        String content1;
-        String title2;
-        String content2;
-        String title3;
-        String content3;
-        getData() async{
-          await FirebaseDatabase.instance
-              .reference()
-              .child('cards/${MixFaveList[index].card1}/title')
-              .once()
-              .then((snapshot){title1=snapshot.value;});
-          await FirebaseDatabase.instance
-              .reference()
-              .child('cards/${MixFaveList[index].card1}/content')
-              .once()
-              .then((snapshot){content1=snapshot.value;});
-          await FirebaseDatabase.instance
-              .reference()
-              .child('cards/${MixFaveList[index].card2}/title')
-              .once()
-              .then((snapshot){title2=snapshot.value;});
-          await FirebaseDatabase.instance
-              .reference()
-              .child('cards/${MixFaveList[index].card2}/content')
-              .once()
-              .then((snapshot){content2=snapshot.value;});
-          await FirebaseDatabase.instance
-              .reference()
-              .child('cards/${MixFaveList[index].card3}/title')
-              .once()
-              .then((snapshot){title3=snapshot.value;});
-          await FirebaseDatabase.instance
-              .reference()
-              .child('cards/${MixFaveList[index].card3}/content')
-              .once()
-              .then((snapshot){content3=snapshot.value;});
-        }
-        getData();
+
         return MixFaveList==[]? Text('no favourites mixes yet...'):
          Padding(
            padding: const EdgeInsets.all(8.0),
@@ -223,13 +173,13 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
       children: [
         Container(
               width:MediaQuery.of(context).size.width/3.5,
-              child: SingleCard(MixFaveList[index].card1,title1,content1)),
+              child: SingleCard(MixFaveList[index].card1,'','')),
       Container(
             width:MediaQuery.of(context).size.width/3.5,
-            child: SingleCard(MixFaveList[index].card2,title2,content2)),
+            child: SingleCard(MixFaveList[index].card2,'','')),
       Container(
             width:MediaQuery.of(context).size.width/3.5,
-            child: SingleCard(MixFaveList[index].card3,title3,content3))
+            child: SingleCard(MixFaveList[index].card3,'',''))
       ],
         ),
          );})
