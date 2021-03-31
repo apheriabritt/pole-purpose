@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/appbar.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:pole_purpose/CONSTANTS/longtextwidget.dart';
 
@@ -48,7 +49,7 @@ class Privacy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
-      appBar: hamburger,
+      appBar: customAppBarjustback,
       body: Material(
           child: SafeArea(
               child: Container(

@@ -113,7 +113,7 @@ class _BrowseCardsState extends State<BrowseCards> {
       });
     }
     setState(() {
-      
+
     });
   }
 

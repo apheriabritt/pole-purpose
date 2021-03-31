@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/appbar.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 
 class Copyright extends StatelessWidget {
@@ -7,7 +8,7 @@ class Copyright extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
-        appBar: hamburger,
+        appBar: customAppBarjustback,
         body: Material(
           child: SafeArea(
             child:Padding(
@@ -21,7 +22,7 @@ All rights reserved. No part of this app may be reproduced by any mechanical, ph
 
 © Pole Purpose 2020
 
-                      ''',textAlign: TextAlign.center,),
+                      ''',textAlign: TextAlign.center,style:TextStyle(fontSize:20)),
                 ],
               ),
             )),

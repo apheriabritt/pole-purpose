@@ -94,6 +94,10 @@ flutter:
     - family: Xtreem
       fonts:
         - asset: fonts/Xtreem_2_PersonalUse.ttf
+    - family: GillSansMT
+      fonts:
+        - asset: fonts/GillSansMT.ttf
+
 
   #  - images/a_dot_ham.jpeg
 

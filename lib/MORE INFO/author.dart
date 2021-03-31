@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/appbar.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,7 +9,7 @@ class Author extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
-      appBar: hamburger,
+      appBar: customAppBarjustback,
       body: Material(
           color: Colors.white,
           child: SafeArea(
@@ -16,10 +17,17 @@ class Author extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: Image.asset(
-                      'images/pageimages/author.png',
-                      fit: BoxFit.fill,
-                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Text(
+                        '''
+Rowena Gander is an international performance artist with a BA and an MA in dance practices. Her thought provoking solo performance works question and negotiate themes of sexuality, power and objectification in women. Since 2015 she has worked with stigmatised objects; the vertical pole and high heels, to tease out how objects can add to or dissolve female subordination. 
+
+Alongside performance work she loves to teach in pole and contemporary dance and has a real passion and drive for helping people find confidence in themselves through movement and creativity. Taking an all-inclusive approach, her facilitation methods are always centred on student ability in pole and non-pole dancing. 
+
+Rowena Gander                         ''',style:TextStyle(fontSize:20)
+                      ),
+                    )
                   ), 
                   Padding(
                     padding: EdgeInsets.only(bottom: 15),
@@ -34,7 +42,7 @@ class Author extends StatelessWidget {
                           fontFamily: 'GillSansMT',  
                           fontSize: (MediaQuery.of(context).size.height > 900) ? 30 : 15,
                           decoration: TextDecoration.underline,
-                          color: Color(0xffe1163c),
+                          color: Colors.black,
                         ),
 
                       ),
