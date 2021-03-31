@@ -160,7 +160,7 @@ void showModal(){
             children: <Widget>[
               TextButton(
                   child:ListTile(
-                      leading:Icon(Icons.home,color:Colors.black,size:35),
+                      leading:Image.asset('images/assets/ICONS/home90.png',color:Colors.black,width:35),
                       title: Text('HOME',style:TextStyle(color:Colors.black,fontSize:35))
                   ),
                   onPressed: (){
@@ -173,7 +173,7 @@ void showModal(){
               TextButton(
                 onPressed:null,
                 child:ExpansionTile(
-                    leading:Icon(Icons.help,color:Colors.black,size:35),
+                    leading:Image.asset('images/assets/ICONS/help.png',color:Colors.black,width:35),
                     title: Text('INFO',style:TextStyle(color:Colors.black,fontSize:35)),
                   children:[
                     GestureDetector(
@@ -241,7 +241,7 @@ void showModal(){
               ),
               TextButton(
                 child:ListTile(
-                    leading:Icon(Icons.home,color:Colors.black,size:35),
+                    leading:Image.asset('images/assets/ICONS/classroom.png',color:Colors.black,width:35),
                     title: Text('ONLINE CLASSES',style:TextStyle(color:Colors.black,fontSize:35))
                 ),
                 onPressed: (){
@@ -255,7 +255,7 @@ void showModal(){
               ),
               TextButton(
                 child:ListTile(
-                    leading:Icon(Icons.post_add,color:Colors.black,size:35),
+                    leading:Image.asset('images/assets/ICONS/typewriter.png',color:Colors.black,width:35),
                     title: Text('BLOG',style:TextStyle(color:Colors.black,fontSize:35))
                 ),
                 onPressed: (){
@@ -323,8 +323,9 @@ void showModal(){
                   padding: const EdgeInsets.fromLTRB(0, 25, 15, 0),
                   child: FloatingActionButton(
                     heroTag: 'help',
-                      backgroundColor: Colors.black,
-                      child:Text('?',style:TextStyle(fontSize:30)),onPressed: help
+                      backgroundColor: Colors.white,
+                      child:Image.asset('images/assets/ICONS/help.png',fit:BoxFit.fill),
+                      onPressed: help
                   ),
                 ),Padding(
                   padding: const EdgeInsets.fromLTRB(0, 25, 25, 0),
