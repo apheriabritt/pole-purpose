@@ -31,6 +31,11 @@ var hamburger = PreferredSize(
                     children: <Widget>[
                       Text('Instructions',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
                       Text('Intro',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
+                      Text('''
+The tasks within this app are really easy to follow. Read the text on each card and think about what the card is instructing you to do. Each task can be used over and over again and will often result in a very different outcome. 
+
+If you are new to dance making, spend some time on your own at the studio or at home if you have your own pole. This way, you can really hone in on what it is you enjoy exploring through your body. Use the notes page to record the tasks you found most effective and the ones that were least effective. If you did find some tasks more stimulating, why? If you found other tasks less exciting, why? People learn and create in many different ways, so it is important that you follow the path that inspires you to move your body with complete enthusiasm. 
+                      '''),
                       Text('Further Info',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
                       Text('Choreo Tips',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),
                       Text('Develop Movement',textAlign: TextAlign.center,style:TextStyle(fontSize:25)),

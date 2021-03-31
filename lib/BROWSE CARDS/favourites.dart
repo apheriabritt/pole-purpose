@@ -12,17 +12,20 @@ class Mix
 
 {
 
-  String card1,card2,card3,id;
-Mix(this.card1,this.card2,this.card3,this.id);
+  String card1,card2,card3,card1title,card2title,card3title,card1content,card2content,card3content,id;
+Mix(this.card1,this.card2,this.card3,this.card1title,this.card2title,this.card3title,this.card1content,this.card2content,this.card3content,this.id);
 }
 
 class Favourites extends StatefulWidget {
+
+
   @override
   _FavouritesState createState() => _FavouritesState();
 }
 
 class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   String favelist;
+  bool loadingcard=false;
   List SingleFaveList=[];
   List<Mix> MixFaveList=[];
   List<PPCard> CardList = [];
@@ -30,7 +33,6 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   TabController _tabController;
   int count=0;
   bool loading=true;
-  bool loadingcard=true;
 
   FirebaseUser user;
   ///get favourites
@@ -73,6 +75,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
 
 
     ///THREE CARD
+
       DatabaseReference postsRef2 = FirebaseDatabase.instance.reference().child(
           "favourites/MIX/${user.uid}");
       await postsRef2.once().then((DataSnapshot snap) {
@@ -85,11 +88,18 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
               DATA[individualKey]['card1'],
               DATA[individualKey]['card2'],
               DATA[individualKey]['card3'],
+              DATA[individualKey]['card1title'],
+              DATA[individualKey]['card2title'],
+              DATA[individualKey]['card3title'],
+              DATA[individualKey]['card1content'],
+              DATA[individualKey]['card2content'],
+              DATA[individualKey]['card3content'],
               DATA[individualKey]['id']
 
           );
         MixFaveList.add(mix);
       }}});
+
       print('got em');
       setState(() {
         loading=false;
@@ -98,6 +108,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
 
   void initState() {
     super.initState();
+    loadingcard=true;
    getFaves();
     void _handleTabChange() {
       if (_tabController.indexIsChanging) {
@@ -195,20 +206,20 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
       shrinkWrap: true,
       itemCount: MixFaveList.length,
       itemBuilder: (_, index) {
-         return Padding(
+       return Padding(
            padding: const EdgeInsets.all(8.0),
            child: Row(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
               width:MediaQuery.of(context).size.width/3.5,
-              child: SingleCard(MixFaveList[index].card1,'','')),
+              child: SingleCard(MixFaveList[index].card1,MixFaveList[index].card1title,MixFaveList[index].card1content)),
       Container(
             width:MediaQuery.of(context).size.width/3.5,
-            child: SingleCard(MixFaveList[index].card2,'','')),
+          child: SingleCard(MixFaveList[index].card2,MixFaveList[index].card2title,MixFaveList[index].card2content)),
       Container(
             width:MediaQuery.of(context).size.width/3.5,
-            child: SingleCard(MixFaveList[index].card3,'',''))
+          child: SingleCard(MixFaveList[index].card3,MixFaveList[index].card3title,MixFaveList[index].card3content)),
       ],
         ),
          );})

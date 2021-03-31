@@ -21,6 +21,8 @@ int currentCard1index=0;
 int currentCard2index=0;
 int currentCard3index=0;
 List faveList=[];
+var singleCard;
+var threeCard;
 
 Widget cardIcon = Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
 var faveIcon = Icons.favorite_border;
@@ -44,8 +46,11 @@ class _BrowseCardsState extends State<BrowseCards> {
   PlaySound _sound = PlaySound();
   String setName;
   List threecardkeylist=[];
+
+
   void initState() {
-  getData();}
+  getData();
+  }
 
 
   void isFaved() async{
@@ -106,13 +111,14 @@ class _BrowseCardsState extends State<BrowseCards> {
     }
   }
 
-    getData() async {
+    void getData() async {
     print('hello!');
+
       DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
           "cards");
-     await postsRef.once().then((DataSnapshot snap) {
+    print('oopsy');
 
-       print('oopsy');
+    await postsRef.once().then((DataSnapshot snap) {
         var KEYS = snap.value.keys;
         var DATA = snap.value;
        CardList.clear();
@@ -125,7 +131,7 @@ class _BrowseCardsState extends State<BrowseCards> {
           );
           CardList.add(ppcard);
         }
-        print('Length: $CardList.length');
+        print('Length: ${CardList.length}');
       });
 
       currentCard1index=Random().nextInt(CardList.length);
@@ -138,8 +144,65 @@ class _BrowseCardsState extends State<BrowseCards> {
       print('index 1 is $currentCard1index');
       print('at start up, new card is ${CardList[currentCard1index].title}');
       print('at start up, card mix is $setName');
+    singleCard=
+    Padding(
+        padding: EdgeInsets.all(33),
+        child:
+        Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content))
+    );
+    threeCard=
+    Padding(
+        padding: EdgeInsets.fromLTRB(75, 75, 75, 35),
+        child:Container(
+          height:MediaQuery.of(context).size.height,
+          width:MediaQuery.of(context).size.width,
+          child: Center(
+            child: Stack(
+                alignment: Alignment.center,
+                children:[
+                  Column(
+                    children: [
+                      Transform.scale(
+                        scale: 0.5,
+                        alignment: Alignment.topLeft,
+                        child: Transform.rotate(
+                            angle:pi/12,
+                            child: card1),
+                      ),
+                    ],
+                  ),
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Transform.scale(
+                        scale: 0.5,
+                        alignment: Alignment.center,
+                        child: Transform.rotate(
+                            angle:-pi/20,
+                            child: card2),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Transform.scale(
+                        scale: 0.5,
+                        alignment: Alignment.bottomRight,
+                        child: Transform.rotate(
+                            angle:pi/12,
+                            child: card3),
+                      ),
+                    ],
+                  )
+                ]),
+          ),
+        ));
       await isFaved();
-      loading=false;
+      setState(() {
+        loading=false;
+      });
     }
 
 
@@ -147,70 +210,6 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   @override
   Widget build(BuildContext context) {
-    var singleCard=
-    Padding(
-      padding: EdgeInsets.all(33),
-    child:
-    Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content))
-   );
-    var threeCard=
-   Padding(
-     padding: EdgeInsets.fromLTRB(75, 75, 75, 35),
-       child:Container(
-         height:MediaQuery.of(context).size.height,
-         width:MediaQuery.of(context).size.width,
-         child: Center(
-           child: Stack(
-             alignment: Alignment.center,
-    children:[
-            Column(
-              children: [
-                Transform.scale(
-                    scale: 0.5,
-                    alignment: Alignment.topLeft,
-                    child: Transform.rotate(
-                        angle:pi/12,
-                        child: card1),
-                  ),
-              ],
-            ),
-
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Transform.scale(
-                scale: 0.5,
-                alignment: Alignment.center,
-                child: Transform.rotate(
-                    angle:-pi/20,
-                    child: card2),
-          ),
-        ],
-      ),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Transform.scale(
-                scale: 0.5,
-                alignment: Alignment.bottomRight,
-                child: Transform.rotate(
-                    angle:pi/12,
-                    child: card3),
-          ),
-        ],
-      )
-    ]),
-         ),
-       ));
-
-
-
-    ////////
-    bool appbar=false;
-
-
-
-
     return loading==true?Container():Scaffold(extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         appBar: hamburger,
@@ -407,8 +406,16 @@ class _BrowseCardsState extends State<BrowseCards> {
                                     else{
                                       bool match;
                                       String doom1=CardList[currentCard1index].id;
-                                      String doom2=CardList[currentCard1index].id;
-                                      String doom3=CardList[currentCard1index].id;
+                                      String doom2=CardList[currentCard2index].id;
+                                      String doom3=CardList[currentCard3index].id;
+
+                                      String doom1title=CardList[currentCard1index].title;
+                                      String doom2title=CardList[currentCard2index].title;
+                                      String doom3title=CardList[currentCard3index].title;
+
+                                      String doom1content=CardList[currentCard1index].content;
+                                      String doom2content=CardList[currentCard2index].content;
+                                      String doom3content=CardList[currentCard3index].content;
 
                                       if(threecardkeylist.contains(setName)){
                                         match=true;
@@ -431,6 +438,12 @@ class _BrowseCardsState extends State<BrowseCards> {
                                         "card1": doom1,
                                         "card2":doom2,
                                         "card3": doom3,
+                                        "card1title": doom1title,
+                                        "card2title":doom2title,
+                                        "card3title": doom3title,
+                                        "card1content": doom1content,
+                                        "card2content":doom2content,
+                                        "card3content": doom3content,
                                         "id" : setName
 
                                       };

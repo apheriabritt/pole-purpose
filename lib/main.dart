@@ -41,9 +41,31 @@ class _MyAppState extends State<MyApp> {
   int _total = 0;
   List uidList=[];
 
+  uploadUserData() async{
+    String pushtoken;
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+    firebaseMessaging.getToken().then((token){
+      pushtoken=token;
+
+    });
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser user = await auth.currentUser();
+    DatabaseReference ref = FirebaseDatabase.instance.reference();
+
+    var data =
+    {
+      "uid": user.uid,
+      "username": user.displayName,
+      "email": user.email,
+      "pushid": pushtoken
+
+    };
+    ref.child("user info").child(user.uid.toString()).set(data);
+  }
   @override
   void initState() {
     super.initState();
+    uploadUserData();
     firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
