@@ -10,6 +10,7 @@ import 'package:pole_purpose/CONSTANTS/playSound.dart';
 Widget SingleCard(String id,title,content){
   return StatefulBuilder(
       builder: (context, setState) {
+        ScrollController controller = ScrollController();
         return Container(
           //height:MediaQuery.of(context).size.height,
           //width:MediaQuery.of(context).size.width,
@@ -72,7 +73,10 @@ Widget SingleCard(String id,title,content){
                             child: Padding(
                               padding: const EdgeInsets.all(25.0),
                               child:
-                                Center(child: SingleChildScrollView(child: Text(content,style:TextStyle(fontSize: 35))))
+                                Center(child: Scrollbar(
+                                  isAlwaysShown: true,
+                                    controller: controller,
+                                    child: SingleChildScrollView(child: Text(content,style:TextStyle(fontSize: 35)))))
                               //Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
                             ),
                           ),
