@@ -152,7 +152,7 @@ class _BrowseCardsState extends State<BrowseCards> {
       print('at start up, card mix is $setName');
     singleCard=
     Padding(
-        padding: EdgeInsets.all(33),
+        padding: EdgeInsets.fromLTRB(35, 65, 35, 35),
         child:
         Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content))
     );
