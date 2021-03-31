@@ -216,7 +216,7 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   @override
   Widget build(BuildContext context) {
-    return loading==true?Container():Scaffold(extendBodyBehindAppBar: true,
+    return loading==true?Loading():Scaffold(extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         appBar: hamburger,
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,

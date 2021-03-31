@@ -139,7 +139,7 @@ class _PushCentreState extends State<PushCentre> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
+                      child: TextFormField(cursorColor: Colors.black,
                         initialValue: title,
                         decoration: InputDecoration(hintText: 'title'),
                         validator: (value) {
@@ -156,7 +156,7 @@ class _PushCentreState extends State<PushCentre> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
+                      child: TextFormField(cursorColor: Colors.black,
                         initialValue: description,
                         maxLines: 3,
                         decoration: InputDecoration(hintText: 'description'),

@@ -138,7 +138,7 @@ class _AddPPCardsState extends State<AddPPCards> {
                 key:formKey,
                 child: ListView(
                   children: <Widget>[
-                    TextFormField(
+                    TextFormField(cursorColor: Colors.black,
                       decoration: InputDecoration(labelText: 'add id',labelStyle: TextStyle(color:Colors.black)),
                       maxLines: 1,
                       initialValue: data.id,
@@ -153,7 +153,7 @@ class _AddPPCardsState extends State<AddPPCards> {
                         return id = value;
                       },
                     ),
-                    TextFormField(
+                    TextFormField(cursorColor: Colors.black,
                       decoration: InputDecoration(labelText: 'add title',labelStyle: TextStyle(color:Colors.black)),
                       maxLines: 1,
                       initialValue: data.title,
@@ -168,9 +168,9 @@ class _AddPPCardsState extends State<AddPPCards> {
                         return title = value;
                       },
                     ),
-                    TextFormField(
+                    TextFormField(cursorColor: Colors.black,
                       decoration: InputDecoration(labelText: 'add content',labelStyle: TextStyle(color:Colors.black)),
-                      maxLines: 10,
+                      maxLines: 25,
                       initialValue: data.content,
                       validator: (value) {
                         if (value.isEmpty) {

@@ -324,7 +324,8 @@ class _MyAppState extends State<MyApp> {
         value: AuthService().user,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(fontFamily: 'GillSansMT'),
+          theme: ThemeData(fontFamily: 'GillSansMT', primaryColor: Colors.white,
+            accentColor: Colors.black,),
     home: Wrapper(),
         ));
   }

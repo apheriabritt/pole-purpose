@@ -68,7 +68,7 @@ Widget SingleCard(String id,title,content){
                             child: Text(title,style:TextStyle(fontFamily: 'Xtreem',fontSize:75)),
                           ),
                           Container(
-                            height:800,
+                            height:750,
                             child: Padding(
                               padding: const EdgeInsets.all(25.0),
                               child:
@@ -76,6 +76,90 @@ Widget SingleCard(String id,title,content){
                               //Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
                             ),
                           ),
+                          id=='Everyday-Movement'?GestureDetector(
+                            onTap:() async{
+                              String thisid='Everyday-Movements';
+                              String thistitle='';
+                              DatabaseReference ref = FirebaseDatabase.instance.reference();
+                              await ref
+                                  .child('cards/Everyday-Movements/title')
+                                  .once()
+                                  .then((snapshot){thistitle=snapshot.value;});
+                              print('this title is $thistitle');
+                              String thiscontent='';
+                              await ref
+                                  .child('cards/$thisid/content')
+                                  .once()
+                                  .then((snapshot){thiscontent=snapshot.value;});
+                              print('this content is $thiscontent');
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Scaffold(
+                                          appBar: customAppBarjustback,
+                                          extendBodyBehindAppBar: true,
+                                          body: Padding(
+                                            padding: const EdgeInsets.all(25.0),
+                                            child: Center(child: SingleCard(thisid,thistitle,thiscontent)),
+                                          )
+                                      )));
+                            },
+                            child:Card(
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: Colors.black, width: 2),
+                                  borderRadius: BorderRadius.circular(20)),
+                              color:Colors.white,
+                              shadowColor: Colors.black,
+                              elevation: 5.0,
+                              child:Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text('View Everyday Movements',style:TextStyle(fontSize: 35)),
+                              )
+                            )
+                          ):Container(),
+                          id=='Restricting-Freedom'?GestureDetector(
+                              onTap:() async{
+                                String thisid='Action-Descriptive-Words';
+                                String thistitle='';
+                                DatabaseReference ref = FirebaseDatabase.instance.reference();
+                                await ref
+                                    .child('cards/$thisid/title')
+                                    .once()
+                                    .then((snapshot){thistitle=snapshot.value;});
+                                print('this title is $thistitle');
+                                String thiscontent='';
+                                await ref
+                                    .child('cards/$thisid/content')
+                                    .once()
+                                    .then((snapshot){thiscontent=snapshot.value;});
+                                print('this content is $thiscontent');
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Scaffold(
+                                            appBar: customAppBarjustback,
+                                            extendBodyBehindAppBar: true,
+                                            body: Padding(
+                                              padding: const EdgeInsets.all(25.0),
+                                              child: Center(child: SingleCard(thisid,thistitle,thiscontent)),
+                                            )
+                                        )));
+                              },
+                              child:Card(
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide(color: Colors.black, width: 2),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  color:Colors.white,
+                                  shadowColor: Colors.black,
+                                  elevation: 5.0,
+                                  child:Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text('Action & Descriptive Words',style:TextStyle(fontSize: 35)),
+                                  )
+                              )
+                          ):Container()
                         ],
                       )), elevation: 10,),
                   ),

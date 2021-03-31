@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/CONSTANTS/appbar.dart';
 import 'package:pole_purpose/CONSTANTS/hamburger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,7 +9,7 @@ class OnlineClasses extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
-      appBar: hamburger,
+      appBar: customAppBarjustback,
       body: Material(
         color: Colors.white,
         child: Stack(

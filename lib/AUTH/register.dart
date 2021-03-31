@@ -56,7 +56,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  TextFormField(
+                  TextFormField(cursorColor: Colors.black,
                       decoration:InputDecoration(hintText: 'email'),
                       validator: (val) =>  val.isEmpty ? 'enter an email' : null,
                       onChanged: (val){
@@ -64,7 +64,7 @@ class _RegisterState extends State<Register> {
                       }
                   ),
                   SizedBox(height: 20.0),
-                  TextFormField(
+                  TextFormField(cursorColor: Colors.black,
                       decoration:InputDecoration(hintText: 'password'),
                       validator: (val) =>  val.length < 6 ? 'please enter a password longer than 6 characters' : null,
                       obscureText: true,
