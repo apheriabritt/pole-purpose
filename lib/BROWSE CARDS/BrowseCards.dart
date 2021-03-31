@@ -99,10 +99,12 @@ class _BrowseCardsState extends State<BrowseCards> {
           print('three card fave list is $threecardkeylist');
           print('currently showing set: $setName');
           if(threecardkeylist.contains(setName)){
+            print('match');
             match =true;
               faveIcon=Icons.favorite;
           }
           else if(match!=true){
+            print('no match');
               faveIcon=Icons.favorite_border;
             }
         }
@@ -418,14 +420,18 @@ class _BrowseCardsState extends State<BrowseCards> {
                                       String doom3content=CardList[currentCard3index].content;
 
                                       if(threecardkeylist.contains(setName)){
+                                        print('removing');
                                         match=true;
                                         FirebaseDatabase.instance.reference().child("favourites").child('MIX').child(user.uid).child(setName).remove();
                                         setState(() {
+                                          isFaved();
                                           faveIcon=Icons.favorite_border;
                                         });
                                       }
                                       else if(match!=true){
+                                        print('adding');
                                       setState(() {
+                                        isFaved();
                                         faveIcon=Icons.favorite;
                                       });
                                       ///3 card mix...find a way to light up the heart... i guess same as before
@@ -450,7 +456,6 @@ class _BrowseCardsState extends State<BrowseCards> {
 
                                       await ref.child("favourites").child('MIX').child(user.uid).child(setName).set(data);
                                       setState(() {
-
                                       });
 
                                     }}
