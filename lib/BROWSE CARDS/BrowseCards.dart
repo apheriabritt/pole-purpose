@@ -56,6 +56,7 @@ class _BrowseCardsState extends State<BrowseCards> {
   void isFaved() async{
     final FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseUser user = await auth.currentUser();
+    print('single is $single');
     if(single==true){
       DatabaseReference ref = FirebaseDatabase.instance.reference();
       String faveListString;
@@ -111,6 +112,9 @@ class _BrowseCardsState extends State<BrowseCards> {
 
       });
     }
+    setState(() {
+      
+    });
   }
 
     void getData() async {
@@ -315,12 +319,14 @@ class _BrowseCardsState extends State<BrowseCards> {
                                   if (single == true) {
                                     setState(() {
                                       single = false;
+                                      isFaved();
                                       cardIcon=Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png');
                                     });}
                                     //switch to single or to group, also change the icon
                                   else{
                                 setState(() {
                                 single = true;
+                                isFaved();
                                 cardIcon=Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png');
                                 });}
                                 },
