@@ -40,6 +40,20 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
 
   void getFaves() async{
 
+
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    user = await auth.currentUser();
+
+    ///SINGLE CARD
+    DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
+        "favourites/SINGLE/${user.uid}/faveList");
+    await postsRef.once().then((DataSnapshot snap) {
+      if(snap.value!=null){
+      SingleFaveList.clear();
+        SingleFaveList = jsonDecode(snap.value);}});
+        print(SingleFaveList);
+
     DatabaseReference postsRef3 = FirebaseDatabase.instance.reference().child(
         "cards");
     postsRef3.once().then((DataSnapshot snap) {
@@ -55,24 +69,12 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
           DATA[individualKey]['id'],
           DATA[individualKey]['content'],
         );
-        CardList.add(ppcard);
+        String id = DATA[individualKey]['id'];
+        if(SingleFaveList.contains(id)){
+          CardList.add(ppcard);}
       }
       print('Length: $CardList.length');
     });
-
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    user = await auth.currentUser();
-
-    ///SINGLE CARD
-    DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
-        "favourites/SINGLE/${user.uid}/faveList");
-    await postsRef.once().then((DataSnapshot snap) {
-      if(snap.value!=null){
-      SingleFaveList.clear();
-        SingleFaveList = jsonDecode(snap.value);}});
-        print(SingleFaveList);
-
-
 
     ///THREE CARD
 
@@ -146,7 +148,6 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
         tabs: [
           Tab(icon: Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png',width: 50,)),
           Tab(icon: Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png')),
-
         ])),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           extendBodyBehindAppBar: true,
@@ -170,7 +171,6 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
                 crossAxisCount: 4,
                 itemCount: CardList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  if(SingleFaveList.contains(CardList[index].id)){
                   return Card(
                   elevation: 0.0,
                   color: Colors.transparent,
@@ -185,10 +185,8 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
                       //FAB
                     ],
                   ),
-                  );}
-                  else{
-                  return Container();}
-                },
+                  );
+                  },
                 staggeredTileBuilder: (int index) =>
                 new StaggeredTile.fit(2),
                 mainAxisSpacing: 4.0,

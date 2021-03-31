@@ -47,15 +47,8 @@ class _PushCentreState extends State<PushCentre> {
 
 
   Future<bool> sendPush() async {
-    String receiveruid='powSlUSztJXqmnSGdzRi0H7dfIt1';
     //this need to be send to all
     final String serverToken = 'AAAApkGJuVA:APA91bGCrv3EOkqOX_ik5PZsG7kmKdSVMgjXk3aWrCVEqsUPREX6VYH0FbTrBHlnhDiGniTnApUjZY9uFyg4YsS9dkKnyL75q8m1U12L8A6hZhVkWs_0EwRpY9Q_Yj2HCByNO1tLreIJ';
-
-    print('receiver uid: ${receiveruid}');
-
-    String pushID = (await FirebaseDatabase.instance.reference().child("user info/${receiveruid}/pushid").once()).value;
-    print('pushID: ${pushID}');
-
     final postUrl = 'https://fcm.googleapis.com/fcm/send';
     final data = {
       "registration_ids" : pushList, //link to firebase list. create a list of all. get tokens from user info?

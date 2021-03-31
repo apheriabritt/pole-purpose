@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
       "pushid": pushtoken
 
     };
-    ref.child("user info").child(user.uid.toString()).set(data);
+    await ref.child("user info").child(user.uid.toString()).set(data);
   }
   @override
   void initState() {
