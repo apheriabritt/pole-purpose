@@ -19,10 +19,6 @@ var hamburger = PreferredSize(
     preferredSize: const Size.fromHeight(200.0),
      child: StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-
-      AnimationController animateController;
-Future.delayed(const Duration(seconds: 3), () {
-animateController.dispose();});
       void help(){
         showModalBottomSheet<void>(
           context: context,
@@ -327,8 +323,6 @@ void showModal(){
                 children:[ Padding(
                   padding: const EdgeInsets.fromLTRB(0, 25, 15, 0),
                   child: Pulse(
-                    controller: ( controller ) => animateController = controller,
-                    infinite: true,
                     child: FloatingActionButton(
                       elevation: 0.0,
                       heroTag: 'help',

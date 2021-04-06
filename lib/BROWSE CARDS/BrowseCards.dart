@@ -152,26 +152,31 @@ class _BrowseCardsState extends State<BrowseCards> {
       print('at start up, card mix is $setName');
     singleCard=
     Padding(
-        padding: EdgeInsets.fromLTRB(35, 65, 35, 35),
+        padding: EdgeInsets.fromLTRB(35, 50, 35, 0),
         child:
-        new Swiper(
-          onIndexChanged: (index) async{
-            await getData();
-            setState(() {
-            });
-          },
-          itemBuilder: (BuildContext context,int index){
-            return Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content));
-          },
-          itemCount: 1,
+        Container(
+          child: new Swiper(
+
+            onIndexChanged: (index) async{
+              await getData();
+              setState(() {
+              });
+            },
+            itemBuilder: (BuildContext context,int index){
+              print('item builder');
+              return SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
+            },
+            itemCount: 1
+          ),
         ),  );
     threeCard=
     Padding(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
         child:Container(
           height:MediaQuery.of(context).size.height,
           width:MediaQuery.of(context).size.width,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -179,9 +184,8 @@ class _BrowseCardsState extends State<BrowseCards> {
                          Transform.rotate(
                                 angle:pi/12,
                                 child: Container(
-                                    height:MediaQuery.of(context).size.height/4,
+                                    height:MediaQuery.of(context).size.height/4.2,
                                     child: card1)),
-                         Container(),
                        ],
                      ),
                       Row(
@@ -190,18 +194,17 @@ class _BrowseCardsState extends State<BrowseCards> {
                           Transform.rotate(
                               angle:-pi/20,
                               child: Container(
-                                  height:MediaQuery.of(context).size.height/4,
+                                  height:MediaQuery.of(context).size.height/4.2,
                                   child: card2)),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(),
                           Transform.rotate(
                               angle:pi/12,
                               child: Container(
-                                  height:MediaQuery.of(context).size.height/4,
+                                  height:MediaQuery.of(context).size.height/4.2,
                                   child: card3)),
                         ],
                       ),
@@ -219,16 +222,19 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   @override
   Widget build(BuildContext context) {
-    return loading==true?Loading():Scaffold(extendBodyBehindAppBar: true,
+    return loading==true?Loading():
+    Scaffold(
+      extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
+        extendBody: true,
         appBar: hamburger,
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         floatingActionButton:
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
              Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -304,14 +310,12 @@ class _BrowseCardsState extends State<BrowseCards> {
 
           ),
         ),
-      body: Container(
-          child: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  flex: 9,
-                 child: Scaffold(extendBodyBehindAppBar: true,
-                   backgroundColor: Colors.transparent,
+    body:
+    loading==true?Loading(): Stack(
+      alignment: Alignment.center,
+    children: [
+
+    single==true?singleCard:threeCard]),
                       bottomNavigationBar:Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
                         child: Row(
@@ -472,20 +476,7 @@ class _BrowseCardsState extends State<BrowseCards> {
                                   },
                                 )
                           ])),
-                      body:
-                         loading==true?Loading(): Stack(
-                              children: [
 
-                              single==true?singleCard:threeCard,
-
-
-                              ])
-                    ),
-                  )
-              ],
-            ),
-          ),
-        ),
     );
   }
 }
