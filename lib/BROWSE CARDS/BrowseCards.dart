@@ -154,8 +154,17 @@ class _BrowseCardsState extends State<BrowseCards> {
     Padding(
         padding: EdgeInsets.fromLTRB(35, 65, 35, 35),
         child:
-        Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content))
-    );
+        new Swiper(
+          onIndexChanged: (index) async{
+            await getData();
+            setState(() {
+            });
+          },
+          itemBuilder: (BuildContext context,int index){
+            return Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content));
+          },
+          itemCount: 1,
+        ),  );
     threeCard=
     Padding(
         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),

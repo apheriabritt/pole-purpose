@@ -7,9 +7,9 @@ class Copyright extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(extendBodyBehindAppBar: true,
-        backgroundColor: Colors.white,
         appBar: customAppBarjustback,
         body: Material(
+          color:Colors.white,
           child: SafeArea(
             child:Padding(
               padding: const EdgeInsets.all(8.0),

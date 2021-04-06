@@ -22,7 +22,7 @@ var hamburger = PreferredSize(
 
       AnimationController animateController;
 Future.delayed(const Duration(seconds: 3), () {
-animateController.stop();});
+animateController.dispose();});
       void help(){
         showModalBottomSheet<void>(
           context: context,
