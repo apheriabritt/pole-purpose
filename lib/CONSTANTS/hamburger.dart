@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/ADMIN/cardHome.dart';
 import 'package:pole_purpose/AUTH/services.dart';
@@ -12,6 +13,7 @@ import 'package:pole_purpose/MORE%20INFO/privacy.dart';
 import 'package:pole_purpose/MORE%20INFO/terms.dart';
 import 'package:pole_purpose/ONLINE%20CLASSES/OnlineClasses.dart';
 import 'package:pole_purpose/ADMIN/PUSHHUB.dart';
+import 'package:provider/provider.dart';
 
 
 var hamburger = PreferredSize(
@@ -19,6 +21,15 @@ var hamburger = PreferredSize(
     preferredSize: const Size.fromHeight(200.0),
      child: StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+      bool admin;
+      getUserData()async{
+        FirebaseUser user;
+        final FirebaseAuth auth = FirebaseAuth.instance;
+        user = await auth.currentUser();
+        if (user.uid =='4iG0evlw96Su4wTLqHT6PlE0Sd22'||user.uid =='hW5IFcFO2dhx74iyv1of0DatC133'){
+          admin=true;}
+      }
+      getUserData();
       void help(){
         showModalBottomSheet<void>(
           context: context,
@@ -283,7 +294,7 @@ void showModal(){
                     );
                 },
               ),
-              TextButton(
+              admin==true?TextButton(
                 child:ListTile(
                     leading:Icon(Icons.notifications_active,color:Colors.black,size:35),
                     title: Text('PUSH HUB',style:TextStyle(color:Colors.black,fontSize:35))
@@ -295,8 +306,8 @@ void showModal(){
                     MaterialPageRoute(builder: (context) => PushCentre()),
                   );
                 },
-              ),
-              TextButton(
+              ):Container(),
+              admin==true?TextButton(
                 child:ListTile(
                     leading:Icon(Icons.add,color:Colors.black,size:35),
                     title: Text('UPLOAD CARDS',style:TextStyle(color:Colors.black,fontSize:35))
@@ -308,7 +319,7 @@ void showModal(){
                     MaterialPageRoute(builder: (context) => ViewPPCards()),
                   );
                 },
-              )
+              ):Container()
             ],
           ),
         ),

@@ -38,7 +38,7 @@ bool loading=true;
 Widget card1;
 Widget card2;
 Widget card3;
-
+bool cover=false;
 
 // ignore: missing_return
 
@@ -150,13 +150,13 @@ class _BrowseCardsState extends State<BrowseCards> {
       print('index 1 is $currentCard1index');
       print('at start up, new card is ${CardList[currentCard1index].title}');
       print('at start up, card mix is $setName');
+
     singleCard=
     Padding(
         padding: EdgeInsets.fromLTRB(35, 50, 35, 0),
         child:
         Container(
           child: new Swiper(
-
             onIndexChanged: (index) async{
               await getData();
               setState(() {
@@ -164,7 +164,9 @@ class _BrowseCardsState extends State<BrowseCards> {
             },
             itemBuilder: (BuildContext context,int index){
               print('item builder');
-              return SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
+              print('index is $index');
+              return
+              SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
             },
             itemCount: 1
           ),
