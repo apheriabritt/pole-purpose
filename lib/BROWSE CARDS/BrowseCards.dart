@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,6 +40,9 @@ Widget card1;
 Widget card2;
 Widget card3;
 bool cover=false;
+AnimationController animateController;
+AnimationController animateController2;
+
 
 // ignore: missing_return
 
@@ -150,27 +154,26 @@ class _BrowseCardsState extends State<BrowseCards> {
       print('index 1 is $currentCard1index');
       print('at start up, new card is ${CardList[currentCard1index].title}');
       print('at start up, card mix is $setName');
-
     singleCard=
     Padding(
         padding: EdgeInsets.fromLTRB(35, 50, 35, 0),
         child:
-        Container(
-          child: new Swiper(
-            onIndexChanged: (index) async{
-              await getData();
-              setState(() {
-              });
-            },
-            itemBuilder: (BuildContext context,int index){
-              print('item builder');
-              print('index is $index');
-              return
-              SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
-            },
-            itemCount: 1
-          ),
-        ),  );
+        FadeInRight(
+            controller: ( controller ) => animateController = controller,
+            manualTrigger: true,
+            child: GestureDetector(
+                onPanStart: (DragStartDetails details) async{
+                 await animateController.forward();
+                 animateController.reset();
+                  print('panning');
+                  _sound.playLocal("shuffle.mp3");
+                  await getData();
+                  setState(() {
+                  });
+                  },
+                child: Container(child: Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content)))),
+        )
+             );
     threeCard=
     Padding(
         padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
