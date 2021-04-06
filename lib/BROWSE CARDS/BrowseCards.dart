@@ -158,7 +158,7 @@ class _BrowseCardsState extends State<BrowseCards> {
     );
     threeCard=
     Padding(
-        padding: EdgeInsets.fromLTRB(75, 75, 75, 35),
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
         child:Container(
           height:MediaQuery.of(context).size.height,
           width:MediaQuery.of(context).size.width,

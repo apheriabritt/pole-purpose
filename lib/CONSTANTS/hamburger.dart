@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/ADMIN/cardHome.dart';
 import 'package:pole_purpose/AUTH/services.dart';
@@ -18,6 +19,10 @@ var hamburger = PreferredSize(
     preferredSize: const Size.fromHeight(200.0),
      child: StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+
+      AnimationController animateController;
+Future.delayed(const Duration(seconds: 3), () {
+animateController.stop();});
       void help(){
         showModalBottomSheet<void>(
           context: context,
@@ -321,11 +326,16 @@ void showModal(){
                 mainAxisAlignment: MainAxisAlignment.end,
                 children:[ Padding(
                   padding: const EdgeInsets.fromLTRB(0, 25, 15, 0),
-                  child: FloatingActionButton(
-                    heroTag: 'help',
-                      backgroundColor: Colors.white,
-                      child:Image.asset('images/assets/ICONS/help.png',fit:BoxFit.fill),
-                      onPressed: help
+                  child: Pulse(
+                    controller: ( controller ) => animateController = controller,
+                    infinite: true,
+                    child: FloatingActionButton(
+                      elevation: 0.0,
+                      heroTag: 'help',
+                        backgroundColor: Colors.transparent,
+                        child:Image.asset('images/assets/ICONS/help.png',fit:BoxFit.fill),
+                        onPressed: help
+                    ),
                   ),
                 ),Padding(
                   padding: const EdgeInsets.fromLTRB(0, 25, 25, 0),
