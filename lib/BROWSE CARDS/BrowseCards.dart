@@ -162,49 +162,43 @@ class _BrowseCardsState extends State<BrowseCards> {
         child:Container(
           height:MediaQuery.of(context).size.height,
           width:MediaQuery.of(context).size.width,
-          child: Center(
-            child: Stack(
-                alignment: Alignment.center,
-                children:[
-                  Column(
+          child: Column(
                     children: [
-                      Transform.scale(
-                        scale: 0.5,
-                        alignment: Alignment.topLeft,
-                        child: Transform.rotate(
-                            angle:pi/12,
-                            child: card1),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       children: [
+                         Transform.rotate(
+                                angle:pi/12,
+                                child: Container(
+                                    height:MediaQuery.of(context).size.height/4,
+                                    child: card1)),
+                         Container(),
+                       ],
+                     ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Transform.rotate(
+                              angle:-pi/20,
+                              child: Container(
+                                  height:MediaQuery.of(context).size.height/4,
+                                  child: card2)),
+                        ],
                       ),
-                    ],
-                  ),
-
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Transform.scale(
-                        scale: 0.5,
-                        alignment: Alignment.center,
-                        child: Transform.rotate(
-                            angle:-pi/20,
-                            child: card2),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(),
+                          Transform.rotate(
+                              angle:pi/12,
+                              child: Container(
+                                  height:MediaQuery.of(context).size.height/4,
+                                  child: card3)),
+                        ],
                       ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Transform.scale(
-                        scale: 0.5,
-                        alignment: Alignment.bottomRight,
-                        child: Transform.rotate(
-                            angle:pi/12,
-                            child: card3),
-                      ),
-                    ],
-                  )
                 ]),
           ),
-        ));
+        );
       await isFaved();
       setState(() {
         loading=false;
