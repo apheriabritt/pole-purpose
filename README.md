@@ -1,5 +1,4 @@
 
-- MailChimp API
+- MailChimp API - give firebase access
 - scroll bars
-- admin email addresses
 ... Then iOS upload + push not. checks

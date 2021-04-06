@@ -1,3 +1,4 @@
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/CONSTANTS/appbar.dart';
@@ -48,18 +49,18 @@ class Terms extends StatelessWidget {
           child: SafeArea(
               child: Container(
                 height: MediaQuery.of(context).size.height, // constrain height
-                child: CupertinoScrollbar(thickness:2.0,
+                child: DraggableScrollbar.rrect(
                   controller: _controller,
-                  isAlwaysShown: true,
-                  child: Center(
-                    child: ListView.builder(
+                  alwaysVisibleScrollThumb: true,
+                  backgroundColor: Colors.black.withOpacity(0.75),
+                  child: ListView.builder(
+                    controller: _controller,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: subtitles.length,
                       itemBuilder: (BuildContext ctxt, int index) {
                         return LongTextWidget(context).longText(index, subtitles, content);
                       }
-                    ),
                   ),
                 ), 
             ),

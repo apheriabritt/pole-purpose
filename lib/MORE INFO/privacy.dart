@@ -1,3 +1,4 @@
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/CONSTANTS/appbar.dart';
@@ -47,6 +48,7 @@ class Privacy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScrollController controller = ScrollController();
     return Scaffold(extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: customAppBarjustback,
@@ -54,11 +56,13 @@ class Privacy extends StatelessWidget {
           child: SafeArea(
               child: Container(
                 height: MediaQuery.of(context).size.height, // constrain height
-                child: CupertinoScrollbar(thickness:2.0,
-                  controller: _controller,
-                  isAlwaysShown: true,
-                  child: Center(
-                    child: ListView.builder(
+                child: DraggableScrollbar.rrect(
+                  controller: controller,
+                  alwaysVisibleScrollThumb: true,
+                  backgroundColor: Colors.black.withOpacity(0.75),
+                  padding: EdgeInsets.all(0.0),
+                  child:  ListView.builder(
+                    controller: controller,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: subtitles.length,
@@ -66,7 +70,6 @@ class Privacy extends StatelessWidget {
                         return LongTextWidget(context).longText(index, subtitles, content);
                       }
                     ),
-                  ),
                 ), 
             ),
           ),

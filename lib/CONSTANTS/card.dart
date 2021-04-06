@@ -1,3 +1,4 @@
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -73,10 +74,14 @@ Widget SingleCard(String id,title,content){
                             child: Padding(
                               padding: const EdgeInsets.all(25.0),
                               child:
-                                Center(child: Scrollbar(
-                                  isAlwaysShown: true,
+                                Center(child:DraggableScrollbar.rrect(
                                     controller: controller,
-                                    child: SingleChildScrollView(child: Text(content,style:TextStyle(fontSize: 35)))))
+                                    alwaysVisibleScrollThumb: true,
+                                    backgroundColor: Colors.black.withOpacity(0.75),
+                                    padding: EdgeInsets.all(0.0),
+                                    child: ListView(
+                                        controller: controller,
+                                        children: [Text(content,style:TextStyle(fontSize: 35))])))
                               //Image.network(image,fit:BoxFit.contain,width:MediaQuery.of(context).size.width/1)
                             ),
                           ),
