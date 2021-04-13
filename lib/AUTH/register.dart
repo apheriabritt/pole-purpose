@@ -1,4 +1,6 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
@@ -73,6 +75,22 @@ class _RegisterState extends State<Register> {
                       }
                   ),
                   SizedBox(height: 20.0),
+                  CheckboxListTile(
+                      title:Text('tick this box to add me to the newsletter and get a free training video'),
+                      value: tick,
+                      onChanged: (value){
+                        if(tick==false){
+                          setState(() {
+                            tick=true;
+                          });
+                        }
+                        else if(tick==true){
+                          setState(() {
+                            tick=false;
+                          });
+                        }
+
+                      }),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -92,14 +110,22 @@ class _RegisterState extends State<Register> {
                                 loading = false;
                               });
                             }
+                            if(tick==true){
+                              //add to mailing list
+                              final FirebaseAuth auth = FirebaseAuth.instance;
+                              FirebaseUser user = await auth.currentUser();
+                              DatabaseReference ref = FirebaseDatabase.instance.reference();
+                              var data =
+                              {
+                                "uid": user.uid.toString(),
+                                "email": user.email.toString(),
 
-                          }
-                          if(tick==false){
-                            print('not agreed');
-                            setState(() {
-                              error = 'please agree to the ADAPT criteria. If you are unsure, consult your doctor first.';
-                              loading = false;
-                            });
+                              };
+
+                              await ref.child("mailing list").child(user.uid.toString()).set(data);
+                              print('added to mailing list');
+                            }
+                            else{print('not added');}
                           }
                         }
                     ),
