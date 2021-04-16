@@ -76,7 +76,7 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: 20.0),
                   CheckboxListTile(
-                      title:Text('tick this box to add me to the newsletter and get a free training video'),
+                      title:Text('Tick the box to subscribe to our newsletter and receive a free training video'),
                       value: tick,
                       onChanged: (value){
                         if(tick==false){
