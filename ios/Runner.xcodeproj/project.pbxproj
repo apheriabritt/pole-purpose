@@ -410,7 +410,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.apheria.apheria;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pole.purpose;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -539,7 +539,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.apheria.apheria;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pole.purpose;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"VALID_ARCHS[sdk=*]" = "arm64 arm64e armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -567,7 +567,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.apheria.apheria;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pole.purpose;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
