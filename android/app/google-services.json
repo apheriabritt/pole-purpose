@@ -8,6 +8,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:714064116048:android:15743f5890c6871a4d1455",
+        "android_client_info": {
+          "package_name": "com.pole.dance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714064116048-k3j0q46iqt3rq472gg760c0un642aln4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2wijwS3McsB312L5ggl_Oupl5QbGBBhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714064116048-k3j0q46iqt3rq472gg760c0un642aln4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "714064116048-66n2as6m7nr8uc40k5jli34fm9gfcn2p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pole.purpose"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:714064116048:android:b998c29a14bda03a4d1455",
         "android_client_info": {
           "package_name": "com.pole.purpose"
@@ -30,6 +66,13 @@
             {
               "client_id": "714064116048-k3j0q46iqt3rq472gg760c0un642aln4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "714064116048-66n2as6m7nr8uc40k5jli34fm9gfcn2p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pole.purpose"
+              }
             }
           ]
         }
