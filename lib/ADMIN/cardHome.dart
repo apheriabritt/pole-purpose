@@ -171,7 +171,7 @@ Widget PPCardsUI(String title,image,id,content) {
                           ),
                           backgroundColor: Colors.white.withOpacity(1),
                           title: new Text("just checking...", style: TextStyle(
-                              fontFamily: 'apheriafont',
+                               
                               fontSize: 30.0,
                               color: Colors.black),),
                           content: Container(
@@ -180,7 +180,7 @@ Widget PPCardsUI(String title,image,id,content) {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 new Text("are you sure you want to delete?",
-                                  style: TextStyle(fontFamily: 'apheriafont',
+                                  style: TextStyle( 
                                       fontSize: 25.0,
                                       color: Colors.black),),
 
@@ -189,7 +189,7 @@ Widget PPCardsUI(String title,image,id,content) {
                                   children: [
                                     FlatButton(
                                       child: new Text("no...", style: TextStyle(
-                                          fontFamily: 'apheriafont',
+                                           
                                           fontSize: 30.0,
                                           color: Colors.black),),
                                       onPressed: () {
@@ -199,7 +199,7 @@ Widget PPCardsUI(String title,image,id,content) {
                                     ),
                                     FlatButton(
                                       child: new Text("yes", style: TextStyle(
-                                          fontFamily: 'apheriafont',
+                                           
                                           fontSize: 30.0,
                                           color: Colors.black),),
                                       onPressed: () {
