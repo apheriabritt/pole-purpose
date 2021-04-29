@@ -60,6 +60,22 @@ class _MyAppState extends State<MyApp> {
               count, '${message['notification']['title']}',
               '${message['notification']['body']}', platform,
               payload: 'payload');
+          ///will have to be my solution for now. wont go in tray but i literally cant do anything else.
+            return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            child: SafeArea(
+              child: ListTile(
+                leading:Image.asset('images/polepurposelogo.png'),
+                title: Text(message['notification']['title']),
+                subtitle: Text(message['notification']['body']),
+                trailing: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      OverlaySupportEntry.of(context).dismiss();
+                    }),
+              ),
+            ),
+          );
         }, duration: Duration(milliseconds: 4000));
       },
       onLaunch: (Map<String, dynamic> message) async{
