@@ -55,11 +55,12 @@ class _MyAppState extends State<MyApp> {
     firebaseMessaging.configure(
       ///onmessage
       onMessage: (Map<String, dynamic> message) async{
-        print("onMessage: $message");
-        await flutterLocalNotificationsPlugin.show(
-            count, '${message['notification']['title']}',
-            '${message['notification']['body']}', platform,
-            payload: 'payload');
+        showOverlayNotification((context) {
+          flutterLocalNotificationsPlugin.show(
+              count, '${message['notification']['title']}',
+              '${message['notification']['body']}', platform,
+              payload: 'payload');
+        }, duration: Duration(milliseconds: 4000));
       },
       onLaunch: (Map<String, dynamic> message) async{
         print("onLaunch: $message");
