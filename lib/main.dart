@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
@@ -54,10 +55,8 @@ class _MyAppState extends State<MyApp> {
     firebaseMessaging.configure(
       ///onmessage
       onMessage: (Map<String, dynamic> message) async{
+        showOverlayNotification((context) {
           ///will have to be my solution for now. wont go in tray but i literally cant do anything else. it has a mental breakdown otherwise
-        ///overlay support is messing it up i think so i've got rid of it.
-        ///i really like this design i want it to stay
-        ///if i take out overlay supp
             return Card(
             margin: const EdgeInsets.symmetric(horizontal: 4),
             child: SafeArea(
@@ -65,9 +64,15 @@ class _MyAppState extends State<MyApp> {
                 leading:Image.asset('images/polepurposelogo.png'),
                 title: Text(message['notification']['title']),
                 subtitle: Text(message['notification']['body']),
+                trailing: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      OverlaySupportEntry.of(context).dismiss();
+                    }),
               ),
             ),
           );
+        }, duration: Duration(milliseconds: 8000));
       },
       onLaunch: (Map<String, dynamic> message) async{
         print("onLaunch: $message");
@@ -114,9 +119,7 @@ class _MyAppState extends State<MyApp> {
     ///);
     ///}));
   }
-
-
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -126,12 +129,13 @@ class _MyAppState extends State<MyApp> {
     ]);
     return loading!=false?Loading():StreamProvider<User>.value(
         value: AuthService().user,
-      child: MaterialApp(
+      child: OverlaySupport.global(
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'GillSansMT', primaryColor: Colors.white,
             accentColor: Colors.black,),
           home: Wrapper(),
-        ));
+        )));
   }
 }
 
