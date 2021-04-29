@@ -19,8 +19,7 @@ class Author extends StatelessWidget {
         padding: EdgeInsets.all(0.0),
         child: ListView(
                   children: <Widget>[
-                    Expanded(
-                      child: Padding(
+                    Padding(
                         padding: const EdgeInsets.all(25.0),
                         child: Text(
                           '''
@@ -30,8 +29,7 @@ Alongside performance work she loves to teach in pole and contemporary dance and
 
 Rowena Gander                         ''',style:TextStyle(fontSize:20)
                         ),
-                      )
-                    ),
+                      ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 15),
                       child: FlatButton(
