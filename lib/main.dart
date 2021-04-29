@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
       ///onmessage
       onMessage: (Map<String, dynamic> message) async{
         showOverlayNotification((context) {
-          ///will have to be my solution for now. wont go in tray but i literally cant do anything else.
+          ///will have to be my solution for now. wont go in tray but i literally cant do anything else. it has a mental breakdown otherwise
             return Card(
             margin: const EdgeInsets.symmetric(horizontal: 4),
             child: SafeArea(
