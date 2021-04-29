@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
           );
-        }, duration: Duration(milliseconds: 4000));
+        }, duration: Duration(milliseconds: 8000));
       },
       onLaunch: (Map<String, dynamic> message) async{
         print("onLaunch: $message");
