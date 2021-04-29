@@ -53,7 +53,7 @@ Widget SingleCard(String id,title,content){
                           Image.asset('images/assets/CARDS/$id.png',fit:BoxFit.fill),
                         ),
                       ],
-                    )), elevation: 5,),
+                    )), elevation: 10,),
                   ),
                 ),
                 back: FittedBox(
@@ -170,7 +170,7 @@ Widget SingleCard(String id,title,content){
                               )
                           ):Container()
                         ],
-                      )), elevation: 5,),
+                      )), elevation: 10,),
                   ),
                 ),
               ),

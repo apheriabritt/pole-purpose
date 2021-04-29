@@ -188,19 +188,23 @@ class _BrowseCardsState extends State<BrowseCards> {
                        children: [
                          Transform.rotate(
                                 angle:pi/12,
-                                child: Container(
-                                    height:MediaQuery.of(context).size.height/4.2,
-                                    child: card1)),
+                             child: SizedBox(
+                                 height:MediaQuery.of(context).size.height/4.2,
+                                 child: FittedBox(
+                                     fit:BoxFit.fill,
+                                     child: card1))),
                        ],
                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Transform.rotate(
-                              angle:-pi/20,
-                              child: Container(
+                              angle:-pi/10,
+                              child: SizedBox(
                                   height:MediaQuery.of(context).size.height/4.2,
-                                  child: card2)),
+                                  child: FittedBox(
+                                      fit:BoxFit.fill,
+                                      child: card2))),
                         ],
                       ),
                       Row(
@@ -208,9 +212,11 @@ class _BrowseCardsState extends State<BrowseCards> {
                         children: [
                           Transform.rotate(
                               angle:pi/12,
-                              child: Container(
+                              child: SizedBox(
                                   height:MediaQuery.of(context).size.height/4.2,
-                                  child: card3)),
+                                  child: FittedBox(
+                                      fit:BoxFit.fill,
+                                      child: card3))),
                         ],
                       ),
                 ]),
@@ -229,9 +235,7 @@ class _BrowseCardsState extends State<BrowseCards> {
   Widget build(BuildContext context) {
     return loading==true?Loading():
     Scaffold(
-      extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
-        extendBody: true,
         appBar: hamburger,
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         floatingActionButton:
