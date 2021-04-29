@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
@@ -117,12 +118,13 @@ class _MyAppState extends State<MyApp> {
     ]);
     return loading!=false?Loading():StreamProvider<User>.value(
         value: AuthService().user,
+      child: OverlaySupport.global(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'GillSansMT', primaryColor: Colors.white,
             accentColor: Colors.black,),
           home: Wrapper(),
-        ));
+        )));
   }
 }
 
