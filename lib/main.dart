@@ -56,10 +56,6 @@ class _MyAppState extends State<MyApp> {
       ///onmessage
       onMessage: (Map<String, dynamic> message) async{
         showOverlayNotification((context) {
-          flutterLocalNotificationsPlugin.show(
-              count, '${message['notification']['title']}',
-              '${message['notification']['body']}', platform,
-              payload: 'payload');
           ///will have to be my solution for now. wont go in tray but i literally cant do anything else.
             return Card(
             margin: const EdgeInsets.symmetric(horizontal: 4),
