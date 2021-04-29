@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
+import 'package:pole_purpose/CONSTANTS/loading.dart';
 import 'package:provider/provider.dart';
 class Wrapper extends StatefulWidget {
   @override
@@ -30,10 +31,7 @@ class _WrapperState extends State<Wrapper> {
 
   void initState() {
     super.initState();
-    getUserData();
-    Future.delayed(const Duration(seconds: 3), () {
-      // deleayed code here
-    });
+
 
   }
 
@@ -47,7 +45,7 @@ class _WrapperState extends State<Wrapper> {
       pushtoken=token;
     });
     if(user!=null){
-      print('database');
+      print('found user. uploading info to database.');
       //check uid to see if star points are registered
       //if uid is not registered, create uid with shared pref total as counter
       //if uid is registered, leave it
@@ -66,23 +64,36 @@ class _WrapperState extends State<Wrapper> {
       "pushid": pushtoken
 
     };
-    ref.child("user info").child(user.uid).set(data);
-    setState(() {
-      loading=false;
-    });
-  }}
+    await ref.child("user info").child(user.uid).set(data);
+      setState(() {
+        loading=false;
+      });
+  }
+    else{
+      print('no user found. no upload taking place.');
 
+      setState(() {
+        loading=false;
+      });
+    }
+
+
+
+  }
   @override
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
 
     final user = Provider.of<User>(context);
-    return FutureBuilder(
+    return  FutureBuilder(
         future: FirebaseAuth.instance.currentUser(),
         builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
           if (user == null) {
             return Authenticate();
           }
           else {
+            if(count==0){
+            getUserData();
+            count=count+1;}
             return BrowseCards();
           }
         }
