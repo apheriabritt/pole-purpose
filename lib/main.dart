@@ -8,19 +8,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/AUTH/wrapper.dart';
+import 'package:pole_purpose/CONSTANTS/loading.dart';
 import 'package:provider/provider.dart';
+bool loading=true;
 
+void main() async {
 
-void main() {
-  // We need to call it manually,
-  // because we going to call setPreferredOrientations()
-  // before the runApp() call
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 
-  // Than we setup preferred orientations,
-  // and only after it finished we run our app
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((value) => runApp( MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -32,286 +28,82 @@ class _MyAppState extends State<MyApp> {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
+
   var initializationSettingsAndroid;
   var initializationSettingsIOS;
   var initializationSettings;
   int count=0;
-  int start;
-  bool play;
   int _total = 0;
   List uidList=[];
 
-  uploadUserData() async{
-    String pushtoken;
-    final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
-    firebaseMessaging.getToken().then((token){
-      pushtoken=token;
 
-    });
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final FirebaseUser user = await auth.currentUser();
-    DatabaseReference ref = FirebaseDatabase.instance.reference();
+  void firebaseMessagingSetup() async {
+    ///set up android and ios firebase messaging
+    var android = AndroidNotificationDetails(
+        'all', 'all', 'all',
+        playSound:false,
+        color: Colors.black,
+        enableVibration: false,
+        styleInformation: BigTextStyleInformation(''),
+        importance: Importance.Max,
+        priority: Priority.High,
+        ticker: 'test ticker');
 
-    var data =
-    {
-      "uid": user.uid,
-      "username": user.displayName,
-      "email": user.email,
-      "pushid": pushtoken
-
-    };
-    await ref.child("user info").child(user.uid.toString()).set(data);
-  }
-  @override
-  void initState() {
-    super.initState();
-    uploadUserData();
+    var iOS = IOSNotificationDetails();
+    var platform = new NotificationDetails(android, iOS);
     firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
+      ///onmessage
+      onMessage: (Map<String, dynamic> message) async{
         print("onMessage: $message");
-        var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-            'all', 'all', 'all',
-            playSound:false,
-            color: Colors.black,
-            enableVibration: false,
-            styleInformation: BigTextStyleInformation(''),
-            importance: Importance.Max,
-            priority: Priority.High,
-            ticker: 'test ticker');
-
-
-        var iOSChannelSpecifics = IOSNotificationDetails();
-        var platformChannelSpecifics = NotificationDetails(
-            androidPlatformChannelSpecifics, iOSChannelSpecifics);
-        print(DateTime.now().millisecondsSinceEpoch,);
-
-        final FirebaseAuth auth = FirebaseAuth.instance;
-        final FirebaseUser user = await auth.currentUser();
-        String uid = user.uid;
-        String recurringcheck='${message['notification']['title']}';
-        if(recurringcheck.contains('daily')){
-          print('this notification is daily');
-          //wipe previous notifications here...
-          await flutterLocalNotificationsPlugin.cancelAll();
-          //get time from recurring notifications database.
-
-          String minute = (await FirebaseDatabase.instance.reference().child(
-              "recurring notifications/${uid}/minute").once()).value;
-          String hour = (await FirebaseDatabase.instance.reference().child(
-              "recurring notifications/${uid}/hour").once()).value;
-
-          //format time
-          int hourint=int.parse(hour);
-          int minuteint=int.parse(minute);
-
-          print('hour int: ${hourint}');
-
-          Time time = Time(hourint,minuteint,0);
-
-          await flutterLocalNotificationsPlugin.showDailyAtTime(
-              count, '${message['notification']['title']}',
-              '${message['notification']['body']}',time, platformChannelSpecifics,
-              payload: 'test oayload');
-
-        }
-
-
-
-
-        ////
-        else{
-          print('this notification is NOT recurring');
-          await flutterLocalNotificationsPlugin.show(
-              0, '${message['notification']['title']}',
-              '${message['notification']['body']}', platformChannelSpecifics,
-              payload: 'test oayload');
-
-
-        }
-
-
-        //dialog
+        await flutterLocalNotificationsPlugin.show(
+            count, '${message['notification']['title']}',
+            '${message['notification']['body']}', platform,
+            payload: 'payload');
       },
-      onLaunch: (Map<String, dynamic> message) async {
+      onLaunch: (Map<String, dynamic> message) async{
         print("onLaunch: $message");
-        var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-            'all', 'all', 'all',
-            playSound:false,
-            enableVibration: false,
-            styleInformation: BigTextStyleInformation(''),
-            importance: Importance.Max,
-            priority: Priority.High,
-            ticker: 'test ticker');
-
-
-        var iOSChannelSpecifics = IOSNotificationDetails();
-        var platformChannelSpecifics = NotificationDetails(
-            androidPlatformChannelSpecifics, iOSChannelSpecifics);
-        print(DateTime.now().millisecondsSinceEpoch,);
-        final FirebaseAuth auth = FirebaseAuth.instance;
-        final FirebaseUser user = await auth.currentUser();
-        String uid = user.uid;
-        String recurringcheck='${message['notification']['title']}';
-
-        if(recurringcheck.contains('recurring')){
-          print('this notification is recurring');
-
-          //wipe previous notifications here...
-          await flutterLocalNotificationsPlugin.cancelAll();
-          //get time from recurring notifications database.
-
-          String minute = (await FirebaseDatabase.instance.reference().child(
-              "recurring notifications/${uid}/minute").once()).value;
-          String hour = (await FirebaseDatabase.instance.reference().child(
-              "recurring notifications/${uid}/hour").once()).value;
-
-          //format time
-          int hourint=int.parse(hour);
-          int minuteint=int.parse(minute);
-
-          print('hour int: ${hourint}');
-
-          Time time = Time(hourint,minuteint,0);
-
-          await flutterLocalNotificationsPlugin.showDailyAtTime(
-              count, '${message['notification']['title']}',
-              '${message['notification']['body']}',time, platformChannelSpecifics,
-              payload: 'test oayload');
-
-        }
-        else{
-          print('this notification is NOT recurring');
-          await flutterLocalNotificationsPlugin.show(
-              0, '${message['notification']['title']}',
-              '${message['notification']['body']}', platformChannelSpecifics,
-              payload: 'test oayload');
-
-
-        }
-
-
-
+        await flutterLocalNotificationsPlugin.show(
+            count, '${message['notification']['title']}',
+            '${message['notification']['body']}', platform,
+            payload: 'payload');
       },
-      onResume: (Map<String, dynamic> message) async {
-        print('RESUME');
+      onResume: (Map<String, dynamic> message) async{
         print("onResume: $message");
-        var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-            'all', 'all', 'all',
-            playSound:false,
-            enableVibration: false,
-            styleInformation: BigTextStyleInformation(''),
-            importance: Importance.Max,
-            priority: Priority.High,
-            ticker: 'test ticker');
-
-
-        var iOSChannelSpecifics = IOSNotificationDetails();
-        var platformChannelSpecifics = NotificationDetails(
-            androidPlatformChannelSpecifics, iOSChannelSpecifics);
-        print(DateTime.now().millisecondsSinceEpoch,);
-        final FirebaseAuth auth = FirebaseAuth.instance;
-        final FirebaseUser user = await auth.currentUser();
-        String uid = user.uid;
-        String recurringcheck='${message['notification']['title']}';
-
-
-        if(recurringcheck.contains('recurring')){
-          print('this notification is recurring');
-
-          //wipe previous notifications here...
-          await flutterLocalNotificationsPlugin.cancelAll();
-          //get time from recurring notifications database.
-
-          String minute = (await FirebaseDatabase.instance.reference().child(
-              "recurring notifications/${uid}/minute").once()).value;
-          String hour = (await FirebaseDatabase.instance.reference().child(
-              "recurring notifications/${uid}/hour").once()).value;
-
-          //format time
-          int hourint=int.parse(hour);
-          int minuteint=int.parse(minute);
-
-          print('hour int: ${hourint}');
-
-          Time time = Time(hourint,minuteint,0);
-
-          await flutterLocalNotificationsPlugin.showDailyAtTime(
-              count, '${message['notification']['title']}',
-              '${message['notification']['body']}',time, platformChannelSpecifics,
-              payload: 'test oayload');
-
-        }
-        else{
-          print('this notification is NOT recurring');
-          await flutterLocalNotificationsPlugin.show(
-              0, '${message['notification']['title']}',
-              '${message['notification']['body']}', platformChannelSpecifics,
-              payload: 'test oayload');
-
-
-        }
-
-
-
+        await flutterLocalNotificationsPlugin.show(
+            count, '${message['notification']['title']}',
+            '${message['notification']['body']}', platform,
+            payload: 'payload');
       },
     );
-
     firebaseMessaging.getToken().then((token){
-      print('got token');
+      print("token: ${token}");
     });
-
     firebaseMessaging.requestNotificationPermissions(
         IosNotificationSettings(sound: true, badge: true, alert: true));
-    ///INIT AWESOME NOTIFICATIONS
+    setState(() {
+      loading=false;
+    });
+  }
 
-    ///AWESOME NOTIFICATIONS FINISH//////////////
-    _createNotificationChannel();
-
-    ///LOCAL NOTIFICATIONS START
-    initializationSettingsAndroid =
-    new AndroidInitializationSettings('app_icon');
-    initializationSettingsIOS = new IOSInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    initializationSettings = new InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+  @override
+  void initState() {
+    var initializationSettingsAndroid =
+    AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOs = IOSInitializationSettings();
+    var initSettings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOs);
+    flutterLocalNotificationsPlugin.initialize(initSettings,
         onSelectNotification: onSelectNotification);
-    print('configuring cloud messaging...');
-
-    ///LOCAL NOTIFICATIONS END
-    ///otherr stuff:
-    ///
+    ///set up:
+    firebaseMessagingSetup();
   }
 
-  Future<void> _createNotificationChannel() async {
-    var androidNotificationChannel = AndroidNotificationChannel(
-      'all',
-      'all',
-      'all',
-      playSound:false,
-      enableVibration: false,
-      importance: Importance.Max,
-
-    );
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(androidNotificationChannel);
-
-
-  }
-
-  Future<void> showRecurringNotification() async {
-
-  }
-
-  Future onSelectNotification(String payload) async {
-
-  }
-
-  Future onDidReceiveLocalNotification(
-      int id, String title, String body, String payload) async {
+  Future onSelectNotification(String payload) {
+    ///Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+    ///return NewScreen(
+    ///payload: payload,
+    ///);
+    ///}));
   }
 
 
@@ -319,14 +111,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //constant widget that shows the current workout if there is one?
-    return StreamProvider<User>.value(
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    return loading!=false?Loading():StreamProvider<User>.value(
         value: AuthService().user,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'GillSansMT', primaryColor: Colors.white,
             accentColor: Colors.black,),
-    home: Wrapper(),
+          home: Wrapper(),
         ));
   }
 }
+
+///
+///
