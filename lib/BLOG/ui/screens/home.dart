@@ -7,11 +7,10 @@ import 'package:pole_purpose/BLOG/models/single_post.dart';
 import 'package:pole_purpose/BLOG/ui/screens/post.dart';
 import 'package:pole_purpose/BLOG/ui/widgets/overlayed_container.dart';
 import 'package:pole_purpose/BLOG/ui/widgets/post_container.dart';
-import 'package:pole_purpose/CONSTANTS/appbar.dart';
 
-class Blog extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _BlogState createState() => _BlogState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
 List<SinglePost> parsePosts(response) {
@@ -24,7 +23,7 @@ Future<List<SinglePost>> _getPosts() async {
   return compute(parsePosts, response.body);
 }
 
-class _BlogState extends State<Blog> {
+class _HomeScreenState extends State<HomeScreen> {
   Future<List<SinglePost>> _postsFuture;
   @override
   void initState() {
@@ -40,14 +39,34 @@ class _BlogState extends State<Blog> {
         builder: (context, snapshot) {
           if (snapshot.hasError)
             return Scaffold(
-              appBar: customAppBarjustback,
               body: Center(
                 child: Text("Error"),
               ),
             );
           if (snapshot.hasData) {
             return Scaffold(
-              appBar:customAppBarjustback,
+              appBar: AppBar(
+                elevation: 0,
+                title: Text(
+                  "Cybdom Blog",
+                  style: Theme.of(context)
+                      .textTheme
+                      .title
+                      .copyWith(color: Colors.black),
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(9.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(9),
+                      child: Image.network(
+                        "${snapshot.data[0].avatarURL}",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                ],
+              ),
               body: ListView(
                 children: <Widget>[
                   Container(

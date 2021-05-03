@@ -99,7 +99,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     platform = new NotificationDetails(android:android,iOS: iOS);
     platform = new NotificationDetails(android:android, iOS:iOS);
     var initializationSettingsAndroid =
-    AndroidInitializationSettings('notification');
+    AndroidInitializationSettings('app_icon');
     var initializationSettingsIOs = IOSInitializationSettings();
     var initSettings = InitializationSettings(
         android:initializationSettingsAndroid, iOS:initializationSettingsIOs);

@@ -31,8 +31,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
   void initState() {
     super.initState();
-
-
+getUserData();
   }
 
 
@@ -81,7 +80,7 @@ await firebaseMessaging.getToken().then((token){
   }
   @override
  Widget build(BuildContext context) {
-
+    print('wrapper');
     return loading==true?Loading():
     user==null? Authenticate():
     BrowseCards();
