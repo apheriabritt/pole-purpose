@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 
 class Register extends StatefulWidget {
@@ -103,6 +104,14 @@ final FirebaseAuth auth = FirebaseAuth.instance;
                           if (_formkey.currentState.validate()){
                             setState(() => loading = true);
                             dynamic result = await auth.createUserWithEmailAndPassword(email:email, password:password);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Wrapper()),
+                            );
+                            setState(() {
+                              loading=false;
+                            });
                             if(result == null) {
                               setState(() {
                                 error = 'please supply a valid email';
