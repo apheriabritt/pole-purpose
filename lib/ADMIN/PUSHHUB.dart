@@ -66,7 +66,7 @@ class _PushCentreState extends State<PushCentre> {
       'Authorization': 'key=$serverToken',
     };
 
-    final response = await http.post(postUrl,
+    final response = await http.post(Uri.parse(postUrl),
         body: json.encode(data),
         encoding: Encoding.getByName('utf-8'),
         headers: headers);

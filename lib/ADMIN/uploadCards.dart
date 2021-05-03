@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pole_purpose/CONSTANTS/appbar.dart';
@@ -81,19 +80,6 @@ class _AddPPCardsState extends State<AddPPCards> {
   void upload()async{
     var dbTimeKey = new DateTime.now();
     String stringimage;
-    if(data.image!=null){stringimage=data.image;}
-    if(image!=null){
-      final StorageReference postImageRef = FirebaseStorage.instance.ref()
-          .child('card images');
-
-      StorageUploadTask uploadTask =
-
-      postImageRef.child(
-          dbTimeKey.toString() + ".jpg").putFile(image);
-
-      var ImageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
-
-      stringimage = ImageUrl.toString();}
 
     DatabaseReference ref = FirebaseDatabase.instance.reference();
     if(data.id!=null){id=data.id;}

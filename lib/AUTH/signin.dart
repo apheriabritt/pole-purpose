@@ -1,6 +1,6 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 
 
@@ -15,8 +15,9 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
-  final AuthService _auth = AuthService();
-  final _formkey = GlobalKey<FormState>();
+final _formkey = GlobalKey<FormState>();
+final FirebaseAuth auth = FirebaseAuth.instance;
+
   bool loading = false;
   //text field state
 
@@ -80,7 +81,7 @@ class _SignInState extends State<SignIn> {
                     onTap: () async {
                       if (_formkey.currentState.validate()) {
                         setState(() => loading = true);
-                        dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                        dynamic result = await auth.signInWithEmailAndPassword(email:email, password:password);
                         if (result == null){
                           setState(() {
                             error = 'could not sign in with those credentials';

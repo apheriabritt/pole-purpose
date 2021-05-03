@@ -3,7 +3,6 @@ import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pole_purpose/ADMIN/cardHome.dart';
-import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/BLOG/blog.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
@@ -22,12 +21,13 @@ var hamburger = PreferredSize(
     preferredSize: const Size.fromHeight(200.0),
      child: StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+      final FirebaseAuth auth = FirebaseAuth.instance;
       bool admin;
       getUserData()async{
-        FirebaseUser user;
+        User user;
         final FirebaseAuth auth = FirebaseAuth.instance;
-        user = await auth.currentUser();
-        if (user.uid =='4iG0evlw96Su4wTLqHT6PlE0Sd22'||user.uid =='hW5IFcFO2dhx74iyv1of0DatC133'){
+        user = auth.currentUser;
+if (user.uid =='4iG0evlw96Su4wTLqHT6PlE0Sd22'||user.uid =='hW5IFcFO2dhx74iyv1of0DatC133'){
           admin=true;}
       }
       getUserData();
@@ -307,8 +307,7 @@ void showModal(){
                   ),
                   onPressed: ()
                     async {
-                      final AuthService _auth = AuthService();
-                      await _auth.signOut();
+                    await auth.signOut();
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Wrapper()),

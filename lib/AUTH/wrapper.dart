@@ -4,7 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:pole_purpose/AUTH/services.dart';
+import 'package:pole_purpose/AUTH/authenticate.dart';
 import 'package:pole_purpose/BROWSE%20CARDS/BrowseCards.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 import 'package:provider/provider.dart';
@@ -14,13 +14,13 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  FirebaseUser user;
+  User user;
   bool loading=true;
   String pushtoken;
   int _total = 0;
   List uidList=[];
-  final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
 
   var initializationSettingsAndroid;
@@ -38,9 +38,9 @@ class _WrapperState extends State<Wrapper> {
 
   void getUserData() async{
     final FirebaseAuth auth = FirebaseAuth.instance;
-    user = await auth.currentUser();
-    final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
-    await firebaseMessaging.getToken().then((token){
+    user = auth.currentUser;
+final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+await firebaseMessaging.getToken().then((token){
       print("wrapper token: ${token}");
       pushtoken=token;
     });
@@ -51,7 +51,7 @@ class _WrapperState extends State<Wrapper> {
       //if uid is registered, leave it
       //take shared preferences star points out of it all together
       final FirebaseAuth auth = FirebaseAuth.instance;
-      final FirebaseUser user = await auth.currentUser();
+      final User user = auth.currentUser;
 
     DatabaseReference ref = FirebaseDatabase.instance.reference();
 
@@ -59,7 +59,6 @@ class _WrapperState extends State<Wrapper> {
     {
       "uid": user.uid,
       "username": user.displayName,
-      "avatar": user.photoUrl,
       "email": user.email,
       "pushid": pushtoken
 
@@ -83,20 +82,9 @@ class _WrapperState extends State<Wrapper> {
   @override
  Widget build(BuildContext context) {
 
-    final user = Provider.of<User>(context);
-    return  FutureBuilder(
-        future: FirebaseAuth.instance.currentUser(),
-        builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-          if (user == null) {
-            return Authenticate();
-          }
-          else {
-            if(count==0){
-            getUserData();
-            count=count+1;}
-            return BrowseCards();
-          }
-        }
-    );
+    return loading==true?Loading():
+    user==null? Authenticate():
+    BrowseCards();
+    ///ive put get user data into homepage instead
   }
 }

@@ -59,7 +59,8 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   void isFaved() async{
     final FirebaseAuth auth = FirebaseAuth.instance;
-    FirebaseUser user = await auth.currentUser();
+    User user = auth.currentUser;
+
     print('single is $single');
     if(single==true){
       DatabaseReference ref = FirebaseDatabase.instance.reference();
@@ -368,7 +369,8 @@ class _BrowseCardsState extends State<BrowseCards> {
                                     ///need to show alert and fill heart
                                     ///need to show icon if already favourites and cant do anything with it or maybe unfave
                                     final FirebaseAuth auth = FirebaseAuth.instance;
-                                    FirebaseUser user = await auth.currentUser();
+                                    User user = auth.currentUser;
+
                                     //print(CardList.first.key.toString());
                                     //get fave data
                                     //add current key to that list

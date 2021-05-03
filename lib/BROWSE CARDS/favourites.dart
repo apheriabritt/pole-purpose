@@ -34,7 +34,7 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   int count=0;
   bool loading=true;
 
-  FirebaseUser user;
+  User user;
   ///get favourites
   ///
 
@@ -43,9 +43,8 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
 
 
     final FirebaseAuth auth = FirebaseAuth.instance;
-    user = await auth.currentUser();
-
-    ///SINGLE CARD
+    user = auth.currentUser;
+///SINGLE CARD
     DatabaseReference postsRef = FirebaseDatabase.instance.reference().child(
         "favourites/SINGLE/${user.uid}/faveList");
     await postsRef.once().then((DataSnapshot snap) {

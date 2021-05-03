@@ -2,7 +2,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:pole_purpose/AUTH/services.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 
 class Register extends StatefulWidget {
@@ -16,9 +15,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
-  final AuthService _auth = AuthService();
-  final _formkey = GlobalKey<FormState>();
+final _formkey = GlobalKey<FormState>();
   bool loading = false;
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 
 
@@ -103,7 +102,7 @@ class _RegisterState extends State<Register> {
                         onTap: () async{
                           if (_formkey.currentState.validate()){
                             setState(() => loading = true);
-                            dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                            dynamic result = await auth.createUserWithEmailAndPassword(email:email, password:password);
                             if(result == null) {
                               setState(() {
                                 error = 'please supply a valid email';
@@ -113,7 +112,7 @@ class _RegisterState extends State<Register> {
                             if(tick==true){
                               //add to mailing list
                               final FirebaseAuth auth = FirebaseAuth.instance;
-                              FirebaseUser user = await auth.currentUser();
+                              User user = auth.currentUser;
                               DatabaseReference ref = FirebaseDatabase.instance.reference();
                               var data =
                               {
