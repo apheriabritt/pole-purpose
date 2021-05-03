@@ -12,10 +12,10 @@ class Wrapper extends StatefulWidget {
   @override
   _WrapperState createState() => _WrapperState();
 }
+bool loading=true;
 
 class _WrapperState extends State<Wrapper> {
   User user;
-  bool loading=true;
   String pushtoken;
   int _total = 0;
   List uidList=[];

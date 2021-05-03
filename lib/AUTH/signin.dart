@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pole_purpose/AUTH/wrapper.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 
 
@@ -82,6 +83,14 @@ final FirebaseAuth auth = FirebaseAuth.instance;
                       if (_formkey.currentState.validate()) {
                         setState(() => loading = true);
                         dynamic result = await auth.signInWithEmailAndPassword(email:email, password:password);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Wrapper()),
+                        );
+                        setState(() {
+                          loading=false;
+                        });
                         if (result == null){
                           setState(() {
                             error = 'could not sign in with those credentials';
