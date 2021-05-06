@@ -36,9 +36,9 @@ class BrowseCards extends StatefulWidget {
 
 
 bool loading=true;
-Widget card1;
-Widget card2;
-Widget card3;
+Widget _card1;
+Widget _card2;
+Widget _card3;
 bool cover=false;
 AnimationController animateController;
 AnimationController animateController2;
@@ -117,8 +117,8 @@ class _BrowseCardsState extends State<BrowseCards> {
 
       });
     }
+    print('defined new cards');
     setState(() {
-
     });
   }
 
@@ -148,9 +148,9 @@ class _BrowseCardsState extends State<BrowseCards> {
       currentCard1index=Random().nextInt(CardList.length);
       currentCard2index=Random().nextInt(CardList.length);
       currentCard3index=Random().nextInt(CardList.length);
-      card1=SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
-      card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
-      card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
+      _card1=SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content);
+      _card2=SingleCard(CardList[currentCard2index].id,CardList[currentCard2index].title,CardList[currentCard2index].content);
+      _card3=SingleCard(CardList[currentCard3index].id,CardList[currentCard3index].title,CardList[currentCard3index].content);
       setName = '${CardList[currentCard1index].id}${CardList[currentCard2index].id}${CardList[currentCard3index].id}';
       print('index 1 is $currentCard1index');
       print('at start up, new card is ${CardList[currentCard1index].title}');
@@ -184,41 +184,46 @@ class _BrowseCardsState extends State<BrowseCards> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                       children: [
-                         Transform.rotate(
-                                angle:pi/12,
-                             child: SizedBox(
-                                 height:MediaQuery.of(context).size.height/4.2,
-                                 child: FittedBox(
-                                     fit:BoxFit.fill,
-                                     child: card1))),
-                       ],
+                     FittedBox(
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         children: [
+                           Transform.rotate(
+                                  angle:pi/12,
+                               child: SizedBox(
+                                   height:MediaQuery.of(context).size.height/4.4,
+                                   child: FittedBox(
+                                       fit:BoxFit.fill,
+                                       child: _card1))),
+                         ],
+                       ),
                      ),
-                      Row(
+                      FittedBox(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Transform.rotate(
                               angle:-pi/10,
                               child: SizedBox(
-                                  height:MediaQuery.of(context).size.height/4.2,
+                                  height:MediaQuery.of(context).size.height/4.4,
                                   child: FittedBox(
                                       fit:BoxFit.fill,
-                                      child: card2))),
+                                      child: _card2))),
                         ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Transform.rotate(
-                              angle:pi/12,
-                              child: SizedBox(
-                                  height:MediaQuery.of(context).size.height/4.2,
-                                  child: FittedBox(
-                                      fit:BoxFit.fill,
-                                      child: card3))),
-                        ],
+                      )),
+                      FittedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Transform.rotate(
+                                angle:pi/12,
+                                child: SizedBox(
+                                    height:MediaQuery.of(context).size.height/4.4,
+                                    child: FittedBox(
+                                        fit:BoxFit.fill,
+                                        child: _card3))),
+                          ],
+                        ),
                       ),
                 ]),
           ),
@@ -227,6 +232,10 @@ class _BrowseCardsState extends State<BrowseCards> {
       setState(() {
         loading=false;
       });
+      print('got all data:)');
+    setState(() {
+      loading=false;
+    });
     }
 
 
@@ -234,7 +243,8 @@ class _BrowseCardsState extends State<BrowseCards> {
 
   @override
   Widget build(BuildContext context) {
-    return loading==true?Loading():
+    print('building screen now');
+    return
     Scaffold(
         backgroundColor: Colors.white,
         appBar: hamburger,
@@ -321,13 +331,13 @@ class _BrowseCardsState extends State<BrowseCards> {
           ),
         ),
     body:
-    loading==true?Loading(): Stack(
+    loading==true?Container(): Stack(
       alignment: Alignment.center,
     children: [
 
     single==true?singleCard:threeCard]),
                       bottomNavigationBar:Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                        padding: const EdgeInsets.fromLTRB(0, 25, 0, 25),
                         child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children:[
@@ -354,10 +364,11 @@ class _BrowseCardsState extends State<BrowseCards> {
                                 onPressed: () async{
                                   print('shuffle!');
                                   _sound.playLocal("shuffle.mp3");
-                                  await getData();
                                   setState(() {
-
+                                    loading=true;
                                   });
+                                  await getData();
+
                                 },
                                 child: Icon(CupertinoIcons.shuffle_thick,size:35),backgroundColor: Colors.black,),
                                 FloatingActionButton(

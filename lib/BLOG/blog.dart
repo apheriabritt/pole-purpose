@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
+import 'package:pole_purpose/BLOG/blogpost.dart';
 import 'package:pole_purpose/CONSTANTS/appbar.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -28,6 +29,7 @@ class Blog extends StatefulWidget {
 class _BlogState extends State<Blog> {
   Set decodemap;
   bool loading=true;
+
   List<BlogPost> blogList = [];
 
   void _getPosts() async {
@@ -69,40 +71,10 @@ class _BlogState extends State<Blog> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                          opaque: false,
-                          pageBuilder: (BuildContext context, _, __) {
-                            return
-                              SafeArea(
-                                child: Scaffold(extendBodyBehindAppBar: true,
-                                    backgroundColor: Colors.white,
-                                    floatingActionButtonLocation: FloatingActionButtonLocation
-                                        .startTop,
-                                    floatingActionButton:
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 15, 0, 0),
-                                      child: FloatingActionButton(
-                                        backgroundColor: Colors.black,
-                                        child: Icon(Icons.arrow_back),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                    body: Material(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: WebView(
-                                            initialUrl:blogList[index].url ,
-                                            javascriptMode: JavascriptMode
-                                                .unrestricted,
-                                          ),
-                                        ))
-                                ),
-                              );
-                            ////////////////////
-                          }));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BlogPostView(blogList[index].url)));
                     }, //push to new page
                     child: Card(
                       shape: RoundedRectangleBorder(

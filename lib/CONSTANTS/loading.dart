@@ -13,7 +13,16 @@ class _LoadingState extends State<Loading> {
       body: Container(
         color:Colors.white,
         child:Center(
-          child: Image.asset('images/assets/splash.png',width:250)
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('images/assets/splash.png',width:250),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text('loading...',style: TextStyle(fontSize:20),),
+              )
+            ],
+          )
         )
       ),
     );

@@ -82,7 +82,8 @@ final FirebaseAuth auth = FirebaseAuth.instance;
                     onTap: () async {
                       if (_formkey.currentState.validate()) {
                         setState(() => loading = true);
-                        dynamic result = await auth.signInWithEmailAndPassword(email:email, password:password);
+                        try{
+                        await auth.signInWithEmailAndPassword(email:email, password:password);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -91,7 +92,8 @@ final FirebaseAuth auth = FirebaseAuth.instance;
                         setState(() {
                           loading=false;
                         });
-                        if (result == null){
+                        }
+                        catch (e) {
                           setState(() {
                             error = 'could not sign in with those credentials';
                             loading = false;

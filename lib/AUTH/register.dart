@@ -103,18 +103,20 @@ final FirebaseAuth auth = FirebaseAuth.instance;
                         onTap: () async{
                           if (_formkey.currentState.validate()){
                             setState(() => loading = true);
-                            dynamic result = await auth.createUserWithEmailAndPassword(email:email, password:password);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Wrapper()),
-                            );
-                            setState(() {
-                              loading=false;
-                            });
-                            if(result == null) {
+                            try{
+                              await auth.createUserWithEmailAndPassword(email:email, password:password);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Wrapper()),
+                              );
                               setState(() {
-                                error = 'please supply a valid email';
+                                loading=false;
+                              });
+                            }
+                            catch (e) {
+                              setState(() {
+                                error = 'could not sign in with those credentials';
                                 loading = false;
                               });
                             }
