@@ -13,9 +13,9 @@ class BlogPost
 
 {
 
-  String title,date,url;
+  String title,date,url,image;
 
-  BlogPost(this.title,this.date,this.url);
+  BlogPost(this.title,this.date,this.url,this.image);
 
 }
 
@@ -33,19 +33,25 @@ class _BlogState extends State<Blog> {
   List<BlogPost> blogList = [];
 
   void _getPosts() async {
-    final response = await http.get(Uri.parse('https://www.polepurpose.com/index.php/wp-json/wp/v2/posts'));
+    String photolink;
+    final response = await http.get(Uri.parse('https://www.polepurpose.com/index.php/wp-json/wp/v2/posts?_embed'));
     List decoded = json.decode(response.body);
     decodemap = decoded.toSet();
     decodemap.forEach((element) {
-
+      List ImageList = element['_embedded']['wp:featuredmedia'];
       print('title:${element['title']['rendered'].toString()}');
       print('date:${element['date'].toString()}');
       print('link:${element['link'].toString()}');
-
+      ImageList.forEach((imageElement) {
+        print('image:${imageElement['link']}');
+        photolink=imageElement['link'];
+      });
       BlogPost post = new BlogPost(
         element['title']['rendered'],
         element['date'],
         element['link'],
+          photolink
+
       );
       blogList.add(post);
       print('done');
@@ -66,35 +72,39 @@ class _BlogState extends State<Blog> {
     print('building');
     return loading==true?Loading():Scaffold(
               appBar:customAppBarjustback,
-              body: ListView.builder(
-                itemCount: blogList.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BlogPostView(blogList[index].url)));
-                    }, //push to new page
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.black, width: 2),
-                          borderRadius: BorderRadius.circular(20)),
-                      color: Colors.white,
-                      shadowColor: Colors.black,
-                      elevation: 5.0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                            title:  Html(data:blogList[index].title),
-                            subtitle: Text(blogList[index].date.replaceAll('T', ' ')),
-                            trailing: Icon(Icons.arrow_forward_ios)
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  itemCount: blogList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BlogPostView(blogList[index].url)));
+                      }, //push to new page
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black, width: 2),
+                            borderRadius: BorderRadius.circular(20)),
+                        color: Colors.white,
+                        shadowColor: Colors.black,
+                        elevation: 5.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                              leading: Image.network(blogList[index].image),
+                              title:  Html(data:blogList[index].title),
+                              subtitle: Text(blogList[index].date.replaceAll('T', ' ')),
+                              trailing: Icon(Icons.arrow_forward_ios)
 
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }
+                    );
+                  }
+                ),
               )
             );
   }

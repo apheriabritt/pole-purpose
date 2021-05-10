@@ -11,8 +11,8 @@ import 'package:pole_purpose/MORE%20INFO/author.dart';
 import 'package:pole_purpose/MORE%20INFO/copyright.dart';
 import 'package:pole_purpose/MORE%20INFO/privacy.dart';
 import 'package:pole_purpose/MORE%20INFO/terms.dart';
-import 'package:pole_purpose/ONLINE%20CLASSES/OnlineClasses.dart';
 import 'package:pole_purpose/ADMIN/PUSHHUB.dart';
+import 'package:pole_purpose/SHOP/Shop.dart';
 import 'package:provider/provider.dart';
 
 
@@ -275,13 +275,13 @@ void showModal(){
                 TextButton(
                   child:ListTile(
                       leading:Image.asset('images/assets/ICONS/classroom.png',color:Colors.black,width:35),
-                      title: Text('ONLINE CLASSES',style:TextStyle(color:Colors.black,fontSize:35))
+                      title: Text('SHOP',style:TextStyle(color:Colors.black,fontSize:35))
                   ),
                   onPressed: (){
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => OnlineClasses(),
+                        builder: (context) => Shop(),
                       ),
                     );
                   },
