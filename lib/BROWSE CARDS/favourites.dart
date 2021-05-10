@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pole_purpose/ADMIN/uploadCards.dart';
+import 'package:pole_purpose/CONSTANTS/appbar.dart';
 import 'package:pole_purpose/CONSTANTS/card.dart';
 import 'package:pole_purpose/CONSTANTS/loading.dart';
 
@@ -38,10 +39,12 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
   ///get favourites
   ///
 
-  void getFaves() async{
-
-
-
+  Future<void> getFaves() async{
+    setState(() {
+      loading=true;
+    });
+    SingleFaveList.clear();
+    MixFaveList.clear();
     final FirebaseAuth auth = FirebaseAuth.instance;
     user = auth.currentUser;
 ///SINGLE CARD
@@ -131,97 +134,201 @@ class _FavouritesState extends State<Favourites> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  void deletecheck(String id,bool single) {
+    setState(() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return StatefulBuilder(
+                builder: (context, setState) {
+                  // return object of type Dialog
+                  return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      backgroundColor: Colors.white.withOpacity(1),
+                      title: new Text("remove favourite?", style: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.black),),
+                      content: Container(
+                          width: 150, height: 100,
+                          child: ListView(
+                              children: <Widget>[
+                                Text(
+                                    "are you sure you want to remove? this can't be undone."),
+
+                              ],
+                          )
+                      ),
+
+                      actions: <Widget>[
+                        // usually buttons at the bottom of the dialog
+                        new FlatButton(
+                          child: new Text("cancel", style: TextStyle(
+                              fontSize: 30.0,
+                              color: Colors.black),),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FlatButton(
+                              child: new Text("delete", style: TextStyle(
+                                  fontSize: 30.0,color:Colors.black)),
+                              onPressed: (){delete(id,single);}
+                          ),
+                        )
+                      ]);
+                });
+          }
+      );
+    }
+    );
+  }
+
+  void delete(String id,bool single) async {
+    DatabaseReference ref = FirebaseDatabase.instance.reference();
+
+    if(single==true){
+    String faveListString;
+    await ref
+        .child('favourites/SINGLE/${user.uid}/faveList')
+        .once()
+        .then((snapshot){faveListString=snapshot.value;});
+    if (faveListString==null){faveListString='[]';}
+    SingleFaveList = await json.decode(faveListString);
+    print('hii');
+    //= CardList.first.key.toString();
+    print('fave list is $SingleFaveList');
+    if(SingleFaveList.contains(id)){
+      print('removing');
+      SingleFaveList.remove(id);
+      SingleFaveList = SingleFaveList.toSet().toList();
+      //remove duplicates
+      faveListString = json.encode(SingleFaveList);
+      var data =
+      {
+        "faveList": faveListString,
+      };
+
+      await ref.child("favourites").child('SINGLE').child(user.uid).set(data);
+      print('removed');}}
+    else{
+      print('removing');
+      FirebaseDatabase.instance.reference().child("favourites").child('MIX').child(user.uid).child(id).remove();
+    }
+      Navigator.pop(context);
+   getFaves();
+  }
+
 
     @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length:2,
       child: Scaffold(
-        appBar: AppBar(
-          leading: Container(),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Colors.black,
-        tabs: [
-          Tab(icon: Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png',width: 50,)),
-          Tab(icon: Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png')),
-        ])),
-          floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-          extendBodyBehindAppBar: true,
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-            child: FloatingActionButton(
-                child:Icon(Icons.arrow_back),
-                backgroundColor: Colors.black,
-                onPressed:(){Navigator.pop(context);}
-            ),
-          ),
-          body:TabBarView(
-            controller: _tabController,
+        appBar: customAppBarjustback,
+          body:Column(
             children: [
-              SingleFaveList==[]?Text('no favourites'):
-              Center(child:
-            Transform.scale(
-              scale:1,
-              child:
-              StaggeredGridView.countBuilder(
-                crossAxisCount: 4,
-                itemCount: CardList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                  elevation: 0.0,
-                  color: Colors.transparent,
-                  child:Stack(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Transform.scale(
-                            scale:1,
-                            child: SingleCard(CardList[index].id,CardList[index].title,CardList[index].content)),
-                      ),
-                      //FAB
-                    ],
+              TabBar(
+                  controller: _tabController,
+                  indicatorColor: Colors.black,
+                  tabs: [
+                    Tab(icon: Image.network('https://i.postimg.cc/G3jn0xvR/oie-transparent.png',width: 50,)),
+                    Tab(icon: Image.network('https://i.postimg.cc/vT2PYTQr/oie-transparent-1.png')),
+                  ]),
+              loading==true?Container():Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    ///SINGLE VIEW
+                    SingleFaveList==[]?Text('no favourites'):
+                    Center(child:
+                  Transform.scale(
+                    scale:1,
+                    child:
+                    StaggeredGridView.countBuilder(
+                      crossAxisCount: 4,
+                      itemCount: CardList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                        elevation: 0.0,
+                        color: Colors.transparent,
+                        child:Stack(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Transform.scale(
+                                  scale:1,
+                                  child: SingleCard(CardList[index].id,CardList[index].title,CardList[index].content)),
+                            ),
+                            //FAB
+                            Positioned(
+                              bottom:0,right:0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: FloatingActionButton(
+                                  mini:true,
+                                    onPressed:(){deletecheck(CardList[index].id,true);},
+                                    heroTag: CardList[index].id,
+                                    backgroundColor: Colors.black,
+                                    child:Icon(Icons.close)
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        );
+                        },
+                      staggeredTileBuilder: (int index) =>
+                      new StaggeredTile.fit(2),
+                      mainAxisSpacing: 4.0,
+                      crossAxisSpacing: 4.0,
+                    ),
+                  )
                   ),
-                  );
-                  },
-                staggeredTileBuilder: (int index) =>
-                new StaggeredTile.fit(2),
-                mainAxisSpacing: 4.0,
-                crossAxisSpacing: 4.0,
-              ),
-            )
-            ),
-            ///MIX VIEW
-              ///
-              MixFaveList==[]?Center(child: Text('no favourites',style:TextStyle(color:Colors.black))):
-              ListView(
-            children: [
-            ListView.builder(
+                  ///MIX VIEW
+                    ///
+                    MixFaveList==[]?Center(child: Text('no favourites',style:TextStyle(color:Colors.black))):
+                    ListView(
+                  children: [
+                  ListView.builder(
       physics: ScrollPhysics(),
       shrinkWrap: true,
       itemCount: MixFaveList.length,
       itemBuilder: (_, index) {
+        String id = '${MixFaveList[index].card1}${MixFaveList[index].card2}${MixFaveList[index].card3}';
        return Padding(
-           padding: const EdgeInsets.all(8.0),
-           child: Row(
-             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 padding: const EdgeInsets.all(8.0),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-              width:MediaQuery.of(context).size.width/3.5,
-              child: SingleCard(MixFaveList[index].card1,MixFaveList[index].card1title,MixFaveList[index].card1content)),
+                    width:MediaQuery.of(context).size.width/4,
+                    child: SingleCard(MixFaveList[index].card1,MixFaveList[index].card1title,MixFaveList[index].card1content)),
       Container(
-            width:MediaQuery.of(context).size.width/3.5,
-          child: SingleCard(MixFaveList[index].card2,MixFaveList[index].card2title,MixFaveList[index].card2content)),
+                  width:MediaQuery.of(context).size.width/4,
+                child: SingleCard(MixFaveList[index].card2,MixFaveList[index].card2title,MixFaveList[index].card2content)),
       Container(
-            width:MediaQuery.of(context).size.width/3.5,
-          child: SingleCard(MixFaveList[index].card3,MixFaveList[index].card3title,MixFaveList[index].card3content)),
+                  width:MediaQuery.of(context).size.width/4,
+                child: SingleCard(MixFaveList[index].card3,MixFaveList[index].card3title,MixFaveList[index].card3content)),
+        FloatingActionButton(
+            mini:true,
+            onPressed:(){deletecheck(id,false);},
+            heroTag: id,
+            backgroundColor: Colors.black,
+            child:Icon(Icons.close)
+        ),
       ],
         ),
          );})
-          ])]
+                ])]
       ),
+              ),
+            ],
+          ),
     ));
   }
 }

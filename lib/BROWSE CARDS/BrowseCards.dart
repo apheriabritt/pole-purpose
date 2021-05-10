@@ -168,9 +168,13 @@ class _BrowseCardsState extends State<BrowseCards> {
                  animateController.reset();
                   print('panning');
                   _sound.playLocal("shuffle.mp3");
-                  await getData();
-                  setState(() {
-                  });
+                 print('shuffle!');
+                 _sound.playLocal("shuffle.mp3");
+                 setState(() {
+                   loading=true;
+                 });
+                 await getData();
+
                   },
                 child: Container(child: Center(child: SingleCard(CardList[currentCard1index].id,CardList[currentCard1index].title,CardList[currentCard1index].content)))),
         )
