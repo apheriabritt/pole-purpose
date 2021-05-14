@@ -159,7 +159,8 @@ class _BrowseCardsState extends State<BrowseCards> {
     Padding(
         padding: EdgeInsets.fromLTRB(35, 50, 35, 0),
         child:
-        FadeInRight(
+        FadeInRightBig(
+          duration: Duration(milliseconds: 500),
             controller: ( controller ) => animateController = controller,
             manualTrigger: true,
             child: GestureDetector(
