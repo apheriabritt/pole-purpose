@@ -94,7 +94,6 @@ class _ShopState extends State<Shop> {
                       child: ListTile(
                         leading: Image.network(ShopList[index].image),
                           title:  Html(data:ShopList[index].title),
-                          subtitle: Text(ShopList[index].date.replaceAll('T', ' ')),
                           trailing: Icon(Icons.arrow_forward_ios)
 
                       ),

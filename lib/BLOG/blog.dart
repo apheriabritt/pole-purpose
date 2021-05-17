@@ -96,7 +96,6 @@ class _BlogState extends State<Blog> {
                           child: ListTile(
                               leading: Image.network(blogList[index].image),
                               title:  Html(data:blogList[index].title),
-                              subtitle: Text(blogList[index].date.replaceAll('T', ' ')),
                               trailing: Icon(Icons.arrow_forward_ios)
 
                           ),
