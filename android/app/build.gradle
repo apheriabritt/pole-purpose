@@ -47,7 +47,7 @@ android {
         applicationId "com.pole.purpose"
         minSdkVersion 29
         targetSdkVersion 29
-        versionCode 3
+        versionCode 315
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
